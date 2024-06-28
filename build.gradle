@@ -1,16 +1,14 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.1'
-	id 'io.spring.dependency-management' version '1.1.5'
+	id 'org.springframework.boot' version '2.7.18'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	sourceCompatibility = '11'
 }
 
 repositories {
@@ -19,8 +17,24 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	//mysql connector
+	implementation 'mysql:mysql-connector-java:8.0.31'
+	//Hot Deployment :專案啟動中，若有修改資訊，它會自動幫我們重新啟動更新
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    //springfox starter maven(swagger API)
+    //implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    //springdoc openapi maven(open API)與上面那一個擇一使用，不然會有衝突
+//暫時註解,這是API
+//    implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
+    //validation資料驗證
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    //testRuntimeOnly 'org.junit.platform:junit-platform-launcher'//�p�G�X�{���W�����L�C�ɥi�H�ոլ�
+    
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
