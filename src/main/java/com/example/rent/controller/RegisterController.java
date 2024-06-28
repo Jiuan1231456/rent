@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rent.service.ifs.RegisterService;
+import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
+import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
+import com.example.rent.vo.UpdateRoomReq;
 
 @CrossOrigin
 @RestController
@@ -20,16 +23,65 @@ public class RegisterController {
 
 	@Autowired
 	private RegisterService registerService;
-	
+
+	@Autowired
+	private RoomService roomService;
+
 	@PostMapping(value = "rent/account")
 	public BasicRes register(@Valid @RequestBody RegisterReq req) {
 		return registerService.register(req);
-		
+
 	}
-	
+
 	@PostMapping(value = "rent/updatePwd")
 	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req) {
 		return registerService.updatePwd(req);
 	}
+
+	@PostMapping(value = "room/creatRoom1")
+	public BasicRes creatRoom(@Valid @RequestBody CreateRoomReq req) {
+		return roomService.creatRoom(req);
+	}
 	
+	@PostMapping(value = "room/updateRoom")
+	public BasicRes updateRoom(@Valid @RequestBody UpdateRoomReq req) {
+		return roomService.updateRoom(req);
+	}
+	
+	/*
+	@PostMapping(value = "room/creatRoom")
+	public BasicRes creatRoom(@RequestParam("photo") MultipartFile photo, @RequestParam("address") String address,
+			@RequestParam("account") String account, @RequestParam("floor") String floor,
+			@RequestParam("rId") String rId, @RequestParam("rentP") int rentP, @RequestParam("deposit") int deposit,
+			@RequestParam("cutP") int cutP, @RequestParam("eletricP") int eletricP, @RequestParam("waterP") int waterP,
+			@RequestParam("manageP") int manageP, @RequestParam("acreage") int acreage,
+			@RequestParam("parking") boolean parking, @RequestParam("equip") String equip) {
+
+		CreateRoomReq req = new CreateRoomReq();
+		req.setAddress(address);
+		req.setAccount(account);
+		req.setFloor(floor);
+		req.setrId(rId);
+		req.setRentP(rentP);
+		req.setDeposit(deposit);
+		req.setCutP(cutP);
+		req.setEletricP(eletricP);
+		req.setWaterP(waterP);
+		req.setManageP(manageP);
+		req.setAcreage(acreage);
+		req.setParking(parking);
+		req.setEquip(equip);
+
+		try {
+			req.setPhoto(photo.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new BasicRes(ResMessage.ERROR.getCode(), "Failed to process photo");
+		}
+
+		return roomService.creatRoom(req);
+	}*/
+
+
+
 }

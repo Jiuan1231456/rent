@@ -35,6 +35,11 @@ public class RegisterServiceImpl implements RegisterService{
 	            return new RegisterRes(ResMessage.NAME_PHONE_MEAIL_REQUIRED.getCode(),//
 						ResMessage.NAME_PHONE_MEAIL_REQUIRED.getMessage());
 	        }
+			//增加一個，電話不重複
+			if(registerDao.existsByOwnerPhone(req.getOwnerPhone())) {
+				return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),//
+						ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+			}
 			
 			Register register = new Register();
 	        register.setOwnerAccount(req.getOwnerAccount());
@@ -60,6 +65,11 @@ public class RegisterServiceImpl implements RegisterService{
 		}
 		//如果沒有寫名子/電話/信箱，就抓取資料庫資料，如果有填寫就是變更資料
 		if (StringUtils.hasText(req.getOwnerName())) {
+			//更新資料時也要注意電話不重複
+			if(registerDao.existsByOwnerPhone( req.getOwnerPhone())) {
+				return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),//
+						ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+			}
 	        register.setOwnerName(req.getOwnerName());
 	    }
 	    if (StringUtils.hasText(req.getOwnerPhone())) {
