@@ -12,6 +12,9 @@ public enum ResMessage {
 	
 	ACCOUNT_NOT_FOUND(400,"Account not found"),//帳號不存在
 	PWD_ERRO(400,"Pwd erro"),//密碼錯誤
+	
+	OLD_PWD_IS_REQUIRED(400,"Old PWD is required!!"),//舊密碼必填
+	NEW_PWD_IS_REQUIRED(400,"New PWD is required!!"),//新密碼必填
 	;
 	
 	

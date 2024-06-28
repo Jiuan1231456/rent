@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.RegisterReq;
+import com.example.rent.vo.UpdatePwdReq;
+import com.example.rent.vo.UpdatePwdRes;
 
 @CrossOrigin
 @RestController
@@ -23,6 +25,11 @@ public class RegisterController {
 	public BasicRes register(@Valid @RequestBody RegisterReq req) {
 		return registerService.register(req);
 		
+	}
+	
+	@PostMapping(value = "rent/updatePwd")
+	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req) {
+		return registerService.updatePwd(req);
 	}
 	
 }

@@ -4,16 +4,16 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.example.rent.constants.ResMessage;
 import com.example.rent.entity.Register;
 import com.example.rent.repository.RegisterDao;
 import com.example.rent.service.ifs.RegisterService;
-import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
+import com.example.rent.vo.UpdatePwdReq;
+import com.example.rent.vo.UpdatePwdRes;
 
 @Service
 public class RegisterServiceImpl implements RegisterService{
@@ -21,6 +21,7 @@ public class RegisterServiceImpl implements RegisterService{
 	@Autowired
 	private RegisterDao registerDao;
 	
+	//新增帳號與個人資訊  或者   更新個人資訊  或者單純進入
 	@Override
 	public RegisterRes register(RegisterReq req) {
 		
@@ -72,6 +73,27 @@ public class RegisterServiceImpl implements RegisterService{
 		
 		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
 				ResMessage.SUCCESS.getMessage(),req.getOwnerAccount(),register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
+	}
+
+	//變更密碼
+	@Override
+	public UpdatePwdRes updatePwd(UpdatePwdReq req) {
+		//先看看帳號存不存在
+		Optional<Register> op=registerDao.findById(req.getOwnerAccount());
+		if(op.isEmpty()) {
+			return new UpdatePwdRes(ResMessage.ACCOUNT_NOT_FOUND.getCode(),//
+					ResMessage.ACCOUNT_NOT_FOUND.getMessage());
+		}
+		Register register = op.get();
+		//如果舊密碼不等於原本的密碼
+		if(!req.getOwnerOldPwd().equals(register.getOwnerPwd())) {
+			return new UpdatePwdRes(ResMessage.PWD_ERRO.getCode(),//
+					ResMessage.PWD_ERRO.getMessage());
+		}
+		register.setOwnerPwd(req.getOwnerNewPwd());
+		registerDao.save(register);
+		return new UpdatePwdRes(ResMessage.SUCCESS.getCode(),//
+				ResMessage.SUCCESS.getMessage(),req.getOwnerAccount(),req.getOwnerOldPwd(),req.getOwnerNewPwd());
 	}
 
 }
