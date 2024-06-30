@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.rent.service.ifs.ContractService;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
+import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.RegisterReq;
+import com.example.rent.vo.UpdateContractReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
 import com.example.rent.vo.UpdateRoomReq;
@@ -26,6 +29,9 @@ public class RegisterController {
 
 	@Autowired
 	private RoomService roomService;
+	
+	@Autowired
+	private ContractService contractService;
 
 	@PostMapping(value = "rent/account")
 	public BasicRes register(@Valid @RequestBody RegisterReq req) {
@@ -46,6 +52,16 @@ public class RegisterController {
 	@PostMapping(value = "room/updateRoom")
 	public BasicRes updateRoom(@Valid @RequestBody UpdateRoomReq req) {
 		return roomService.updateRoom(req);
+	}
+	
+	@PostMapping(value = "contract/createContract")
+	public BasicRes createContract(@Valid @RequestBody CreateContractReq req) {
+		return contractService.createContract(req);
+	}
+	
+	@PostMapping(value = "contract/updateContract")
+	public BasicRes updateContract(@Valid @RequestBody UpdateContractReq req) {
+		return contractService.updateContract(req);
 	}
 	
 	/*

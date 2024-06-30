@@ -7,6 +7,11 @@ import com.example.rent.entity.Register;
 
 @Repository
 public interface RegisterDao extends JpaRepository<Register, String>{
+	
 
 	public boolean existsByOwnerPhone(String ownerPhone);
+	
+	public boolean existsByOwnerName(String ownerName);
+	
+	public boolean existsByOwnerEmail(String ownerEmail);
 }

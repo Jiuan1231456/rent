@@ -1,6 +1,7 @@
 package com.example.rent.vo;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,10 +21,12 @@ public class RegisterReq {
 
 	
 	@JsonProperty("owner_phone")
+	@Pattern(regexp = "[0-9]{10}", message = "Phone error!!")
 	private String ownerPhone;
 
 	
 	@JsonProperty("owner_email")
+	@Pattern(regexp = ".*@.*", message = "Email error!!")
 	private String ownerEmail;
 
 	public RegisterReq() {
