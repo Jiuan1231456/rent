@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.rent.repository.BillDao;
+import com.example.rent.service.ifs.BillService;
 import com.example.rent.service.ifs.ContractService;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
+import com.example.rent.vo.BillReq;
+import com.example.rent.vo.BillRes;
 import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.LoginReq;
@@ -37,6 +41,9 @@ public class RegisterController {
 	
 	@Autowired
 	private ContractService contractService;
+	
+	@Autowired
+	private BillService billService;
 
 	//帳號註冊
 	//value後面是postman要連接的網址
@@ -93,6 +100,14 @@ public class RegisterController {
 	@PostMapping(value = "contract/updateContract")
 	public BasicRes updateContract(@Valid @RequestBody UpdateContractReq req) {
 		return contractService.updateContract(req);
+	}
+	
+	
+	
+	//帳單
+	@PostMapping(value = "bill/bill")
+	public BillRes bill(@Valid @RequestBody BillReq req) {
+		return billService.bill(req);
 	}
 	
 	/*

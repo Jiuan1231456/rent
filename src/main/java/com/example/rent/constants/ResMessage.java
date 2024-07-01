@@ -85,6 +85,9 @@ public enum ResMessage {
 	CUTDATE_SET_ERROR(400,"cutDate set error"),//中止日期填寫錯誤
 	CUTREASON_IS_REQUIRED(400,"cutReason is required!!"),//中止理由
 	CUT_P_IS_REQUIRED(400,"cut_p is required"),//違約金必田
+	
+	ELETRIC_V_IS_REQUIRED(400,"eletric_V is required"),//當期用電量必填
+	
 	;
 	
 	

@@ -37,13 +37,13 @@ public class Room {
 	private int cutP;
 
 	@Column(name = "eletric_p")
-	private int eletricP;
+	private int eletricP;//一度費用
 
 	@Column(name = "water_p")
-	private int waterP;
+	private int waterP;//水費
 
 	@Column(name = "manage_p")
-	private int manageP;
+	private int manageP;//管理費
 
 	@Column(name = "acreage")
 	private int acreage;
