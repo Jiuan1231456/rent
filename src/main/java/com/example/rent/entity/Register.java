@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+//@Table(name = "register")這邊是要連接SQL中的register的表
 @Table(name = "register")
 public class Register {
 

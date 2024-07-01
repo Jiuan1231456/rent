@@ -38,7 +38,7 @@ dependencies {
     //validation資料驗證
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     
-    //testRuntimeOnly 'org.junit.platform:junit-platform-launcher'//�p�G�X�{���W�����L�C�ɥi�H�ոլ�
+    //testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	

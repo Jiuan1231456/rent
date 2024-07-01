@@ -37,6 +37,7 @@ public class RegisterController {
 	private ContractService contractService;
 
 	//帳號註冊
+	//value後面是postman要連接的網址
 	@PostMapping(value = "rent/account")
 	public BasicRes register(@Valid @RequestBody RegisterReq req) {
 		return registerService.register(req);
