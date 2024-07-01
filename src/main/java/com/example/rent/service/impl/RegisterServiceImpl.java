@@ -116,9 +116,9 @@ public class RegisterServiceImpl implements RegisterService {
 					ResMessage.PWD_ERRO.getMessage());
 		}
 
-		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
-				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
+		return new RegisterRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(), register.getOwnerName(),
+				register.getOwnerPhone(), register.getOwnerEmail());
 	}
 
 	// 變更密碼
@@ -136,8 +136,8 @@ public class RegisterServiceImpl implements RegisterService {
 			return new UpdatePwdRes(ResMessage.PWD_ERRO.getCode(), //
 					ResMessage.PWD_ERRO.getMessage());
 		}
-		//如果新密碼已經存在則抱錯
-		if(registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
+		// 如果新密碼已經存在則抱錯
+		if (registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
 			return new UpdatePwdRes(ResMessage.PWD_ALREADYUSED.getCode(), //
 					ResMessage.PWD_ALREADYUSED.getMessage());
 		}
@@ -147,7 +147,7 @@ public class RegisterServiceImpl implements RegisterService {
 				ResMessage.SUCCESS.getMessage(), req.getOwnerAccount(), req.getOwnerOldPwd(), req.getOwnerNewPwd());
 	}
 
-	//更新個人資訊
+	// 更新個人資訊
 	@Override
 	public RegisterRes updateregister(updateRegisterReq req) {
 		// 先看看帳號存不存在
@@ -158,28 +158,33 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 		Register register = op.get();
 
-		//更新資料時也要注意電話不重複
-		if(registerDao.existsByOwnerPhone( req.getOwnerPhone())) {
-			return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),//
-					ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+		// 更新資料時也要注意電話不重複
+
+		// 帳號相同時，允許手機號存在
+		// 當帳號不同時，不允許手機號同時存在
+		String phone = register.getOwnerPhone();
+		if (!phone.equals(req.getOwnerPhone())) {
+			if (registerDao.existsByOwnerPhone(req.getOwnerPhone())) {
+				return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), //
+						ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+			}
 		}
-		
-		if(req.getOwnerName()!=null) {
+
+		if (req.getOwnerName() != null) {
 			register.setOwnerName(req.getOwnerName());
 		}
-		if(req.getOwnerPhone()!=null) {
-	        register.setOwnerPhone(req.getOwnerPhone());
+		if (req.getOwnerPhone() != null) {
+			register.setOwnerPhone(req.getOwnerPhone());
 		}
-		if(req.getOwnerEmail()!=null) {
-	        register.setOwnerEmail(req.getOwnerEmail());
+		if (req.getOwnerEmail() != null) {
+			register.setOwnerEmail(req.getOwnerEmail());
 		}
-    
-		
+
 		registerDao.save(register);
 
-		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
-				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
+		return new RegisterRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(), register.getOwnerName(),
+				register.getOwnerPhone(), register.getOwnerEmail());
 	}
 
 }
