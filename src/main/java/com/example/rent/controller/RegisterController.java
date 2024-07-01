@@ -17,6 +17,8 @@ import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
+import com.example.rent.vo.RoomSearchReq;
+import com.example.rent.vo.RoomSearchRes;
 import com.example.rent.vo.UpdateContractReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
@@ -73,6 +75,12 @@ public class RegisterController {
 	@PostMapping(value = "room/updateRoom")
 	public BasicRes updateRoom(@Valid @RequestBody UpdateRoomReq req) {
 		return roomService.updateRoom(req);
+	}
+	
+	//房間搜索(會跳出所有房東的資料，不是單獨的房東資料喔!)
+	@PostMapping(value = "room/roomSearch")
+	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req) {
+		return roomService.roomSearch(req);
 	}
 	
 	//創造契約書

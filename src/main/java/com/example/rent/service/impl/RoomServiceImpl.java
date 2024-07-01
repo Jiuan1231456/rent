@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.example.rent.constants.ResMessage;
 import com.example.rent.entity.Register;
@@ -13,6 +14,8 @@ import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.CreateRoomReq;
+import com.example.rent.vo.RoomSearchReq;
+import com.example.rent.vo.RoomSearchRes;
 import com.example.rent.vo.UpdateRoomReq;
 
 @Service
@@ -117,6 +120,22 @@ public class RoomServiceImpl implements RoomService{
 	    } else {
 	        return new BasicRes(ResMessage.ERROR.getCode(), ResMessage.ERROR.getMessage());
 	    }
+	}
+
+
+	//房間搜索
+	@Override
+	public RoomSearchRes roomSearch(RoomSearchReq req) {
+		String address = req.getAddress();
+		String roomId = req.getRoomId();
+		if(!StringUtils.hasText(address)) {
+			address="";
+		}
+		if(!StringUtils.hasText(roomId)) {
+			roomId="";
+		}
+		return new RoomSearchRes(ResMessage.SUCCESS.getCode(),ResMessage.SUCCESS.getMessage(),
+				roomDao.findByAddressContainingAndRoomIdContaining(address, roomId));
 	}
 	
 
