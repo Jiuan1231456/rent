@@ -157,20 +157,8 @@ public class RegisterServiceImpl implements RegisterService {
 					ResMessage.ACCOUNT_NOT_FOUND.getMessage());
 		}
 		Register register = op.get();
-<<<<<<< HEAD
 
-		//更新資料時也要注意電話不重複		  
-		//帳號相同時，允許手機號存在
-		//當帳號不同時，不允許手機號同時存在
-		  String phone = register.getOwnerPhone();
-		  if(!phone.equals(req.getOwnerPhone())) {
-			   if(registerDao.existsByOwnerPhone( req.getOwnerPhone())) {
-			    return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),//
-			      ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
-			   }
-			  }
-=======
-		String account = register.getOwnerAccount();
+
 		String phone = register.getOwnerPhone();
 		//更新資料時也要注意電話不重複
 		
@@ -182,7 +170,7 @@ public class RegisterServiceImpl implements RegisterService {
 						ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 			}
 		}
->>>>>>> 2f5532c0dc523b51151f73cd921d5deb776bf16d
+
 		
 		
 		if(req.getOwnerName()!=null) {
