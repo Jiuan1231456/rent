@@ -9,7 +9,14 @@ public enum ResMessage {
 	AI_IS_REQUIRED(400,"ai is required"),//契約書編碼必田
 	
 	ACCOUNT_IS_REQUIRED(400,"Accoint is required!!"),//帳號必填
+	ACCOUNT_IS_NOT_FOUND(400,"Account is not found"),//帳號不存在
+	ACCOUNT_EXIST(400,"Account exist"),//帳號已存在
+	ACCOUNT_IS_NULL(400,"Account is null"),
+	PWD_IS_NULL(400,"pwd is null"),//
+	
 	PWD_IS_REQUIRED(400,"PWD is required!!"),//密碼必填
+	PWD_ALREADYUSED(400,"pwd already used"),//密碼已有人使用
+	
 	NAME_PHONE_MEAIL_REQUIRED(400,"name and phone and email required"),//名子、電話、信箱都必填
 	NAME_IS_REQUIRED(400,"Name is required!!"),//名子必填
 	REGISTER_NAME_ERROR(400,"Register name error"),//房東的名子輸入錯誤

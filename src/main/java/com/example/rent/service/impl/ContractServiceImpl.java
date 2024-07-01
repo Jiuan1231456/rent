@@ -197,12 +197,6 @@ public class ContractServiceImpl implements ContractService {
 	    // 更新現有合同物件的資訊
 	    update.setCutDate(req.getCutDate());
 	    update.setCutReason(req.getCutReason());
-//	    Optional<Room> room = roomDao.findById(req.getAddress());
-//		Room roomAll = room.get();
-//
-//		
-//		update.setCutP(roomAll.getCutP());
-
 
 	    // 儲存更新後的合同資訊
 	    contractDao.save(update);

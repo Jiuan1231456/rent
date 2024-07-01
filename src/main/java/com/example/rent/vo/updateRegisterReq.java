@@ -5,46 +5,33 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RegisterReq {
+public class updateRegisterReq {
 
 	@NotBlank(message = "Accoint is required!!")
 	@JsonProperty("owner_account")
 	private String ownerAccount;
 
-	@NotBlank(message = "PWD is required!!")
-	@JsonProperty("owner_pwd")
-	private String ownerPwd;
-
-	@NotBlank(message = "Name is required!!")
 	@JsonProperty("owner_name")
 	private String ownerName;
 
-	@NotBlank(message = "Phone is required!!")
 	@JsonProperty("owner_phone")
 	@Pattern(regexp = "[0-9]{10}", message = "Phone error!!")
 	private String ownerPhone;
 
-	@NotBlank(message = "Email is required!!")
 	@JsonProperty("owner_email")
 	@Pattern(regexp = ".*@.*", message = "Email error!!")
 	private String ownerEmail;
 
-	public RegisterReq() {
+	public updateRegisterReq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public RegisterReq(@NotBlank(message = "Accoint is required!!") String ownerAccount,
-			@NotBlank(message = "Accoint is required!!") String ownerPwd) {
+	public updateRegisterReq(@NotBlank(message = "Accoint is required!!") String ownerAccount, String ownerName,
+			@Pattern(regexp = "[0-9]{10}", message = "Phone error!!") String ownerPhone,
+			@Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail) {
 		super();
 		this.ownerAccount = ownerAccount;
-		this.ownerPwd = ownerPwd;
-	}
-
-	public RegisterReq(String ownerAccount, String ownerPwd, String ownerName, String ownerPhone, String ownerEmail) {
-		super();
-		this.ownerAccount = ownerAccount;
-		this.ownerPwd = ownerPwd;
 		this.ownerName = ownerName;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
@@ -56,14 +43,6 @@ public class RegisterReq {
 
 	public void setOwnerAccount(String ownerAccount) {
 		this.ownerAccount = ownerAccount;
-	}
-
-	public String getOwnerPwd() {
-		return ownerPwd;
-	}
-
-	public void setOwnerPwd(String ownerPwd) {
-		this.ownerPwd = ownerPwd;
 	}
 
 	public String getOwnerName() {

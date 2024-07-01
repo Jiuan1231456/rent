@@ -14,11 +14,14 @@ import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.CreateRoomReq;
+import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
+import com.example.rent.vo.RegisterRes;
 import com.example.rent.vo.UpdateContractReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
 import com.example.rent.vo.UpdateRoomReq;
+import com.example.rent.vo.updateRegisterReq;
 
 @CrossOrigin
 @RestController
@@ -33,32 +36,51 @@ public class RegisterController {
 	@Autowired
 	private ContractService contractService;
 
+	//帳號註冊
 	@PostMapping(value = "rent/account")
 	public BasicRes register(@Valid @RequestBody RegisterReq req) {
 		return registerService.register(req);
 
 	}
+	
+	//帳號登入
+	@PostMapping(value = "rent/login")
+	public RegisterRes login(@Valid @RequestBody LoginReq req) {
+		return registerService.login(req);
+	}
 
+	//更新密碼
 	@PostMapping(value = "rent/updatePwd")
 	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req) {
 		return registerService.updatePwd(req);
 	}
+	
+	//更新個人資訊(姓名、電話、信箱)
+	@PostMapping(value = "rent/updateregister")
+	public RegisterRes updateregister(@Valid @RequestBody updateRegisterReq req) {
+		return registerService.updateregister(req);
+	}
 
+	//創造房間資訊
 	@PostMapping(value = "room/creatRoom1")
 	public BasicRes creatRoom(@Valid @RequestBody CreateRoomReq req) {
 		return roomService.creatRoom(req);
 	}
 	
+	
+	//更新房間資訊
 	@PostMapping(value = "room/updateRoom")
 	public BasicRes updateRoom(@Valid @RequestBody UpdateRoomReq req) {
 		return roomService.updateRoom(req);
 	}
 	
+	//創造契約書
 	@PostMapping(value = "contract/createContract")
 	public BasicRes createContract(@Valid @RequestBody CreateContractReq req) {
 		return contractService.createContract(req);
 	}
 	
+	//更新契約書(違約部分)
 	@PostMapping(value = "contract/updateContract")
 	public BasicRes updateContract(@Valid @RequestBody UpdateContractReq req) {
 		return contractService.updateContract(req);
