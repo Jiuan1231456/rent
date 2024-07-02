@@ -63,7 +63,13 @@ public class RoomServiceImpl implements RoomService{
 		room.setManageP(req.getManageP());//管理費一個月多少
 		room.setAcreage(req.getAcreage());//面積有多大
 		room.setParking(req.getParking());//是否有時停車場(true/false)
-		room.setEquip(req.getEquip());//其他詳情
+		
+		if(req.getrOther()!=null) {
+			room.setEquip(req.getEquip());//其他詳情
+		}
+		if(req.getrOther()!=null) {
+			room.setrOther(req.getrOther());//其他
+		}
 
 		
 		roomDao.save(room);
@@ -113,6 +119,9 @@ public class RoomServiceImpl implements RoomService{
 	        if (req.getEquip() != null) {
 	            room.setEquip(req.getEquip());
 	        }
+	        if(req.getrOther()!=null) {
+				room.setrOther(req.getrOther());//其他
+			}
 	        
 	        roomDao.save(room);
 	        

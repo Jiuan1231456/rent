@@ -98,6 +98,14 @@ public enum ResMessage {
 	PLEASE_FILLIN_ADDRESS_TENANTIDENTITY_PERIOD(400,"Please fillin address and  Tenant identity and period"),//請填寫地址、身分證、期間日期
 	PERIODEND_ERROR(400,"Periodstart error"),//期數的結束日期可能有誤
 	
+	
+	TENANTHOMEADDRESS_IS_REQUIRED(400,"Tenanthomeaddress is required"),//租客戶籍地址需要
+	TENANTCONTACTADDRESS_IS_REQUIRED(400,"Tenantcontactaddress is required"),//租客通訊地址需要
+	OWNERHOMEADDRESS_IS_REQUIRED(400,"Ownerhomeaddress is required"),//房東戶籍地址需要
+	OWNERCONTACTADDRESS_IS_REQUIRED(400,"Ownercontactaddress is required"),//房東通訊地址需要
+	OWNERIDENTITY_IS_REQUIRED(400,"Owneridentity is required"),//房東身分證需要
+	OWNERIDENTITY_IS_ERROR(400,"Owneridentity is error"),//房東身分證錯誤(重複填寫)
+	
 	;
 	
 	

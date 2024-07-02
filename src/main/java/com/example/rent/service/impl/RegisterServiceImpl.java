@@ -51,6 +51,12 @@ public class RegisterServiceImpl implements RegisterService {
 			return new RegisterRes(ResMessage.PWD_ALREADYUSED.getCode(), //
 					ResMessage.PWD_ALREADYUSED.getMessage());
 		}
+		//檢查身分證是否重複
+		if(registerDao.existsByOwnerIdentity(req.getOwnerIdentity())) {
+			return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), //
+					ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
+		}
+		
 		// 檢查電話是否重複
 		if (registerDao.existsByOwnerPhone(req.getOwnerPhone())) {
 			return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), //
@@ -63,11 +69,12 @@ public class RegisterServiceImpl implements RegisterService {
 		register.setOwnerName(req.getOwnerName());
 		register.setOwnerPhone(req.getOwnerPhone());
 		register.setOwnerEmail(req.getOwnerEmail());
+		register.setOwnerIdentity(req.getOwnerIdentity());
 
 		registerDao.save(register);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(), //
-				req.getOwnerAccount(), req.getOwnerName(), req.getOwnerPhone(), req.getOwnerEmail());
+				req.getOwnerAccount(), req.getOwnerName(),req.getOwnerIdentity(), req.getOwnerPhone(), req.getOwnerEmail());
 //	}
 
 //		//如果有帳號
@@ -118,7 +125,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
 				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
+				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail());
 	}
 
 	// 變更密碼
@@ -187,7 +194,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
 				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
+				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail());
 	}
 
 }

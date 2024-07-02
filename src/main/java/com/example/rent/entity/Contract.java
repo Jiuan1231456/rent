@@ -24,6 +24,12 @@ public class Contract {
 	@Column(name = "tenant_name")
 	private String tenantName;
 
+	@Column(name = "tenant_home_address")
+	private String tenantHomeAddress;
+
+	@Column(name = "tenant_contact_address")
+	private String tenantContactAddress;
+
 	@Column(name = "tenant_phone")
 	private String tenantPhone;
 
@@ -32,6 +38,15 @@ public class Contract {
 
 	@Column(name = "owner_name")
 	private String ownerName;
+
+	@Column(name = "owner_identity")
+	private String ownerIdentity;
+
+	@Column(name = "owner_home_address")
+	private String ownerHomeAddress;
+
+	@Column(name = "owner_contact_address")
+	private String ownerContactAddress;
 
 	@Column(name = "r_id")
 	private String roomId;
@@ -60,21 +75,31 @@ public class Contract {
 	@Column(name = "cut_p")
 	private int cutP;
 
+	@Column(name = "c_other")
+	private String cOther;
+
 	public Contract() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Contract(int ai, String tenantIdentity, String tenantName, String tenantPhone, String tenantEmail,
-			String ownerName, String roomId, String address, String floor, LocalDate startDate, LocalDate endDate,
-			int rentP, LocalDate cutDate, String cutReason, int cutP) {
+	public Contract(int ai, String tenantIdentity, String tenantName, String tenantHomeAddress,
+			String tenantContactAddress, String tenantPhone, String tenantEmail, String ownerName, String ownerIdentity,
+			String ownerHomeAddress, String ownerContactAddress, String roomId, String address, String floor,
+			LocalDate startDate, LocalDate endDate, int rentP, LocalDate cutDate, String cutReason, int cutP,
+			String cOther) {
 		super();
 		this.ai = ai;
 		this.tenantIdentity = tenantIdentity;
 		this.tenantName = tenantName;
+		this.tenantHomeAddress = tenantHomeAddress;
+		this.tenantContactAddress = tenantContactAddress;
 		this.tenantPhone = tenantPhone;
 		this.tenantEmail = tenantEmail;
 		this.ownerName = ownerName;
+		this.ownerIdentity = ownerIdentity;
+		this.ownerHomeAddress = ownerHomeAddress;
+		this.ownerContactAddress = ownerContactAddress;
 		this.roomId = roomId;
 		this.address = address;
 		this.floor = floor;
@@ -84,6 +109,7 @@ public class Contract {
 		this.cutDate = cutDate;
 		this.cutReason = cutReason;
 		this.cutP = cutP;
+		this.cOther = cOther;
 	}
 
 	public int getAi() {
@@ -110,6 +136,22 @@ public class Contract {
 		this.tenantName = tenantName;
 	}
 
+	public String getTenantHomeAddress() {
+		return tenantHomeAddress;
+	}
+
+	public void setTenantHomeAddress(String tenantHomeAddress) {
+		this.tenantHomeAddress = tenantHomeAddress;
+	}
+
+	public String getTenantContactAddress() {
+		return tenantContactAddress;
+	}
+
+	public void setTenantContactAddress(String tenantContactAddress) {
+		this.tenantContactAddress = tenantContactAddress;
+	}
+
 	public String getTenantPhone() {
 		return tenantPhone;
 	}
@@ -132,6 +174,30 @@ public class Contract {
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
+	}
+
+	public String getOwnerIdentity() {
+		return ownerIdentity;
+	}
+
+	public void setOwnerIdentity(String ownerIdentity) {
+		this.ownerIdentity = ownerIdentity;
+	}
+
+	public String getOwnerHomeAddress() {
+		return ownerHomeAddress;
+	}
+
+	public void setOwnerHomeAddress(String ownerHomeAddress) {
+		this.ownerHomeAddress = ownerHomeAddress;
+	}
+
+	public String getOwnerContactAddress() {
+		return ownerContactAddress;
+	}
+
+	public void setOwnerContactAddress(String ownerContactAddress) {
+		this.ownerContactAddress = ownerContactAddress;
 	}
 
 	public String getRoomId() {
@@ -204,6 +270,14 @@ public class Contract {
 
 	public void setCutP(int cutP) {
 		this.cutP = cutP;
+	}
+
+	public String getcOther() {
+		return cOther;
+	}
+
+	public void setcOther(String cOther) {
+		this.cOther = cOther;
 	}
 
 }

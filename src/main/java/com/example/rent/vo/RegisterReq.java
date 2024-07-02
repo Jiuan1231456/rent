@@ -19,6 +19,10 @@ public class RegisterReq {
 	@JsonProperty("owner_name")
 	private String ownerName;
 
+	@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity error")
+	@JsonProperty("owner_identity")
+	private String ownerIdentity;
+
 	@NotBlank(message = "Phone is required!!")
 	@JsonProperty("owner_phone")
 	@Pattern(regexp = "[0-9]{10}", message = "Phone error!!")
@@ -35,17 +39,16 @@ public class RegisterReq {
 	}
 
 	public RegisterReq(@NotBlank(message = "Accoint is required!!") String ownerAccount,
-			@NotBlank(message = "Accoint is required!!") String ownerPwd) {
-		super();
-		this.ownerAccount = ownerAccount;
-		this.ownerPwd = ownerPwd;
-	}
-
-	public RegisterReq(String ownerAccount, String ownerPwd, String ownerName, String ownerPhone, String ownerEmail) {
+			@NotBlank(message = "PWD is required!!") String ownerPwd,
+			@NotBlank(message = "Name is required!!") String ownerName,
+			@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity error") String ownerIdentity,
+			@NotBlank(message = "Phone is required!!") @Pattern(regexp = "[0-9]{10}", message = "Phone error!!") String ownerPhone,
+			@NotBlank(message = "Email is required!!") @Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerPwd = ownerPwd;
 		this.ownerName = ownerName;
+		this.ownerIdentity = ownerIdentity;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
 	}
@@ -72,6 +75,14 @@ public class RegisterReq {
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
+	}
+
+	public String getOwnerIdentity() {
+		return ownerIdentity;
+	}
+
+	public void setOwnerIdentity(String ownerIdentity) {
+		this.ownerIdentity = ownerIdentity;
 	}
 
 	public String getOwnerPhone() {

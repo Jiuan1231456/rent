@@ -69,6 +69,10 @@ public class ContractServiceImpl implements ContractService {
         if(registerDao.existsByOwnerPhone(req.getTenantPhone())) {
         	return new BasicRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
         }
+        //檢查房東和房客間的身分證避免重複填寫
+        if(registerDao.existsByOwnerIdentity(req.getOwnerIdentity())) {
+        	return new BasicRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
+        }
 //        ================================================================
 
 
@@ -151,6 +155,7 @@ public class ContractServiceImpl implements ContractService {
         contract.setCutP(roomAll.getCutP());//違約金
         //房東名子(從房子在抓回管理者)
         contract.setOwnerName(ownerName);
+        contract.setOwnerIdentity(registerAll.getOwnerIdentity());
         //抓取填寫的訊息
         contract.setTenantName(req.getTenantName());//承租人姓名
         contract.setTenantEmail(req.getTenantEmail());//承租人信箱
@@ -160,6 +165,15 @@ public class ContractServiceImpl implements ContractService {
         contract.setTenantPhone(req.getTenantPhone());//承租人電話
         contract.setStartDate(req.getStartDate());//承租開始時間
         contract.setEndDate(req.getEndDate());//承租結束時間
+        
+        contract.setTenantHomeAddress(req.getTenantHomeAddress());
+        contract.setTenantContactAddress(req.getTenantContactAddress());
+        contract.setOwnerHomeAddress(req.getOwnerHomeAddress());
+        contract.setOwnerContactAddress(req.getOwnerContactAddress());
+        if(req.getcOther()!=null) {
+        	contract.setcOther(req.getcOther());
+        }
+       
         
         contractDao.save(contract);
 		return new BasicRes(ResMessage.SUCCESS.getCode(),
@@ -193,7 +207,22 @@ public class ContractServiceImpl implements ContractService {
 	    // 取得現有的合同物件
 	    Contract update = aiai.get();
 	    
-
+	    if(req.getTenantHomeAddress()!=null) {
+	    	update.setTenantHomeAddress(req.getTenantHomeAddress());
+	    }
+	    if(req.getTenantContactAddress()!=null) {
+	    	update.setTenantContactAddress(req.getTenantContactAddress());
+	    }
+	    if(req.getOwnerHomeAddress()!=null) {
+	    	update.setOwnerHomeAddress(req.getOwnerHomeAddress());
+	    }
+	    if(req.getOwnerContactAddress()!=null) {
+	    	update.setOwnerContactAddress(req.getOwnerContactAddress());
+	    }
+	    if(req.getcOther()!=null) {
+	    	update.setcOther(req.getcOther());
+	    }
+	    
 	    // 更新現有合同物件的資訊
 	    update.setCutDate(req.getCutDate());
 	    update.setCutReason(req.getCutReason());

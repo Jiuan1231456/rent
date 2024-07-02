@@ -37,6 +37,8 @@ public class UpdateRoomReq {
 
 	private String equip;
 
+	private String rOther;
+
 	public UpdateRoomReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -49,7 +51,8 @@ public class UpdateRoomReq {
 			@Min(value = 0, message = "eletric_P is error!!") Integer eletricP,
 			@Min(value = 0, message = "water_P is error!!") Integer waterP,
 			@Min(value = 0, message = "manage_P is error!!") Integer manageP,
-			@Min(value = 0, message = "acreage is error!!") Integer acreage, Boolean parking, String equip) {
+			@Min(value = 0, message = "acreage is error!!") Integer acreage, Boolean parking, String equip,
+			String rOther) {
 		super();
 		this.address = address;
 		this.rentP = rentP;
@@ -61,6 +64,7 @@ public class UpdateRoomReq {
 		this.acreage = acreage;
 		this.parking = parking;
 		this.equip = equip;
+		this.rOther = rOther;
 	}
 
 	public String getAddress() {
@@ -141,6 +145,14 @@ public class UpdateRoomReq {
 
 	public void setEquip(String equip) {
 		this.equip = equip;
+	}
+
+	public String getrOther() {
+		return rOther;
+	}
+
+	public void setrOther(String rOther) {
+		this.rOther = rOther;
 	}
 
 }

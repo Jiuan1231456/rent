@@ -53,6 +53,8 @@ public class CreateRoomReq {
 
 	private String equip;
 
+	private String rOther;
+
 	public CreateRoomReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -69,7 +71,7 @@ public class CreateRoomReq {
 			@Min(value = 0, message = "water_P is error!!") @NotNull(message = "water_P is required!!") Integer waterP,
 			@Min(value = 0, message = "manage_P is error!!") @NotNull(message = "manage_P is required!!") Integer manageP,
 			@Min(value = 0, message = "acreage is error!!") @NotNull(message = "acreage is required!!") Integer acreage,
-			@NotNull(message = "Parking is required!!") Boolean parking, String equip) {
+			@NotNull(message = "Parking is required!!") Boolean parking, String equip, String rOther) {
 		super();
 		this.address = address;
 		this.account = account;
@@ -84,6 +86,7 @@ public class CreateRoomReq {
 		this.acreage = acreage;
 		this.parking = parking;
 		this.equip = equip;
+		this.rOther = rOther;
 	}
 
 	public String getAddress() {
@@ -188,6 +191,14 @@ public class CreateRoomReq {
 
 	public void setEquip(String equip) {
 		this.equip = equip;
+	}
+
+	public String getrOther() {
+		return rOther;
+	}
+
+	public void setrOther(String rOther) {
+		this.rOther = rOther;
 	}
 
 }

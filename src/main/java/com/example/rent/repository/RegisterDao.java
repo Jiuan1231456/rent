@@ -12,6 +12,8 @@ public interface RegisterDao extends JpaRepository<Register, String>{
 	
 	public boolean existsByOwnerPwd(String ownerPwd);
 	
+	public boolean existsByOwnerIdentity(String ownerIdentity);
+	
 	public boolean existsByOwnerPhone(String ownerPhone);
 	
 	public boolean existsByOwnerName(String ownerName);

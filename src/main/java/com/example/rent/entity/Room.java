@@ -3,7 +3,6 @@ package com.example.rent.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -53,6 +52,9 @@ public class Room {
 
 	@Column(name = "equip")
 	private String equip;
+	
+	@Column(name = "r_other")
+	private String rOther;
 
 	public Room() {
 		super();
@@ -60,7 +62,7 @@ public class Room {
 	}
 
 	public Room(String address, String account, String floor, String roomId, int rentP, int deposit, int cutP,
-			int eletricP, int waterP, int manageP, int acreage, boolean parking, String equip) {
+			int eletricP, int waterP, int manageP, int acreage, boolean parking, String equip, String rOther) {
 		super();
 		this.address = address;
 		this.account = account;
@@ -75,6 +77,7 @@ public class Room {
 		this.acreage = acreage;
 		this.parking = parking;
 		this.equip = equip;
+		this.rOther = rOther;
 	}
 
 	public String getAddress() {
@@ -179,6 +182,14 @@ public class Room {
 
 	public void setEquip(String equip) {
 		this.equip = equip;
+	}
+
+	public String getrOther() {
+		return rOther;
+	}
+
+	public void setrOther(String rOther) {
+		this.rOther = rOther;
 	}
 
 }
