@@ -88,6 +88,16 @@ public enum ResMessage {
 	
 	ELETRIC_V_IS_REQUIRED(400,"eletric_V is required"),//當期用電量必填
 	
+	MULTIPLE_DATA_EXIST(400,"Multiple data exist!!"),//同時多筆資料存在
+	PERIODSTART_ERROR(400,"Periodstart error"),//租約的開始日期可能有誤
+	TENANTIDENTITY_CHECK_ERROR(400,"Tenantidentity Check Error"),//租約者的身分證可能有誤
+	ADDRESS_CKECK_ERROR(400,"Address ckeck error"),//地址可能有誤
+	BILLING_INFORMATION_MAY_ALREADY_EXIST(400,"Billing information may already exist"),//帳單資料已存在
+	PERIODEND_IS_REQUIRED(400,"Periodend is required"),//帳單最後一期時間必填
+	MAYBE_NOT_THIS_BILLING(400,"Maybe not this billing"),//沒有找到這期帳單
+	PLEASE_FILLIN_ADDRESS_TENANTIDENTITY_PERIOD(400,"Please fillin address and  Tenant identity and period"),//請填寫地址、身分證、期間日期
+	PERIODEND_ERROR(400,"Periodstart error"),//期數的結束日期可能有誤
+	
 	;
 	
 	

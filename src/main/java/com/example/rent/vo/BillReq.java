@@ -13,16 +13,17 @@ public class BillReq {
 //	@NotBlank(message = "R_id is required!!")
 	private String roomId;// 房號
 
-//	@NotBlank(message = "Address is required!!")
+	@NotBlank(message = "Address is required!!")
 	private String address;// 地址
 
 	private String floor;// 樓層
 
-//	@NotBlank(message = "Tenant identity is required!!")
+	@NotBlank(message = "Tenant identity is required!!")
 	private String tenantIdentity;// 租客身分證
 
 	private String tenantName;// 租客名子
 
+	@NotNull(message = "startDate is required!!")
 	private LocalDate periodStart;// 計算開始時間
 
 	private LocalDate periodEnd;// 計算結束時間
@@ -31,8 +32,10 @@ public class BillReq {
 
 	private int rentP;// 租金
 
-	@NotNull(message = "eletric_V is required")
-	private Integer eletricV;// 當期用電量(當期減上期)
+	private int eletricP;// 一度電費用
+
+//	@NotNull(message = "eletric_V is required")
+	private int eletricV;// 當期用電量(當期減上期)
 
 	private int eletricOneP;// 電費費用為(間)
 
@@ -44,18 +47,19 @@ public class BillReq {
 
 	private int totalOneP;// 總電費
 
+	private LocalDate paymentDate;// 繳費日期
+
 	public BillReq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillReq(@NotNull(message = "ai is required") Integer ai,
-			@NotBlank(message = "R_id is required!!") String roomId,
+	public BillReq(@NotNull(message = "ai is required") Integer ai, String roomId,
 			@NotBlank(message = "Address is required!!") String address, String floor,
 			@NotBlank(message = "Tenant identity is required!!") String tenantIdentity, String tenantName,
-			LocalDate periodStart, LocalDate periodEnd, String ownerName, int rentP,
-			@NotNull(message = "eletric_V is required") Integer eletricV, int eletricOneP, int waterOneP,
-			int manageOneP, int cutP, int totalOneP) {
+			@NotNull(message = "startDate is required!!") LocalDate periodStart, LocalDate periodEnd, String ownerName,
+			int rentP, int eletricP, int eletricV, int eletricOneP, int waterOneP, int manageOneP, int cutP,
+			int totalOneP, LocalDate paymentDate) {
 		super();
 		this.ai = ai;
 		this.roomId = roomId;
@@ -67,12 +71,14 @@ public class BillReq {
 		this.periodEnd = periodEnd;
 		this.ownerName = ownerName;
 		this.rentP = rentP;
+		this.eletricP = eletricP;
 		this.eletricV = eletricV;
 		this.eletricOneP = eletricOneP;
 		this.waterOneP = waterOneP;
 		this.manageOneP = manageOneP;
 		this.cutP = cutP;
 		this.totalOneP = totalOneP;
+		this.paymentDate = paymentDate;
 	}
 
 	public Integer getAi() {
@@ -155,11 +161,19 @@ public class BillReq {
 		this.rentP = rentP;
 	}
 
-	public Integer getEletricV() {
+	public int getEletricP() {
+		return eletricP;
+	}
+
+	public void setEletricP(int eletricP) {
+		this.eletricP = eletricP;
+	}
+
+	public int getEletricV() {
 		return eletricV;
 	}
 
-	public void setEletricV(Integer eletricV) {
+	public void setEletricV(int eletricV) {
 		this.eletricV = eletricV;
 	}
 
@@ -201,6 +215,14 @@ public class BillReq {
 
 	public void setTotalOneP(int totalOneP) {
 		this.totalOneP = totalOneP;
+	}
+
+	public LocalDate getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(LocalDate paymentDate) {
+		this.paymentDate = paymentDate;
 	}
 
 }

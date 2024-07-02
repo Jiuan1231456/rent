@@ -1,82 +1,63 @@
-package com.example.rent.entity;
+package com.example.rent.vo;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "bill")
-public class Bill {
+public class UpdateBillReq {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	@Column(name = "ai")
-	private int ai;
+//	@NotNull(message = "ai is required")
+	private Integer ai;
 
-	@Column(name = "r_id")
+//	@NotBlank(message = "R_id is required!!")
 	private String roomId;// 房號
 
-	@Column(name = "address")
+//	@NotBlank(message = "Address is required!!")
 	private String address;// 地址
 
-	@Column(name = "floor")
 	private String floor;// 樓層
 
-	@Column(name = "tenant_identity")
+//	@NotBlank(message = "Tenant identity is required!!")
 	private String tenantIdentity;// 租客身分證
 
-	@Column(name = "tenant_name")
 	private String tenantName;// 租客名子
 
-	@Column(name = "period_start")
+//	@NotNull(message = "startDate is required!!")
 	private LocalDate periodStart;// 計算開始時間
 
-	@Column(name = "period_end")
+//	@NotNull(message = "Periodend is required")
 	private LocalDate periodEnd;// 計算結束時間
 
-	@Column(name = "owner_name")
 	private String ownerName;// 房東名子
 
-	@Column(name = "rent_p")
 	private int rentP;// 租金
 
-	@Column(name = "eletric_p")
 	private int eletricP;// 一度電費用
 
-	@Column(name = "eletric_v")
-	private int eletricV;// 當期用電量
+	@NotNull(message = "eletric_V is required")
+	private Integer eletricV;// 當期用電量(當期減上期)
 
-	@Column(name = "eletric_one_p")
 	private int eletricOneP;// 電費費用為(間)
 
-	@Column(name = "water_one_p")
 	private int waterOneP;// 水費為
 
-	@Column(name = "manage_one_p")
 	private int manageOneP;// 管理費為
 
-	@Column(name = "cut_p")
 	private int cutP;// 違約金
 
-	@Column(name = "total_one_p")
 	private int totalOneP;// 總電費
 
-	@Column(name = "Payment_date")
 	private LocalDate paymentDate;// 繳費日期
 
-	public Bill() {
+	public UpdateBillReq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Bill(int ai, String roomId, String address, String floor, String tenantIdentity, String tenantName,
-			LocalDate periodStart, LocalDate periodEnd, String ownerName, int rentP, int eletricP, int eletricV,
-			int eletricOneP, int waterOneP, int manageOneP, int cutP, int totalOneP, LocalDate paymentDate) {
+	public UpdateBillReq(Integer ai, String roomId, String address, String floor, String tenantIdentity,
+			String tenantName, LocalDate periodStart, LocalDate periodEnd, String ownerName, int rentP, int eletricP,
+			@NotNull(message = "eletric_V is required") Integer eletricV, int eletricOneP, int waterOneP,
+			int manageOneP, int cutP, int totalOneP, LocalDate paymentDate) {
 		super();
 		this.ai = ai;
 		this.roomId = roomId;
@@ -98,11 +79,11 @@ public class Bill {
 		this.paymentDate = paymentDate;
 	}
 
-	public int getAi() {
+	public Integer getAi() {
 		return ai;
 	}
 
-	public void setAi(int ai) {
+	public void setAi(Integer ai) {
 		this.ai = ai;
 	}
 
@@ -186,11 +167,11 @@ public class Bill {
 		this.eletricP = eletricP;
 	}
 
-	public int getEletricV() {
+	public Integer getEletricV() {
 		return eletricV;
 	}
 
-	public void setEletricV(int eletricV) {
+	public void setEletricV(Integer eletricV) {
 		this.eletricV = eletricV;
 	}
 

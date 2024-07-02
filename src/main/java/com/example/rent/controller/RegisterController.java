@@ -23,6 +23,7 @@ import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
 import com.example.rent.vo.RoomSearchReq;
 import com.example.rent.vo.RoomSearchRes;
+import com.example.rent.vo.UpdateBillReq;
 import com.example.rent.vo.UpdateContractReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
@@ -108,6 +109,12 @@ public class RegisterController {
 	@PostMapping(value = "bill/bill")
 	public BillRes bill(@Valid @RequestBody BillReq req) {
 		return billService.bill(req);
+	}
+	
+	//帳單更新
+	@PostMapping(value = "bill/updateBill")
+	public BillRes updateBill(@Valid @RequestBody UpdateBillReq req) {
+		return billService.updateBill(req);
 	}
 	
 	/*
