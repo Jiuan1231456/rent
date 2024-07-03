@@ -116,8 +116,13 @@ public class ContractServiceImpl implements ContractService {
         }
         
 
+        if(contractDao.existsByTenantIdentityAndTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual( req.getTenantIdentity(),req.getTenantPhone(), req.getStartDate(), latestAvailableDate)) {
+            return new BasicRes(ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getCode(), ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getMessage());
+        }
         
-        
+        if(contractDao.existsByTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual(req.getTenantPhone(), req.getStartDate(), latestAvailableDate)) {
+            return new BasicRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+        }
 
 		//其他參數就不檢查了，因為下面這邊我是直接帶入前面表格的資料，所以就算寫錯，進去資料庫之後也是會自動調整的
         Contract contract = new Contract();

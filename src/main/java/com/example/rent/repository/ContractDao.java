@@ -19,6 +19,22 @@ public interface ContractDao extends JpaRepository<Contract,Integer>{
 
 	public boolean existsByAddress(String address);
 	
+	public boolean existsByTenantIdentityAndTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+            
+            String tenantIdentity,
+            String tenantPhone,
+            LocalDate endDate,
+            LocalDate startDate
+    );
+	
+	
+public boolean existsByTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+            
+            String tenantPhone,
+            LocalDate endDate,
+            LocalDate startDate
+    );
+
 	public List<Contract> findByAddressEqualsAndTenantIdentityEqualsAndEndDateLessThanEqual(String address,String tenantIdentity,LocalDate endDate);
 	
 	public List<Contract> findByTenantIdentity(String tenantIdentity);

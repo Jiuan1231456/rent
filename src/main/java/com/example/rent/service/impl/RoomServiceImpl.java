@@ -32,7 +32,6 @@ public class RoomServiceImpl implements RoomService{
 
 
 	
-	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public BasicRes creatRoom(CreateRoomReq req) {
 		//先看看帳號存不存在(這裡的req是我"房間"的帳號與我"創建帳號"那邊的帳號做對比)
