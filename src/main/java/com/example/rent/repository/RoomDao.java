@@ -10,8 +10,13 @@ import com.example.rent.entity.Room;
 @Repository
 public interface RoomDao extends JpaRepository<Room, String>{
 
-	public boolean existsByRoomId(String roomId);
+	public boolean existsByAccountAndRoomId(String account,String roomId);
+	
+	public boolean existsByAddress(String address);
+	
+	public boolean existsByAccount(String account);
 	
 	public List<Room> findByAddressContainingAndRoomIdContaining(String address,String roomId);
 	
+	public List<Room> findByAccountEquals(String account);
 }

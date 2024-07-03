@@ -1,5 +1,6 @@
 package com.example.rent.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class RoomServiceImpl implements RoomService{
 
 
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public BasicRes creatRoom(CreateRoomReq req) {
 		//先看看帳號存不存在(這裡的req是我"房間"的帳號與我"創建帳號"那邊的帳號做對比)
@@ -44,10 +46,13 @@ public class RoomServiceImpl implements RoomService{
 		if(roomDao.existsById(req.getAddress())) {
 			return new BasicRes(ResMessage.ADDRESS_DUPLICATED_FILLIN.getCode(),ResMessage.ADDRESS_DUPLICATED_FILLIN.getMessage());
 		}
-		//當我資料庫中的房號已存在，則返回錯誤
-		if(roomDao.existsByRoomId(req.getrId())) {
-			return new BasicRes(ResMessage.RID_DUPLICATED_FILLIN.getCode(),ResMessage.RID_DUPLICATED_FILLIN.getMessage());
+//		List<Room> ex = roomDao.findByAccountEquals(req.getAccount());
+//		Room aa = ex.get(0);
+		//當我資料庫中的房號已存在，則返回錯誤    當帳號相同、房號也相同時
+		if(roomDao.existsByAccountAndRoomId(req.getAccount(), req.getrId())) {
+			return new BasicRes(ResMessage.RID_DUPLICATED_FILLIN.getCode(),ResMessage.RID_DUPLICATED_FILLIN.getMessage());	
 		}
+		
 		
 		Room room = new Room();
 		

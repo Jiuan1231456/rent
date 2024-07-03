@@ -204,9 +204,10 @@ public class BillServiceImlp implements BillService {
 			return new BillRes(ResMessage.MAYBE_NOT_THIS_BILLING.getCode(), //
 					ResMessage.MAYBE_NOT_THIS_BILLING.getMessage());
 		}
-		 
+		
 		bill.sort((b1, b2) -> b2.getPeriodEnd().compareTo(b1.getPeriodEnd()));
 		Bill lastBill = bill.get(0);
+
 		 
 		List<Contract> contract=contractDao.findByAddress(req.getAddress());
 		// 查詢契約中的中止日期
@@ -221,7 +222,10 @@ public class BillServiceImlp implements BillService {
 	    		contractAll.getStartDate().equals(req.getPeriodStart())&&contractAll.getEndDate().equals(req.getPeriodEnd())) {
 	    	
 	    	LocalDate end = (contractAll.getCutDate() != null) ? contractAll.getCutDate(): lastBill.getPeriodEnd();
-			
+			//如果第一筆資料的開始時間小於結束時間
+	    	if(lastBill.getPeriodStart().isBefore(end)) {
+	    		
+			}
 			// 假設帳單中有保存房間地址的屬性
 			String roomAddress = lastBill.getAddress();
 			// 根據房間地址查詢相關的房間資料
