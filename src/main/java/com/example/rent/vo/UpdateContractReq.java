@@ -13,8 +13,8 @@ public class UpdateContractReq {
 	@NotBlank(message = "Address is required!!")
 	private String address;// 地址
 
-	@NotBlank(message = "R_id is required!!")
-	private String roomId;// 房號
+////	@NotBlank(message = "R_id is required!!")
+//	private String roomId;// 房號
 
 	private String tenantHomeAddress;
 
@@ -41,15 +41,13 @@ public class UpdateContractReq {
 	}
 
 	public UpdateContractReq(@NotNull(message = "ai is required") Integer ai,
-			@NotBlank(message = "Address is required!!") String address,
-			@NotBlank(message = "R_id is required!!") String roomId, String tenantHomeAddress,
+			@NotBlank(message = "Address is required!!") String address, String tenantHomeAddress,
 			String tenantContactAddress, String ownerHomeAddress, String ownerContactAddress, Integer cutP,
 			@NotNull(message = "cutDate is required!!") LocalDate cutDate,
 			@NotBlank(message = "cutReason is required!!") String cutReason, String cOther) {
 		super();
 		this.ai = ai;
 		this.address = address;
-		this.roomId = roomId;
 		this.tenantHomeAddress = tenantHomeAddress;
 		this.tenantContactAddress = tenantContactAddress;
 		this.ownerHomeAddress = ownerHomeAddress;
@@ -74,14 +72,6 @@ public class UpdateContractReq {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getRoomId() {
-		return roomId;
-	}
-
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
 	}
 
 	public String getTenantHomeAddress() {

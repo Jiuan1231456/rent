@@ -105,7 +105,13 @@ public enum ResMessage {
 	OWNERCONTACTADDRESS_IS_REQUIRED(400,"Ownercontactaddress is required"),//房東通訊地址需要
 	OWNERIDENTITY_IS_REQUIRED(400,"Owneridentity is required"),//房東身分證需要
 	OWNERIDENTITY_IS_ERROR(400,"Owneridentity is error"),//房東身分證錯誤(重複填寫)
+	TENANT_ALREADY_RENTING(400,"tenant already renting"),//此房客已有租界房子
+	TENANT_ALREADY_RENTING1(400,"tenant already renting 1"),//此房客已有租界房子
+	TENANT_ALREADY_RENTING2(400,"tenant already renting 2"),//此房客已有租界房子
+	TENANT_ALREADY_RENTING3(400,"tenant already renting 3"),//此房客已有租界房子
 	
+	
+	END_DATE_BEFORE_START_DATE(400,"end date before start date"),//結束時間在開始時間之前
 	;
 	
 	

@@ -25,6 +25,7 @@ import com.example.rent.vo.RoomSearchReq;
 import com.example.rent.vo.RoomSearchRes;
 import com.example.rent.vo.UpdateBillReq;
 import com.example.rent.vo.UpdateContractReq;
+import com.example.rent.vo.UpdateCutDateReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
 import com.example.rent.vo.UpdateRoomReq;
@@ -115,6 +116,11 @@ public class RegisterController {
 	@PostMapping(value = "bill/updateBill")
 	public BillRes updateBill(@Valid @RequestBody UpdateBillReq req) {
 		return billService.updateBill(req);
+	}
+	
+	@PostMapping(value = "bill/updateCutDate")
+	public BillRes updateCutDate(@Valid @RequestBody UpdateCutDateReq req) {
+		return billService.updateCutDate(req);
 	}
 	
 	/*

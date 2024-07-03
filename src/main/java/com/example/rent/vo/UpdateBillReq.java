@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 public class UpdateBillReq {
 
-//	@NotNull(message = "ai is required")
+	@NotNull(message = "ai is required")
 	private Integer ai;
 
 //	@NotBlank(message = "R_id is required!!")
@@ -14,21 +14,6 @@ public class UpdateBillReq {
 
 //	@NotBlank(message = "Address is required!!")
 	private String address;// 地址
-
-	private String floor;// 樓層
-
-//	@NotBlank(message = "Tenant identity is required!!")
-	private String tenantIdentity;// 租客身分證
-
-	private String tenantName;// 租客名子
-
-//	@NotNull(message = "startDate is required!!")
-	private LocalDate periodStart;// 計算開始時間
-
-//	@NotNull(message = "Periodend is required")
-	private LocalDate periodEnd;// 計算結束時間
-
-	private String ownerName;// 房東名子
 
 	private int rentP;// 租金
 
@@ -54,20 +39,13 @@ public class UpdateBillReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UpdateBillReq(Integer ai, String roomId, String address, String floor, String tenantIdentity,
-			String tenantName, LocalDate periodStart, LocalDate periodEnd, String ownerName, int rentP, int eletricP,
-			@NotNull(message = "eletric_V is required") Integer eletricV, int eletricOneP, int waterOneP,
+	public UpdateBillReq(@NotNull(message = "ai is required") Integer ai, String roomId, String address, int rentP,
+			int eletricP, @NotNull(message = "eletric_V is required") Integer eletricV, int eletricOneP, int waterOneP,
 			int manageOneP, int cutP, int totalOneP, LocalDate paymentDate) {
 		super();
 		this.ai = ai;
 		this.roomId = roomId;
 		this.address = address;
-		this.floor = floor;
-		this.tenantIdentity = tenantIdentity;
-		this.tenantName = tenantName;
-		this.periodStart = periodStart;
-		this.periodEnd = periodEnd;
-		this.ownerName = ownerName;
 		this.rentP = rentP;
 		this.eletricP = eletricP;
 		this.eletricV = eletricV;
@@ -101,54 +79,6 @@ public class UpdateBillReq {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getFloor() {
-		return floor;
-	}
-
-	public void setFloor(String floor) {
-		this.floor = floor;
-	}
-
-	public String getTenantIdentity() {
-		return tenantIdentity;
-	}
-
-	public void setTenantIdentity(String tenantIdentity) {
-		this.tenantIdentity = tenantIdentity;
-	}
-
-	public String getTenantName() {
-		return tenantName;
-	}
-
-	public void setTenantName(String tenantName) {
-		this.tenantName = tenantName;
-	}
-
-	public LocalDate getPeriodStart() {
-		return periodStart;
-	}
-
-	public void setPeriodStart(LocalDate periodStart) {
-		this.periodStart = periodStart;
-	}
-
-	public LocalDate getPeriodEnd() {
-		return periodEnd;
-	}
-
-	public void setPeriodEnd(LocalDate periodEnd) {
-		this.periodEnd = periodEnd;
-	}
-
-	public String getOwnerName() {
-		return ownerName;
-	}
-
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
 	}
 
 	public int getRentP() {

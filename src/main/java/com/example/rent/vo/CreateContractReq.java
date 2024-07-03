@@ -2,6 +2,7 @@ package com.example.rent.vo;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -33,8 +34,8 @@ public class CreateContractReq {
 	@NotBlank(message = "Name is required!!")
 	private String ownerName;
 
-	@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity  error")
-	@NotBlank(message = "Owneridentity is required")
+//	@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity  error")
+//	@NotBlank(message = "Owneridentity is required")
 	private String ownerIdentity;
 
 	@NotBlank(message = "Ownerhomeaddress is required")
@@ -84,8 +85,7 @@ public class CreateContractReq {
 			@NotBlank(message = "Tenantcontactaddress is required") String tenantContactAddress,
 			@NotBlank(message = "tenantPhone is required!!") @Pattern(regexp = "[0-9]{10}", message = "Tenant phone error") String tenantPhone,
 			@NotBlank(message = "tenantEmail is required!!") @Pattern(regexp = ".*@.*", message = "Tenant email error") String tenantEmail,
-			@NotBlank(message = "Name is required!!") String ownerName,
-			@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity  error") @NotBlank(message = "Owneridentity is required") String ownerIdentity,
+			@NotBlank(message = "Name is required!!") String ownerName, String ownerIdentity,
 			@NotBlank(message = "Ownerhomeaddress is required") String ownerHomeAddress,
 			@NotBlank(message = "Ownercontactaddress is required") String ownerContactAddress,
 			@NotBlank(message = "R_id is required!!") String roomId,
@@ -276,6 +276,14 @@ public class CreateContractReq {
 
 	public void setcOther(String cOther) {
 		this.cOther = cOther;
+	}
+
+	@AssertTrue(message = "endDate must be greater than or equal to startDate")
+	public boolean isEndDateValid() {
+		if (startDate == null || endDate == null) {
+			return true; // 在這裡返回 true，因為 NotNull 註解會處理空值的情況
+		}
+		return endDate.isAfter(startDate) || endDate.isEqual(startDate);
 	}
 
 }

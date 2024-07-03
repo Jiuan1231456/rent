@@ -38,6 +38,7 @@ public class ContractServiceImpl implements ContractService {
 
 	@Override
 	public BasicRes createContract(CreateContractReq req) {
+
 		// 先設定抓取房子的資訊
 		Optional<Room> room = roomDao.findById(req.getAddress());
 		// 先查看房間存不存在(先從我房間資訊中的id尋找是否存在)
@@ -50,7 +51,7 @@ public class ContractServiceImpl implements ContractService {
 		String roomId = roomAll.getRoomId();
 		// 如果我創建的房間號碼與我這邊填寫的將號碼不一樣
 		// 當地只存在時，地址相等但房號不相等時報錯
-		if (roomAddress.equals(req.getAddress()) && !roomId.equals(req.getRoomId())) {
+		if (!roomId.equals(req.getRoomId())) {
 			return new BasicRes(ResMessage.RID_FILLIN_ERRO.getCode(), ResMessage.RID_FILLIN_ERRO.getMessage());
 		}
 
@@ -70,18 +71,16 @@ public class ContractServiceImpl implements ContractService {
         	return new BasicRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
         }
         //檢查房東和房客間的身分證避免重複填寫
-        if(registerDao.existsByOwnerIdentity(req.getOwnerIdentity())) {
-        	return new BasicRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
+        if(registerDao.existsByOwnerIdentity(req.getTenantIdentity())) {
+        	return new BasicRes(ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getCode(), ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getMessage());
         }
 //        ================================================================
+        
 
-
-
-        //查看是否有此地址/房間的資訊，如果沒有表示這間房間還未出租，也就不會有違約更新的東西
         List<Contract> contracts = contractDao.findByAddress(req.getAddress());
-//        if(contracts.isEmpty()) {
+        if(contracts.isEmpty()) {
 //        	return new BasicRes(ResMessage.ROOM_NOT_RENTED.getCode(), ResMessage.ROOM_NOT_RENTED.getMessage());
-//        }
+        }
         //檢查違約的欄位
         //minusDays(n):生成當天日期的n天之"前"(前n天)
         LocalDate latestAvailableDate = LocalDate.now().minusDays(1);
@@ -100,6 +99,10 @@ public class ContractServiceImpl implements ContractService {
             }
         }
 
+        if (req.getStartDate().isBefore(latestAvailableDate.plusDays(1))) {
+            return new BasicRes(ResMessage.ROOM_OCCUPIED.getCode(), ResMessage.ROOM_OCCUPIED.getMessage());
+        }
+        
         // 檢查租客手機號唯一性（在合同有效期內）
         if (!req.getEndDate().isAfter(latestAvailableDate.plusDays(1))&&//
         		contractDao.existsByTenantPhone(req.getTenantPhone())) {
@@ -112,39 +115,10 @@ public class ContractServiceImpl implements ContractService {
             return new BasicRes(ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getCode(), ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getMessage());
         }
         
-        if (req.getStartDate().isBefore(latestAvailableDate.plusDays(1))) {
-            return new BasicRes(ResMessage.ROOM_OCCUPIED.getCode(), ResMessage.ROOM_OCCUPIED.getMessage());
-        }
-
-//        ==============================================
-//        LocalDate today = LocalDate.now();
-        
-//      //當我結束時間小於等於今天日期的話(簡言之就是結束時間未到)    
-//      // 檢查租客手機號唯一性（在合同有效期內）
-//      if (contractDao.existsByTenantPhoneAndAddressAndEndDateAfter(req.getTenantPhone(), req.getAddress(), LocalDate.now())) {
-//          // 如果手機號重複且合同還未結束，返回錯誤資訊
-//          return new BasicRes(ResMessage.TENANTPHONE_DUPLICATED_FILLIN.getCode(),
-//                  ResMessage.TENANTPHONE_DUPLICATED_FILLIN.getMessage());
-//      }
-//
-//      // 檢查租客身份證唯一性（在合同有效期內）
-//      if (contractDao.existsByTenantIdentityAndAddressAndEndDateAfter(req.getTenantIdentity(), req.getAddress(), LocalDate.now())) {
-//          // 如果身份證重複且合同還未結束，返回錯誤資訊
-//          return new BasicRes(ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getCode(),
-//                  ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getMessage());
-//      }
-//
-//      // 檢查前一間房間的退房時間
-//      if (contractDao.existsByAddressAndEndDateAfter(req.getAddress(), LocalDate.now().minusDays(1))) {
-//          // 如果前一間房間的退房時間在今天之後，返回錯誤資訊
-//          return new BasicRes(ResMessage.PREVIOUS_ROOM_NOT_VACATED.getCode(),
-//                  ResMessage.PREVIOUS_ROOM_NOT_VACATED.getMessage());
-//      }
-      
 
         
         
-        
+
 		//其他參數就不檢查了，因為下面這邊我是直接帶入前面表格的資料，所以就算寫錯，進去資料庫之後也是會自動調整的
         Contract contract = new Contract();
         //抓取創造房間的資訊

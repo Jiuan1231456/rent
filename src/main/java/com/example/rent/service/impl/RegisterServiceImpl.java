@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import com.example.rent.constants.ResMessage;
 import com.example.rent.entity.Register;
+import com.example.rent.repository.ContractDao;
 import com.example.rent.repository.RegisterDao;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.vo.BasicRes;
@@ -23,8 +24,12 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private RegisterDao registerDao;
+	
+	// 這裡是契約書
+	@Autowired
+	private ContractDao contractDao;
 
-	// 新增帳號與個人資訊 或者 更新個人資訊 或者單純進入
+	// 註冊帳號
 	@Override
 	public RegisterRes register(RegisterReq req) {
 
@@ -51,6 +56,10 @@ public class RegisterServiceImpl implements RegisterService {
 			return new RegisterRes(ResMessage.PWD_ALREADYUSED.getCode(), //
 					ResMessage.PWD_ALREADYUSED.getMessage());
 		}
+		//房東與房客間的身分證重複填寫
+		if(contractDao.existsByTenantIdentity(req.getOwnerIdentity())) {
+        	return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
+        }
 		//檢查身分證是否重複
 		if(registerDao.existsByOwnerIdentity(req.getOwnerIdentity())) {
 			return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), //
@@ -62,6 +71,9 @@ public class RegisterServiceImpl implements RegisterService {
 			return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), //
 					ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 		}
+		if(contractDao.existsByTenantPhone(req.getOwnerPhone())) {
+        	return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+        }
 
 		Register register = new Register();
 		register.setOwnerAccount(req.getOwnerAccount());
