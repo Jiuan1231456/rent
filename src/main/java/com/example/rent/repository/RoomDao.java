@@ -23,4 +23,5 @@ public interface RoomDao extends JpaRepository<Room, String>{
 	public List<Room> findByAddressEquals(String address);
 	
 	public Room findByAddress(String address);
+
 }

@@ -23,6 +23,7 @@ import com.example.rent.vo.ContractSearchReq;
 import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.CreateRoomReq;
+import com.example.rent.vo.DeleteRoomReq;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
@@ -99,6 +100,12 @@ public class RegisterController {
 	@PostMapping(value = "room/roomSearch")
 	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req) {
 		return roomService.roomSearch(req);
+	}
+	
+	//刪除房間
+	@PostMapping(value = "room/deleteRoom")
+	public BasicRes deleteRoom(@Valid @RequestBody DeleteRoomReq req) {
+		return roomService.deleteRoom(req);
 	}
 
 	// 創造契約書

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.example.rent.constants.ResMessage;
@@ -15,6 +16,7 @@ import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.CreateRoomReq;
+import com.example.rent.vo.DeleteRoomReq;
 import com.example.rent.vo.RoomSearchReq;
 import com.example.rent.vo.RoomSearchRes;
 import com.example.rent.vo.UpdateRoomReq;
@@ -149,6 +151,23 @@ public class RoomServiceImpl implements RoomService{
 		}
 		return new RoomSearchRes(ResMessage.SUCCESS.getCode(),ResMessage.SUCCESS.getMessage(),
 				roomDao.findByAddressContainingAndRoomIdContaining(address, roomId));
+	}
+
+
+
+	@Override
+	public BasicRes deleteRoom(DeleteRoomReq req) {
+		if(!CollectionUtils.isEmpty(req.getAddressList())) {
+			try {
+//				刪除房間(地址)
+				roomDao.deleteAllById(req.getAddressList());
+			}catch(Exception e){
+				//當deleteAllById方法中，id的值不存在時，jpa會報錯
+				//因為刪除之前，JPA會先"搜索"帶入的id，再去做刪除的動作(所以如果沒有搜索到就會報錯)
+				//但因實際上也沒刪除任何資訊，所以也就可以不需要這個exception做處理
+			}
+		}
+		return new BasicRes(ResMessage.SUCCESS.getCode(),ResMessage.SUCCESS.getMessage());
 	}
 	
 

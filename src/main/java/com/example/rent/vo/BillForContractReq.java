@@ -6,22 +6,17 @@ public class BillForContractReq {
 
 	private LocalDate startdate;
 
-	private String account;
+	private String ownerName;
 
 	public BillForContractReq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillForContractReq(LocalDate startdate, String account) {
+	public BillForContractReq(LocalDate startdate, String ownerName) {
 		super();
 		this.startdate = startdate;
-		this.account = account;
-	}
-
-	public BillForContractReq(LocalDate startdate) {
-		super();
-		this.startdate = startdate;
+		this.ownerName = ownerName;
 	}
 
 	public LocalDate getStartdate() {
@@ -32,12 +27,12 @@ public class BillForContractReq {
 		this.startdate = startdate;
 	}
 
-	public String getAccount() {
-		return account;
+	public String getOwnerName() {
+		return ownerName;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 
 }

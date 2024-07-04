@@ -330,9 +330,9 @@ public class BillServiceImlp implements BillService {
 	@Override
 	public BillForContractRes BillsForContract(BillForContractReq req) {
 		
-		if (!registerDao.existsByOwnerAccount(req.getAccount())) {
-	        return new BillForContractRes(ResMessage.ACCOUNT_IS_NOT_FOUND.getCode(),
-	                ResMessage.ACCOUNT_IS_NOT_FOUND.getMessage());
+		if (!registerDao.existsByOwnerName(req.getOwnerName())) {
+	        return new BillForContractRes(ResMessage.REGISTER_NAME_IS_NOT_FOUND.getCode(),
+	                ResMessage.REGISTER_NAME_IS_NOT_FOUND.getMessage());
 	    }
 		
 		
@@ -342,31 +342,16 @@ public class BillServiceImlp implements BillService {
 		for (Contract contract : contracts) {
 			LocalDate startDate = contract.getStartDate();
 			LocalDate endDate = (contract.getCutDate() != null) ? contract.getCutDate() : contract.getEndDate();
-			
-			// 根據房東名字查詢帳號
-			List<Register> ownerAccount = registerDao.findByOwnerName(contract.getOwnerName());
 	        
-			 // 過濾並檢查房東帳號是否匹配
-			// 過濾並檢查房東帳號是否匹配
-			boolean accountMatches = false;
-			for (Register register : ownerAccount) {
-			    if (register.getOwnerAccount().equals(req.getAccount())) {
-			        accountMatches = true;
-			        break;
-			    }
-			}
-
-	        if (!accountMatches) {
-	            continue;
-	        }
 			
-			while (!startDate.isAfter(endDate)) {
+			while (!startDate.isAfter(endDate)&& contract.getOwnerName().equals(req.getOwnerName())) {
 				// 計算每個帳單的周期結束日期
 				LocalDate periodEnd = startDate.plusDays(30);
 				if (periodEnd.isAfter(endDate)) {
 					periodEnd = endDate;
 				}
 				// 檢查是否符合期間要求
+//這行是只檢查我輸入日期之前的帳單 if (periodEnd.isBefore(req.getStartdate()) || periodEnd.isEqual(req.getStartdate()))
 				if (!periodEnd.isBefore(req.getStartdate()) && !startDate.isAfter(req.getStartdate())) {
 					Bill bill = new Bill();
 
