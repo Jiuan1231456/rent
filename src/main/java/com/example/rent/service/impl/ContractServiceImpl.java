@@ -1,6 +1,7 @@
 package com.example.rent.service.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,7 +114,7 @@ public class ContractServiceImpl implements ContractService {
 		if (req.getStartDate().isBefore(latestAvailableDate.plusDays(1))) {
 			return new BasicRes(ResMessage.ROOM_OCCUPIED.getCode(), ResMessage.ROOM_OCCUPIED.getMessage());
 		}
-
+/*
 		// 檢查租客手機號唯一性（在合同有效期內）
 		if (!req.getEndDate().isAfter(latestAvailableDate.plusDays(1)) && //
 				contractDao.existsByTenantPhone(req.getTenantPhone())) {
@@ -126,8 +127,8 @@ public class ContractServiceImpl implements ContractService {
 				contractDao.existsByTenantIdentityAndAddress(req.getTenantIdentity(), req.getAddress())) {
 			return new BasicRes(ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getCode(),
 					ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getMessage());
-		}
-
+		}*/
+/*
 		if (contractDao.existsByTenantIdentityAndTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
 				req.getTenantIdentity(), req.getTenantPhone(), req.getStartDate(), latestAvailableDate)) {
 			return new BasicRes(ResMessage.TENANTIDENTITY_DUPLICATED_FILLIN.getCode(),
@@ -139,7 +140,7 @@ public class ContractServiceImpl implements ContractService {
 			return new BasicRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),
 					ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 		}
-
+*/
 		// 其他參數就不檢查了，因為下面這邊我是直接帶入前面表格的資料，所以就算寫錯，進去資料庫之後也是會自動調整的
 		Contract contract = new Contract();
 		// 抓取創造房間的資訊
@@ -168,6 +169,8 @@ public class ContractServiceImpl implements ContractService {
 		if (req.getcOther() != null) {
 			contract.setcOther(req.getcOther());
 		}
+		
+		contract.setSignDate(LocalDateTime.now());
 
 		contractDao.save(contract);
 		return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
