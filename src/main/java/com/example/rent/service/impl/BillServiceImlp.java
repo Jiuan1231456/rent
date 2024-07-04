@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.rent.constants.ResMessage;
@@ -20,9 +22,12 @@ import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.BillService;
 import com.example.rent.vo.BillReq;
 import com.example.rent.vo.BillRes;
+import com.example.rent.vo.ContractSearchReq;
+import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.UpdateBillReq;
 import com.example.rent.vo.UpdateCutDateReq;
 
+@EnableScheduling
 @Service
 public class BillServiceImlp implements BillService {
 
@@ -42,9 +47,15 @@ public class BillServiceImlp implements BillService {
 	@Autowired
 	private BillDao billDao;
 
+//	@Scheduled(cron= "* * * * * *")
+	public void bill2() {
+		System.out.println("**************");
+	}	
+	
 	@Override
+//	@Scheduled(cron= "* * * * * *")
 	public BillRes bill(BillReq req) {
-
+		System.out.println("**************");
 		Optional<Contract> op = contractDao.findById(req.getAi());
 		if (op.isEmpty()) {
 			return new BillRes(ResMessage.AI_IS_NOT_FOUND.getCode(), ResMessage.AI_IS_NOT_FOUND.getMessage());
@@ -76,13 +87,14 @@ public class BillServiceImlp implements BillService {
 		if (!startDate.equals(req.getPeriodStart())) {
 			return new BillRes(ResMessage.PERIODSTART_ERROR.getCode(), ResMessage.PERIODSTART_ERROR.getMessage());
 		}
-
+///*********
 ////        if(cutDate!=null && bill.getCutP()!=0) {
 //		if (billDao.existsByAddress(address) && billDao.existsByTenantIdentity(tenantIdentity)
 //				&& billDao.existsByPeriodStart(startDate)) {
 //			return new BillRes(ResMessage.BILLING_INFORMATION_MAY_ALREADY_EXIST.getCode(),
 //					ResMessage.BILLING_INFORMATION_MAY_ALREADY_EXIST.getMessage());
 //		}
+		
 
 //============================================================
 		// 將開始日期先定義為一個計費開開始日期後進入循環
@@ -183,9 +195,18 @@ public class BillServiceImlp implements BillService {
 		}
 
 		Bill billAll = bill.get();
-
+		
 		billAll.setEletricV(req.getEletricV());// 用了多少電
 		billAll.setEletricOneP(req.getEletricV() * billAll.getEletricP());
+		if(req.getCutP()!=null) {
+			billAll.setCutP(req.getCutP());
+		}
+		if(req.getWaterOneP()!=null) {
+			billAll.setWaterOneP(req.getWaterOneP());
+		}
+		if(req.getManageOneP()!=null) {
+			billAll.setManageOneP(req.getManageOneP());
+		}
 		int totalP = billAll.getEletricOneP() + billAll.getWaterOneP() + billAll.getManageOneP() + billAll.getCutP()
 				+ billAll.getRentP();
 		billAll.setTotalOneP(totalP);
@@ -295,5 +316,14 @@ public class BillServiceImlp implements BillService {
 
 		return new BillRes(ResMessage.SUCCESS.getCode(), //
 				ResMessage.SUCCESS.getMessage());
+	}
+
+	@Override
+	public ContractSearchRes billSearch(ContractSearchReq req) {
+		Optional<Contract> contract=contractDao.findById(req.getAi());
+		if(contract.isEmpty()) {
+			return new ContractSearchRes(ResMessage.AI_IS_NOT_FOUND.getCode(), ResMessage.AI_IS_NOT_FOUND.getMessage());
+		}
+		return new ContractSearchRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
 	}
 }

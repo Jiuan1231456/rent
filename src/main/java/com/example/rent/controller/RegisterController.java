@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rent.repository.BillDao;
+import com.example.rent.service.ifs.Bill2Service;
 import com.example.rent.service.ifs.BillService;
 import com.example.rent.service.ifs.ContractService;
 import com.example.rent.service.ifs.RegisterService;
@@ -16,6 +17,8 @@ import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.BillReq;
 import com.example.rent.vo.BillRes;
+import com.example.rent.vo.ContractSearchReq;
+import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.LoginReq;
@@ -46,6 +49,9 @@ public class RegisterController {
 	
 	@Autowired
 	private BillService billService;
+	
+	@Autowired
+	private Bill2Service bill2Service;
 
 	//帳號註冊
 	//value後面是postman要連接的網址
@@ -121,6 +127,16 @@ public class RegisterController {
 	@PostMapping(value = "bill/updateCutDate")
 	public BillRes updateCutDate(@Valid @RequestBody UpdateCutDateReq req) {
 		return billService.updateCutDate(req);
+	}
+	
+	@PostMapping(value = "bill/billS")  // 设置具体的路径
+    public BillRes generateBill(@Valid @RequestBody BillReq req) {
+        return bill2Service.bill(req);
+    }
+	
+	@PostMapping(value = "bill/billSearch")
+	public ContractSearchRes billSearch(@Valid @RequestBody ContractSearchReq req) {
+		return billService.billSearch(req);
 	}
 	
 	/*

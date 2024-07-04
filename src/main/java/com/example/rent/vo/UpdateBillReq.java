@@ -15,20 +15,20 @@ public class UpdateBillReq {
 //	@NotBlank(message = "Address is required!!")
 	private String address;// 地址
 
-	private int rentP;// 租金
+	private Integer rentP;// 租金
 
-	private int eletricP;// 一度電費用
+	private Integer eletricP;// 一度電費用
 
 	@NotNull(message = "eletric_V is required")
 	private Integer eletricV;// 當期用電量(當期減上期)
 
-	private int eletricOneP;// 電費費用為(間)
+	private Integer eletricOneP;// 電費費用為(間)
 
-	private int waterOneP;// 水費為
+	private Integer waterOneP;// 水費為
 
-	private int manageOneP;// 管理費為
+	private Integer manageOneP;// 管理費為
 
-	private int cutP;// 違約金
+	private Integer cutP;// 違約金
 
 	private int totalOneP;// 總電費
 
@@ -39,9 +39,9 @@ public class UpdateBillReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UpdateBillReq(@NotNull(message = "ai is required") Integer ai, String roomId, String address, int rentP,
-			int eletricP, @NotNull(message = "eletric_V is required") Integer eletricV, int eletricOneP, int waterOneP,
-			int manageOneP, int cutP, int totalOneP, LocalDate paymentDate) {
+	public UpdateBillReq(@NotNull(message = "ai is required") Integer ai, String roomId, String address, Integer rentP,
+			Integer eletricP, @NotNull(message = "eletric_V is required") Integer eletricV, Integer eletricOneP,
+			Integer waterOneP, Integer manageOneP, Integer cutP, int totalOneP, LocalDate paymentDate) {
 		super();
 		this.ai = ai;
 		this.roomId = roomId;
@@ -81,19 +81,19 @@ public class UpdateBillReq {
 		this.address = address;
 	}
 
-	public int getRentP() {
+	public Integer getRentP() {
 		return rentP;
 	}
 
-	public void setRentP(int rentP) {
+	public void setRentP(Integer rentP) {
 		this.rentP = rentP;
 	}
 
-	public int getEletricP() {
+	public Integer getEletricP() {
 		return eletricP;
 	}
 
-	public void setEletricP(int eletricP) {
+	public void setEletricP(Integer eletricP) {
 		this.eletricP = eletricP;
 	}
 
@@ -105,35 +105,35 @@ public class UpdateBillReq {
 		this.eletricV = eletricV;
 	}
 
-	public int getEletricOneP() {
+	public Integer getEletricOneP() {
 		return eletricOneP;
 	}
 
-	public void setEletricOneP(int eletricOneP) {
+	public void setEletricOneP(Integer eletricOneP) {
 		this.eletricOneP = eletricOneP;
 	}
 
-	public int getWaterOneP() {
+	public Integer getWaterOneP() {
 		return waterOneP;
 	}
 
-	public void setWaterOneP(int waterOneP) {
+	public void setWaterOneP(Integer waterOneP) {
 		this.waterOneP = waterOneP;
 	}
 
-	public int getManageOneP() {
+	public Integer getManageOneP() {
 		return manageOneP;
 	}
 
-	public void setManageOneP(int manageOneP) {
+	public void setManageOneP(Integer manageOneP) {
 		this.manageOneP = manageOneP;
 	}
 
-	public int getCutP() {
+	public Integer getCutP() {
 		return cutP;
 	}
 
-	public void setCutP(int cutP) {
+	public void setCutP(Integer cutP) {
 		this.cutP = cutP;
 	}
 
@@ -152,5 +152,7 @@ public class UpdateBillReq {
 	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+
+	
 
 }

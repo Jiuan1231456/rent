@@ -110,7 +110,7 @@ public enum ResMessage {
 	TENANT_ALREADY_RENTING2(400,"tenant already renting 2"),//此房客已有租界房子
 	TENANT_ALREADY_RENTING3(400,"tenant already renting 3"),//此房客已有租界房子
 	
-	
+	PARAMETER_CHECK_ERROR(400,"Parameter check error"),//參數檢查錯誤
 	END_DATE_BEFORE_START_DATE(400,"end date before start date"),//結束時間在開始時間之前
 	;
 	

@@ -30,20 +30,20 @@ public class BillReq {
 
 	private String ownerName;// 房東名子
 
-	private int rentP;// 租金
+	private Integer rentP;// 租金
 
-	private int eletricP;// 一度電費用
+	private Integer eletricP;// 一度電費用
 
 //	@NotNull(message = "eletric_V is required")
-	private int eletricV;// 當期用電量(當期減上期)
+	private Integer eletricV;// 當期用電量(當期減上期)
 
-	private int eletricOneP;// 電費費用為(間)
+	private Integer eletricOneP;// 電費費用為(間)
 
-	private int waterOneP;// 水費為
+	private Integer waterOneP;// 水費為
 
-	private int manageOneP;// 管理費為
+	private Integer manageOneP;// 管理費為
 
-	private int cutP;// 違約金
+	private Integer cutP;// 違約金
 
 	private int totalOneP;// 總電費
 
@@ -58,8 +58,8 @@ public class BillReq {
 			@NotBlank(message = "Address is required!!") String address, String floor,
 			@NotBlank(message = "Tenant identity is required!!") String tenantIdentity, String tenantName,
 			@NotNull(message = "startDate is required!!") LocalDate periodStart, LocalDate periodEnd, String ownerName,
-			int rentP, int eletricP, int eletricV, int eletricOneP, int waterOneP, int manageOneP, int cutP,
-			int totalOneP, LocalDate paymentDate) {
+			Integer rentP, Integer eletricP, Integer eletricV, Integer eletricOneP, Integer waterOneP,
+			Integer manageOneP, Integer cutP, int totalOneP, LocalDate paymentDate) {
 		super();
 		this.ai = ai;
 		this.roomId = roomId;
@@ -153,59 +153,59 @@ public class BillReq {
 		this.ownerName = ownerName;
 	}
 
-	public int getRentP() {
+	public Integer getRentP() {
 		return rentP;
 	}
 
-	public void setRentP(int rentP) {
+	public void setRentP(Integer rentP) {
 		this.rentP = rentP;
 	}
 
-	public int getEletricP() {
+	public Integer getEletricP() {
 		return eletricP;
 	}
 
-	public void setEletricP(int eletricP) {
+	public void setEletricP(Integer eletricP) {
 		this.eletricP = eletricP;
 	}
 
-	public int getEletricV() {
+	public Integer getEletricV() {
 		return eletricV;
 	}
 
-	public void setEletricV(int eletricV) {
+	public void setEletricV(Integer eletricV) {
 		this.eletricV = eletricV;
 	}
 
-	public int getEletricOneP() {
+	public Integer getEletricOneP() {
 		return eletricOneP;
 	}
 
-	public void setEletricOneP(int eletricOneP) {
+	public void setEletricOneP(Integer eletricOneP) {
 		this.eletricOneP = eletricOneP;
 	}
 
-	public int getWaterOneP() {
+	public Integer getWaterOneP() {
 		return waterOneP;
 	}
 
-	public void setWaterOneP(int waterOneP) {
+	public void setWaterOneP(Integer waterOneP) {
 		this.waterOneP = waterOneP;
 	}
 
-	public int getManageOneP() {
+	public Integer getManageOneP() {
 		return manageOneP;
 	}
 
-	public void setManageOneP(int manageOneP) {
+	public void setManageOneP(Integer manageOneP) {
 		this.manageOneP = manageOneP;
 	}
 
-	public int getCutP() {
+	public Integer getCutP() {
 		return cutP;
 	}
 
-	public void setCutP(int cutP) {
+	public void setCutP(Integer cutP) {
 		this.cutP = cutP;
 	}
 

@@ -18,6 +18,8 @@ import com.example.rent.repository.RegisterDao;
 import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.ContractService;
 import com.example.rent.vo.BasicRes;
+import com.example.rent.vo.ContractSearchReq;
+import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.UpdateContractReq;
 
@@ -211,6 +213,17 @@ public class ContractServiceImpl implements ContractService {
 
 	    return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
 	}
+
+
+
+//	@Override
+//	public ContractSearchRes billSearch(ContractSearchReq req) {
+//		Optional<Contract> contract=contractDao.findById(req.getAi());
+//		if(contract.isEmpty()) {
+//			return new ContractSearchRes
+//		}
+//		return null;
+//	}
 
 
 }
