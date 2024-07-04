@@ -48,14 +48,14 @@ public class BillServiceImlp implements BillService {
 	private BillDao billDao;
 
 //	@Scheduled(cron= "* * * * * *")
-	public void bill2() {
-		System.out.println("**************");
-	}	
+//	public void bill2() {
+//		System.out.println("**************");
+//	}	
 	
 	@Override
 //	@Scheduled(cron= "* * * * * *")
 	public BillRes bill(BillReq req) {
-		System.out.println("**************");
+//		System.out.println("**************");
 		Optional<Contract> op = contractDao.findById(req.getAi());
 		if (op.isEmpty()) {
 			return new BillRes(ResMessage.AI_IS_NOT_FOUND.getCode(), ResMessage.AI_IS_NOT_FOUND.getMessage());
