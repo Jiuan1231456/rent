@@ -23,6 +23,8 @@ public interface BillDao extends JpaRepository<Bill,Integer> {
 	
 	public boolean existsByTenantIdentity(String tenantIdentity); //房客身分證
 	
+	public List<Bill> findByTenantIdentityEquals(String tenantIdentity);
+	
 	public List<Bill> findByAddressEqualsAndTenantIdentityEqualsAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantIdentity,LocalDate periodStart,LocalDate periodEnd);
 
 	public List<Bill> findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantName,String roomId,LocalDate periodStart,LocalDate periodEnd);

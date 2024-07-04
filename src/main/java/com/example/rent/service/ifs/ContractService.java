@@ -4,6 +4,8 @@ import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.ContractSearchReq;
 import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.CreateContractReq;
+import com.example.rent.vo.TenantListReq;
+import com.example.rent.vo.TenantListRes;
 import com.example.rent.vo.UpdateContractReq;
 
 public interface ContractService {
@@ -14,4 +16,5 @@ public interface ContractService {
 
 	public ContractSearchRes contratSearch(ContractSearchReq req);
 
+	public TenantListRes tenantList(TenantListReq req);
 }

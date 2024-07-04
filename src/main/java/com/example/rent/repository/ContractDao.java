@@ -28,13 +28,15 @@ public interface ContractDao extends JpaRepository<Contract,Integer>{
     );
 	
 	
-public boolean existsByTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+	public boolean existsByTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
             
             String tenantPhone,
             LocalDate endDate,
             LocalDate startDate
     );
 
+	public List<Contract> findByTenantIdentityEqualsAndTenantPhoneEquals(String tenantIdentity,String tenantPhone);
+	
 	public List<Contract> findByAddressEqualsAndTenantIdentityEqualsAndEndDateLessThanEqual(String address,String tenantIdentity,LocalDate endDate);
 	
 	public List<Contract> findByTenantIdentity(String tenantIdentity);

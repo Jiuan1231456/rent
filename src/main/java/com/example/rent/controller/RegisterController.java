@@ -26,6 +26,8 @@ import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
 import com.example.rent.vo.RoomSearchReq;
 import com.example.rent.vo.RoomSearchRes;
+import com.example.rent.vo.TenantListReq;
+import com.example.rent.vo.TenantListRes;
 import com.example.rent.vo.UpdateBillReq;
 import com.example.rent.vo.UpdateContractReq;
 import com.example.rent.vo.UpdateCutDateReq;
@@ -139,6 +141,12 @@ public class RegisterController {
 		return billService.billSearch(req);
 	}
 
+	
+	//房客的全部資訊
+	@PostMapping(value = "bill/tenantList")
+	public TenantListRes tenantList(@Valid @RequestBody TenantListReq req) {
+		return contractService.tenantList(req);
+	}
 	
 	/*
 	@PostMapping(value = "room/creatRoom")
