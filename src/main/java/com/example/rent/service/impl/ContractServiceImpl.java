@@ -216,6 +216,31 @@ public class ContractServiceImpl implements ContractService {
 
 
 
+	@Override
+	public ContractSearchRes contratSearch(ContractSearchReq req) {
+		String address=req.getAddress();
+		String name=req.getTenantName();
+		LocalDate  start=req.getStartDate();
+		LocalDate  end=req.getEndDate();
+		if(!StringUtils.hasText(address)) {
+			address="";
+		}
+		if(!StringUtils.hasText(name)) {
+			name="";
+		}
+		if(start==null ) {
+			start=LocalDate.of(1970, 1, 1);
+		}
+		if(end==null) {
+			end=LocalDate.of(2999, 12, 31);
+		}
+		return new ContractSearchRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(),
+				contractDao.findByAddressContainingAndTenantNameContainingAndStartDateGreaterThanEqualAndEndDateLessThanEqual(
+						address,name,start,end));
+	}
+
+
+
 //	@Override
 //	public ContractSearchRes billSearch(ContractSearchReq req) {
 //		Optional<Contract> contract=contractDao.findById(req.getAi());

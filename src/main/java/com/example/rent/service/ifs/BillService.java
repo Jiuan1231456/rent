@@ -2,6 +2,8 @@ package com.example.rent.service.ifs;
 
 import com.example.rent.vo.BillReq;
 import com.example.rent.vo.BillRes;
+import com.example.rent.vo.BillSearchReq;
+import com.example.rent.vo.BillSearchRes;
 import com.example.rent.vo.ContractSearchReq;
 import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.UpdateBillReq;
@@ -15,6 +17,6 @@ public interface BillService {
 	
 	public BillRes updateCutDate(UpdateCutDateReq req);
 
-	public ContractSearchRes billSearch(ContractSearchReq req);
+	public BillSearchRes billSearch(BillSearchReq req);
 
 }

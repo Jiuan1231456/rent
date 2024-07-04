@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.example.rent.constants.ResMessage;
 import com.example.rent.entity.Bill;
@@ -22,6 +23,8 @@ import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.BillService;
 import com.example.rent.vo.BillReq;
 import com.example.rent.vo.BillRes;
+import com.example.rent.vo.BillSearchReq;
+import com.example.rent.vo.BillSearchRes;
 import com.example.rent.vo.ContractSearchReq;
 import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.UpdateBillReq;
@@ -319,11 +322,31 @@ public class BillServiceImlp implements BillService {
 	}
 
 	@Override
-	public ContractSearchRes billSearch(ContractSearchReq req) {
-		Optional<Contract> contract=contractDao.findById(req.getAi());
-		if(contract.isEmpty()) {
-			return new ContractSearchRes(ResMessage.AI_IS_NOT_FOUND.getCode(), ResMessage.AI_IS_NOT_FOUND.getMessage());
+	public BillSearchRes billSearch(BillSearchReq req) {
+		String address=req.getAddress();
+		String name=req.getTenantName();
+		String room=req.getRoomId();
+		LocalDate  start=req.getPeriodStart();
+		LocalDate  end=req.getPeriodEnd();
+		if(!StringUtils.hasText(address)) {
+			address="";
 		}
-		return new ContractSearchRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
+		if(!StringUtils.hasText(name)) {
+			name="";
+		}
+		if(!StringUtils.hasText(room)) {
+			room="";
+		}
+		if(start==null ) {
+			start=LocalDate.of(1970, 1, 1);
+		}
+		if(end==null) {
+			end=LocalDate.of(2999, 12, 31);
+		}
+		return new BillSearchRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage(),billDao.findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(address, name, room, start, end)
+				);
 	}
+
+	
 }

@@ -67,5 +67,5 @@ public boolean existsByTenantPhoneAndStartDateLessThanEqualAndEndDateGreaterThan
 	
 	public List<Contract> findByAddressEqualsAndTenantIdentityEqualsAndStartDateGreaterThanEqualAndEndDateLessThanEqual(String address,String tenantIdentity,LocalDate startDate,LocalDate endDate);
 
-	
+	public List<Contract> findByAddressContainingAndTenantNameContainingAndStartDateGreaterThanEqualAndEndDateLessThanEqual(String address,String tenantName,LocalDate startDate,LocalDate endDate);
 }

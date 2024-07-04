@@ -15,6 +15,8 @@ import com.example.rent.service.ifs.RoomService;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.BillReq;
 import com.example.rent.vo.BillRes;
+import com.example.rent.vo.BillSearchReq;
+import com.example.rent.vo.BillSearchRes;
 import com.example.rent.vo.ContractSearchReq;
 import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.CreateContractReq;
@@ -108,7 +110,11 @@ public class RegisterController {
 		return contractService.updateContract(req);
 	}
 	
-	
+	//契約書搜索
+	@PostMapping(value = "contract/contratSearch")
+	public ContractSearchRes contratSearch(@Valid @RequestBody ContractSearchReq req) {
+		return contractService.contratSearch(req);
+	}
 	
 	//帳單
 	@PostMapping(value = "bill/bill")
@@ -127,15 +133,12 @@ public class RegisterController {
 		return billService.updateCutDate(req);
 	}
 	
-//	@PostMapping(value = "bill/billS")  // 设置具体的路径
-//    public BillRes generateBill(@Valid @RequestBody BillReq req) {
-//        return bill2Service.bill(req);
-//    }
-//	
+	//帳單搜索
 	@PostMapping(value = "bill/billSearch")
-	public ContractSearchRes billSearch(@Valid @RequestBody ContractSearchReq req) {
+	public BillSearchRes billSearch(@Valid @RequestBody BillSearchReq req) {
 		return billService.billSearch(req);
 	}
+
 	
 	/*
 	@PostMapping(value = "room/creatRoom")
