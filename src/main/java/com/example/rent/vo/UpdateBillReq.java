@@ -153,6 +153,4 @@ public class UpdateBillReq {
 		this.paymentDate = paymentDate;
 	}
 
-	
-
 }

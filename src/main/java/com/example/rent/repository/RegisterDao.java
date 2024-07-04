@@ -1,5 +1,7 @@
 package com.example.rent.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +21,8 @@ public interface RegisterDao extends JpaRepository<Register, String>{
 	public boolean existsByOwnerName(String ownerName);
 	
 	public boolean existsByOwnerEmail(String ownerEmail);
+	
+	public Register findByOwnerAccount(String ownerAccount);
+	
+	public List<Register> findByOwnerName(String ownerName);
 }

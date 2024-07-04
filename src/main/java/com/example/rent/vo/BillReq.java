@@ -7,18 +7,15 @@ import javax.validation.constraints.NotNull;
 
 public class BillReq {
 
-	@NotNull(message = "ai is required")
-	private Integer ai;
-
 //	@NotBlank(message = "R_id is required!!")
 	private String roomId;// 房號
 
-	@NotBlank(message = "Address is required!!")
+//	@NotBlank(message = "Address is required!!")
 	private String address;// 地址
 
 	private String floor;// 樓層
 
-	@NotBlank(message = "Tenant identity is required!!")
+//	@NotBlank(message = "Tenant identity is required!!")
 	private String tenantIdentity;// 租客身分證
 
 	private String tenantName;// 租客名子
@@ -35,7 +32,7 @@ public class BillReq {
 	private Integer eletricP;// 一度電費用
 
 //	@NotNull(message = "eletric_V is required")
-	private Integer eletricV;// 當期用電量(當期減上期)
+	private int eletricV;// 當期用電量(當期減上期)
 
 	private Integer eletricOneP;// 電費費用為(間)
 
@@ -54,14 +51,12 @@ public class BillReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillReq(@NotNull(message = "ai is required") Integer ai, String roomId,
-			@NotBlank(message = "Address is required!!") String address, String floor,
+	public BillReq(String roomId, @NotBlank(message = "Address is required!!") String address, String floor,
 			@NotBlank(message = "Tenant identity is required!!") String tenantIdentity, String tenantName,
 			@NotNull(message = "startDate is required!!") LocalDate periodStart, LocalDate periodEnd, String ownerName,
 			Integer rentP, Integer eletricP, Integer eletricV, Integer eletricOneP, Integer waterOneP,
 			Integer manageOneP, Integer cutP, int totalOneP, LocalDate paymentDate) {
 		super();
-		this.ai = ai;
 		this.roomId = roomId;
 		this.address = address;
 		this.floor = floor;
@@ -79,14 +74,6 @@ public class BillReq {
 		this.cutP = cutP;
 		this.totalOneP = totalOneP;
 		this.paymentDate = paymentDate;
-	}
-
-	public Integer getAi() {
-		return ai;
-	}
-
-	public void setAi(Integer ai) {
-		this.ai = ai;
 	}
 
 	public String getRoomId() {
