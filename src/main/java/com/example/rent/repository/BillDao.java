@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.rent.entity.Bill;
+import com.example.rent.entity.Contract;
 
 @Repository
 public interface BillDao extends JpaRepository<Bill,Integer> {
@@ -24,6 +25,7 @@ public interface BillDao extends JpaRepository<Bill,Integer> {
 	
 	public List<Bill> findByAddressEqualsAndTenantIdentityEqualsAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantIdentity,LocalDate periodStart,LocalDate periodEnd);
 
+	public List<Bill> findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantName,String roomId,LocalDate periodStart,LocalDate periodEnd);
 //	@Modifying
 //	@Query("DELETE FROM Bill as b WHERE b.address = :address AND b.tenantIdentity = :tenantIdentity AND b.periodStart >= :periodStart AND b.periodEnd <= :periodEnd")
 //	public void deleteByAddressAndTenantIdentityAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(
