@@ -151,6 +151,7 @@ public class ContractServiceImpl implements ContractService {
 		contract.setCutP(roomAll.getCutP());// 違約金
 		// 房東名子(從房子在抓回管理者)
 		contract.setOwnerName(ownerName);
+		contract.setOwnerAccount(ownerAccount);
 		contract.setOwnerIdentity(registerAll.getOwnerIdentity());
 		// 抓取填寫的訊息
 		contract.setTenantName(req.getTenantName());// 承租人姓名

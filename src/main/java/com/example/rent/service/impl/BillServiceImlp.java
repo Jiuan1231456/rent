@@ -330,9 +330,9 @@ public class BillServiceImlp implements BillService {
 	@Override
 	public BillForContractRes BillsForContract(BillForContractReq req) {
 		
-		if (!registerDao.existsByOwnerName(req.getOwnerName())) {
-	        return new BillForContractRes(ResMessage.REGISTER_NAME_IS_NOT_FOUND.getCode(),
-	                ResMessage.REGISTER_NAME_IS_NOT_FOUND.getMessage());
+		if (!registerDao.existsByOwnerAccount(req.getOwnerAccount())) {
+	        return new BillForContractRes(ResMessage.ACCOUNT_IS_NOT_FOUND.getCode(),
+	                ResMessage.ACCOUNT_IS_NOT_FOUND.getMessage());
 	    }
 		
 		
@@ -344,64 +344,67 @@ public class BillServiceImlp implements BillService {
 			LocalDate endDate = (contract.getCutDate() != null) ? contract.getCutDate() : contract.getEndDate();
 	        
 			
-			while (!startDate.isAfter(endDate)&& contract.getOwnerName().equals(req.getOwnerName())) {
+			while (!startDate.isAfter(endDate)&& contract.getOwnerAccount().equals(req.getOwnerAccount())) {
 				// 計算每個帳單的周期結束日期
 				LocalDate periodEnd = startDate.plusDays(30);
 				if (periodEnd.isAfter(endDate)) {
 					periodEnd = endDate;
 				}
 				// 檢查是否符合期間要求
-//這行是只檢查我輸入日期之前的帳單 if (periodEnd.isBefore(req.getStartdate()) || periodEnd.isEqual(req.getStartdate()))
-				if (!periodEnd.isBefore(req.getStartdate()) && !startDate.isAfter(req.getStartdate())) {
-					Bill bill = new Bill();
-
-					// 設置房間資訊和租客訊息
-					bill.setRoomId(contract.getRoomId());
-					bill.setAddress(contract.getAddress());
-					bill.setFloor(contract.getFloor());
-					bill.setTenantName(contract.getTenantName());
-					bill.setTenantIdentity(contract.getTenantIdentity());
-					bill.setOwnerName(contract.getOwnerName());
-
-					// 設置帳單的開始日期和結束日期
-					bill.setPeriodStart(startDate);
-					bill.setPeriodEnd(periodEnd);
-
-					// 查找房間資訊
-					Room room = roomDao.findByAddress(contract.getAddress());
-					if (room != null) {
-						bill.setManageOneP(room.getManageP());
-						bill.setWaterOneP(room.getWaterP());
-						int eletricP = room.getEletricP(); // 一度電多少錢
-						bill.setEletricP(eletricP);
-						bill.setEletricV(0);
-						bill.setEletricOneP(eletricP * 0); // 一度電 * 用電量
-					}
-				
-					// 設置違約金額
-					if (contract.getCutDate() != null) {
-						bill.setCutP(contract.getCutP());
-					}
-
-					// 計算總金額
-					bill.setTotalOneP(bill.getManageOneP() + bill.getWaterOneP() + bill.getEletricOneP()
-							+ bill.getCutP() + bill.getRentP());
-
-					// 設置支付日期為帳單結束日期加10天
-					bill.setPaymentDate(periodEnd.plusDays(10));
-
-//	                if (!periodEnd.isAfter(endDate)) {
-					// 檢查資料庫中是否已存在相同帳單
-					if (!billDao.existsByAddressAndPeriodStartAndPeriodEnd(bill.getRoomId(), bill.getPeriodStart(),
-							endDate)) {
-
-						// 如果不存在則儲存帳單到資料庫
-						billDao.save(bill);
-						// 將生成的帳單添加到列表中
-						bills.add(bill);
+				//這行是只檢查我輸入日期之前的帳單 
+				if (periodEnd.isBefore(req.getStartdate()) || periodEnd.isEqual(req.getStartdate())) {
+					if (!billDao.existsByAddressAndPeriodStartAndPeriodEnd(contract.getAddress(), startDate, periodEnd)) {
+				//下面這行是，在我輸入日期之前或正在進行中的帳單		
+//				if (!periodEnd.isBefore(req.getStartdate()) && !startDate.isAfter(req.getStartdate())) {
+						Bill bill = new Bill();
+	
+						// 設置房間資訊和租客訊息
+						bill.setRoomId(contract.getRoomId());
+						bill.setAddress(contract.getAddress());
+						bill.setFloor(contract.getFloor());
+						bill.setTenantName(contract.getTenantName());
+						bill.setTenantIdentity(contract.getTenantIdentity());
+						bill.setOwnerName(contract.getOwnerName());
+	
+						// 設置帳單的開始日期和結束日期
+						bill.setPeriodStart(startDate);
+						bill.setPeriodEnd(periodEnd);
+	
+						// 查找房間資訊
+						Room room = roomDao.findByAddress(contract.getAddress());
+						if (room != null) {
+							bill.setManageOneP(room.getManageP());
+							bill.setWaterOneP(room.getWaterP());
+							int eletricP = room.getEletricP(); // 一度電多少錢
+							bill.setEletricP(eletricP);
+							bill.setEletricV(0);
+							bill.setEletricOneP(eletricP * 0); // 一度電 * 用電量
+						}
+					
+						// 設置違約金額
+						if (contract.getCutDate() != null) {
+							bill.setCutP(contract.getCutP());
+						}
+	
+						// 計算總金額
+						bill.setTotalOneP(bill.getManageOneP() + bill.getWaterOneP() + bill.getEletricOneP()
+								+ bill.getCutP() + bill.getRentP());
+	
+						// 設置支付日期為帳單結束日期加10天
+						bill.setPaymentDate(periodEnd.plusDays(10));
+	
+	//	                if (!periodEnd.isAfter(endDate)) {
+						// 檢查資料庫中是否已存在相同帳單
+						if (!billDao.existsByAddressAndPeriodStartAndPeriodEnd(bill.getRoomId(), bill.getPeriodStart(),
+								endDate)) {
+	
+							// 如果不存在則儲存帳單到資料庫
+							billDao.save(bill);
+							// 將生成的帳單添加到列表中
+							bills.add(bill);
+						}
 					}
 				}
-//	            }
 
 				// 更新開始日期為下一個周期的開始
 				startDate = periodEnd.plusDays(1);
