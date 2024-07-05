@@ -50,10 +50,10 @@ public class RoomServiceImpl implements RoomService{
 //		List<Room> ex = roomDao.findByAccountEquals(req.getAccount());
 //		Room aa = ex.get(0);
 		//當我資料庫中的房號已存在，則返回錯誤    當帳號相同、房號也相同時
-		if(roomDao.existsByAccountAndRoomId(req.getAccount(), req.getrId())) {
+		/*if(roomDao.existsByAccountAndRoomId(req.getAccount(), req.getrId())) {
 			return new BasicRes(ResMessage.RID_DUPLICATED_FILLIN.getCode(),ResMessage.RID_DUPLICATED_FILLIN.getMessage());	
 		}
-		
+		*/
 		
 		Room room = new Room();
 		
@@ -168,6 +168,23 @@ public class RoomServiceImpl implements RoomService{
 			}
 		}
 		return new BasicRes(ResMessage.SUCCESS.getCode(),ResMessage.SUCCESS.getMessage());
+	}
+
+
+
+	@Override
+	public BasicRes insertPhoto(String address, byte[] photo) {
+		Optional<Room> room=roomDao.findById(address);
+		if(room.isEmpty()) {
+			return new BasicRes(ResMessage.ADDRESS_NOT_FOUND.getCode(),ResMessage.ADDRESS_NOT_FOUND.getMessage());
+		}
+		 Room roomAll = room.get();
+		 roomAll.setPhoto(photo);
+		 
+		 roomDao.save(roomAll);
+
+		    return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
+		
 	}
 	
 

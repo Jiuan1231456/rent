@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.rent.constants.ResMessage;
 import com.example.rent.service.ifs.BillService;
 import com.example.rent.service.ifs.ContractService;
 import com.example.rent.service.ifs.RegisterService;
@@ -161,6 +164,18 @@ public class RegisterController {
 		return contractService.tenantList(req);
 	}
 
+	//傳入圖片
+	@PostMapping(value = "/room/insertPhoto")
+    public BasicRes insertPhoto(@RequestParam("address") String address, 
+                                @RequestParam("photo") MultipartFile photo) {
+        try {
+            byte[] photoBytes = photo.getBytes();
+            return roomService.insertPhoto(address, photoBytes);
+        } catch (Exception e) {
+            return new BasicRes(ResMessage.ERROR.getCode(),ResMessage.ERROR.getMessage() );
+        }
+    }
+	
 	/*
 	 * @PostMapping(value = "room/creatRoom") public BasicRes
 	 * creatRoom(@RequestParam("photo") MultipartFile

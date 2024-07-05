@@ -17,5 +17,7 @@ public interface RoomService {
 	public RoomSearchRes roomSearch(RoomSearchReq req);
 	
 	public BasicRes deleteRoom(DeleteRoomReq req);
+	
+	public BasicRes insertPhoto(String address,byte[] photo);
 
 }

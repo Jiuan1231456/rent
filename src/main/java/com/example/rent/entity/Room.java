@@ -3,6 +3,7 @@ package com.example.rent.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -36,13 +37,13 @@ public class Room {
 	private int cutP;
 
 	@Column(name = "eletric_p")
-	private int eletricP;//一度費用
+	private int eletricP;// 一度費用
 
 	@Column(name = "water_p")
-	private int waterP;//水費
+	private int waterP;// 水費
 
 	@Column(name = "manage_p")
-	private int manageP;//管理費
+	private int manageP;// 管理費
 
 	@Column(name = "acreage")
 	private int acreage;
@@ -52,9 +53,13 @@ public class Room {
 
 	@Column(name = "equip")
 	private String equip;
-	
+
 	@Column(name = "r_other")
 	private String rOther;
+
+	@Lob
+	@Column(name = "photo")
+	private byte[] photo;
 
 	public Room() {
 		super();
@@ -78,6 +83,27 @@ public class Room {
 		this.parking = parking;
 		this.equip = equip;
 		this.rOther = rOther;
+	}
+
+	public Room(String address, String account, String floor, String roomId, int rentP, int deposit, int cutP,
+			int eletricP, int waterP, int manageP, int acreage, boolean parking, String equip, String rOther,
+			byte[] photo) {
+		super();
+		this.address = address;
+		this.account = account;
+		this.floor = floor;
+		this.roomId = roomId;
+		this.rentP = rentP;
+		this.deposit = deposit;
+		this.cutP = cutP;
+		this.eletricP = eletricP;
+		this.waterP = waterP;
+		this.manageP = manageP;
+		this.acreage = acreage;
+		this.parking = parking;
+		this.equip = equip;
+		this.rOther = rOther;
+		this.photo = photo;
 	}
 
 	public String getAddress() {
@@ -190,6 +216,14 @@ public class Room {
 
 	public void setrOther(String rOther) {
 		this.rOther = rOther;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 }
