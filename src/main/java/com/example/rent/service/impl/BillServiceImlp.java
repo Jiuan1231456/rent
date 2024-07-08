@@ -297,8 +297,10 @@ public class BillServiceImlp implements BillService {
 		String address = req.getAddress();
 		String name = req.getTenantName();
 		String room = req.getRoomId();
-		LocalDate start = req.getPeriodStart();
-		LocalDate end = req.getPeriodEnd();
+		LocalDate periodStart = req.getPeriodStart();
+		LocalDate periodEnd = req.getPeriodEnd();
+		LocalDate start=req.getStartDate();
+		LocalDate end=req.getEndDate();
 		if (!StringUtils.hasText(address)) {
 			address = "";
 		}
@@ -314,10 +316,16 @@ public class BillServiceImlp implements BillService {
 		if (end == null) {
 			end = LocalDate.of(2999, 12, 31);
 		}
+		if (periodStart == null) {
+			periodStart = LocalDate.of(1970, 1, 1);
+		}
+		if (periodEnd == null) {
+			periodEnd = LocalDate.of(2999, 12, 31);
+		}
 		return new BillSearchRes(ResMessage.SUCCESS.getCode(), //
 				ResMessage.SUCCESS.getMessage(),
-				billDao.findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(
-						address, name, room, start, end));
+				billDao.findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndStartDateGreaterThanEqualAndEndDateLessThanEqualAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(
+						address, name, room, start, end,periodStart,periodEnd));
 	}
 
 	@Override
@@ -366,6 +374,9 @@ public class BillServiceImlp implements BillService {
 						bill.setTenantIdentity(contract.getTenantIdentity());
 						bill.setOwnerName(contract.getOwnerName());
 	
+						bill.setStartDate(startDate);
+						bill.setEndDate(endDate);
+						
 						// 設置帳單的開始日期和結束日期
 						bill.setPeriodStart(startDate);
 						bill.setPeriodEnd(periodEnd);

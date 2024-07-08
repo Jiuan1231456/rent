@@ -14,18 +14,25 @@ public class BillSearchReq {
 
 	private LocalDate periodEnd;
 
+	private LocalDate StartDate;
+
+	private LocalDate endDate;
+
 	public BillSearchReq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillSearchReq(String address, String roomId, String tenantName, LocalDate periodStart, LocalDate periodEnd) {
+	public BillSearchReq(String address, String roomId, String tenantName, LocalDate periodStart, LocalDate periodEnd,
+			LocalDate startDate, LocalDate endDate) {
 		super();
 		this.address = address;
 		this.roomId = roomId;
 		this.tenantName = tenantName;
 		this.periodStart = periodStart;
 		this.periodEnd = periodEnd;
+		StartDate = startDate;
+		this.endDate = endDate;
 	}
 
 	public String getAddress() {
@@ -66,6 +73,22 @@ public class BillSearchReq {
 
 	public void setPeriodEnd(LocalDate periodEnd) {
 		this.periodEnd = periodEnd;
+	}
+
+	public LocalDate getStartDate() {
+		return StartDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		StartDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 }

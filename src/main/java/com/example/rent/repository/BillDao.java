@@ -27,7 +27,7 @@ public interface BillDao extends JpaRepository<Bill,Integer> {
 	
 	public List<Bill> findByAddressEqualsAndTenantIdentityEqualsAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantIdentity,LocalDate periodStart,LocalDate periodEnd);
 
-	public List<Bill> findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantName,String roomId,LocalDate periodStart,LocalDate periodEnd);
+	public List<Bill> findByAddressContainingAndTenantNameContainingAndRoomIdContainingAndStartDateGreaterThanEqualAndEndDateLessThanEqualAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(String address,String tenantName,String roomId,LocalDate startDate,LocalDate endDate,LocalDate periodStart,LocalDate periodEnd);
 //	@Modifying
 //	@Query("DELETE FROM Bill as b WHERE b.address = :address AND b.tenantIdentity = :tenantIdentity AND b.periodStart >= :periodStart AND b.periodEnd <= :periodEnd")
 //	public void deleteByAddressAndTenantIdentityAndPeriodStartGreaterThanEqualAndPeriodEndLessThanEqual(

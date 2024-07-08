@@ -69,6 +69,12 @@ public class Bill {
 	@Column(name = "Payment_date")
 	private LocalDate paymentDate;// 繳費日期
 
+	@Column(name = "start_date")
+	private LocalDate startDate;// 繳費日期
+
+	@Column(name = "end_date")
+	private LocalDate endDate;// 繳費日期
+
 	public Bill() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -76,7 +82,8 @@ public class Bill {
 
 	public Bill(int ai, String roomId, String address, String floor, String tenantIdentity, String tenantName,
 			LocalDate periodStart, LocalDate periodEnd, String ownerName, int rentP, int eletricP, int eletricV,
-			int eletricOneP, int waterOneP, int manageOneP, int cutP, int totalOneP, LocalDate paymentDate) {
+			int eletricOneP, int waterOneP, int manageOneP, int cutP, int totalOneP, LocalDate paymentDate,
+			LocalDate startDate, LocalDate endDate) {
 		super();
 		this.ai = ai;
 		this.roomId = roomId;
@@ -96,6 +103,8 @@ public class Bill {
 		this.cutP = cutP;
 		this.totalOneP = totalOneP;
 		this.paymentDate = paymentDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	public int getAi() {
@@ -240,6 +249,22 @@ public class Bill {
 
 	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 }
