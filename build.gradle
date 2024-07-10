@@ -25,7 +25,6 @@ dependencies {
 	implementation 'commons-io:commons-io:2.11.0' // 請根據項目需要調整版本號
 	
 	
-	
 	//mysql connector
 	implementation 'mysql:mysql-connector-java:8.0.31'
 	//Hot Deployment :專案啟動中，若有修改資訊，它會自動幫我們重新啟動更新

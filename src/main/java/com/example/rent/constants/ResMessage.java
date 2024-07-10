@@ -114,7 +114,7 @@ public enum ResMessage {
 	END_DATE_BEFORE_START_DATE(400,"end date before start date"),//結束時間在開始時間之前
 	
 	TENANT_MAYBR_NOT_EXIST(400,"tenant maybe not extist"),//房客可能不存在
-	TENANT_INFORMATION_MAYBR_ERROR(400,"tenant information maybe error"),//房客資訊可能有誤
+	TENANT_INFORMATION_MAYBR_ERROR(400,"tenant information maybe error"), //房客資訊可能有誤
 	;
 	
 	

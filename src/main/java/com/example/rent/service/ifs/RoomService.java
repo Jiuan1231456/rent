@@ -1,6 +1,7 @@
 package com.example.rent.service.ifs;
 
 import com.example.rent.vo.BasicRes;
+import com.example.rent.vo.CreateRoomAndphotoReq;
 import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.DeleteRoomReq;
 import com.example.rent.vo.RoomSearchReq;
@@ -19,5 +20,9 @@ public interface RoomService {
 	public BasicRes deleteRoom(DeleteRoomReq req);
 	
 	public BasicRes insertPhoto(String address,byte[] photo);
+	
+	public BasicRes creatRoomAndInsertPhoto(CreateRoomReq req,byte[] photo);
+
+	public BasicRes creatRoomAndphoto(CreateRoomAndphotoReq req);
 
 }

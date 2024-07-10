@@ -1,12 +1,16 @@
 package com.example.rent.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +29,7 @@ import com.example.rent.vo.BillSearchRes;
 import com.example.rent.vo.ContractSearchReq;
 import com.example.rent.vo.ContractSearchRes;
 import com.example.rent.vo.CreateContractReq;
+import com.example.rent.vo.CreateRoomAndphotoReq;
 import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.DeleteRoomReq;
 import com.example.rent.vo.LoginReq;
@@ -176,35 +181,64 @@ public class RegisterController {
         }
     }
 	
-	/*
-	 * @PostMapping(value = "room/creatRoom") public BasicRes
-	 * creatRoom(@RequestParam("photo") MultipartFile
-	 * photo, @RequestParam("address") String address,
-	 * 
-	 * @RequestParam("account") String account, @RequestParam("floor") String floor,
-	 * 
-	 * @RequestParam("rId") String rId, @RequestParam("rentP") int
-	 * rentP, @RequestParam("deposit") int deposit,
-	 * 
-	 * @RequestParam("cutP") int cutP, @RequestParam("eletricP") int
-	 * eletricP, @RequestParam("waterP") int waterP,
-	 * 
-	 * @RequestParam("manageP") int manageP, @RequestParam("acreage") int acreage,
-	 * 
-	 * @RequestParam("parking") boolean parking, @RequestParam("equip") String
-	 * equip) {
-	 * 
-	 * CreateRoomReq req = new CreateRoomReq(); req.setAddress(address);
-	 * req.setAccount(account); req.setFloor(floor); req.setrId(rId);
-	 * req.setRentP(rentP); req.setDeposit(deposit); req.setCutP(cutP);
-	 * req.setEletricP(eletricP); req.setWaterP(waterP); req.setManageP(manageP);
-	 * req.setAcreage(acreage); req.setParking(parking); req.setEquip(equip);
-	 * 
-	 * try { req.setPhoto(photo.getBytes()); } catch (IOException e) {
-	 * e.printStackTrace(); return new BasicRes(ResMessage.ERROR.getCode(),
-	 * "Failed to process photo"); }
-	 * 
-	 * return roomService.creatRoom(req); }
-	 */
+	//房間req再加上圖片
+    @PostMapping(value = "/room/creatRoomAndInsertPhoto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
+    public BasicRes creatRoomAndInsertPhoto(@Valid  @RequestPart("room") CreateRoomReq req,
+			@RequestPart("photo") MultipartFile photo) {
+        try {
+            byte[] photoBytes = photo.getBytes();
+            return roomService.creatRoomAndInsertPhoto(req, photoBytes);
+        } catch (Exception e) {
+            return new BasicRes(ResMessage.ERROR.getCode(),ResMessage.ERROR.getMessage() );
+        }
+    }
+	
+	
+	  @PostMapping(value = "room/creatRoom") 
+	  public BasicRes creatRoom(@RequestParam("photo") MultipartFile photo, 
+			  @RequestParam("address") String address,
+			  @RequestParam("account") String account, 
+			  @RequestParam("floor") String floor,
+			  @RequestParam("rId") String rId, 
+			  @RequestParam("rentP") int rentP, 
+			  @RequestParam("deposit") int deposit,
+			  @RequestParam("cutP") int cutP, 
+			  @RequestParam("eletricP") int eletricP, 
+			  @RequestParam("waterP") int waterP,
+			  @RequestParam("manageP") int manageP, 
+			  @RequestParam("acreage") int acreage,
+			  @RequestParam("parking") boolean parking, 
+			  @RequestParam("equip") String equip,
+			  @RequestParam("rOther") String rOther) {
+		  
+	  
+		  CreateRoomAndphotoReq req = new CreateRoomAndphotoReq(); 
+		  req.setAddress(address);
+		  req.setAccount(account); 
+		  req.setFloor(floor); 
+		  req.setrId(rId);
+		  req.setRentP(rentP); 
+		  req.setDeposit(deposit); 
+		  req.setCutP(cutP);
+		  req.setEletricP(eletricP); 
+		  req.setWaterP(waterP); 
+		  req.setManageP(manageP);
+		  req.setAcreage(acreage); 
+		  req.setParking(parking); 
+		  req.setEquip(equip);
+		  req.setrOther(rOther);
+		  
+		  try { 
+			  req.setPhoto(photo.getBytes()); 
+		 } catch (IOException e) {
+		  e.printStackTrace(); 
+		  return new BasicRes(ResMessage.ERROR.getCode(), "Failed to process photo"); 
+		  }
+		  
+		  return roomService.creatRoomAndphoto(req); 
+	  }
+	
+
 
 }
