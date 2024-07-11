@@ -17,6 +17,10 @@ public enum ResMessage {
 	PWD_IS_REQUIRED(400,"PWD is required!!"),//密碼必填
 	PWD_ALREADYUSED(400,"pwd already used"),//密碼已有人使用
 	
+	ACCOUNT_BANK_IS_REQUIRED(400,"account Bank is required!!"),//銀行帳號必填
+	ACCOUNT_BANK_ERROR(400,"account Bank error"),//銀行帳號錯誤
+	ACCOUNT_BANK_DUPLICATED_FILLIN(400,"account Bank duplocated fillin"),//帳號可能重複填寫
+	
 	NAME_PHONE_MEAIL_REQUIRED(400,"name and phone and email required"),//名子、電話、信箱都必填
 	NAME_IS_REQUIRED(400,"Name is required!!"),//名子必填
 	REGISTER_NAME_ERROR(400,"Register name error"),//房東的名子輸入錯誤

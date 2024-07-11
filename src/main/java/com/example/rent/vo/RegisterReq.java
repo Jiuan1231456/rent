@@ -33,6 +33,11 @@ public class RegisterReq {
 	@Pattern(regexp = ".*@.*", message = "Email error!!")
 	private String ownerEmail;
 
+	@NotBlank(message = "account Bank is required!!")
+	@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error")
+	@JsonProperty("account_bank")
+	private String accountBank;
+
 	public RegisterReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -43,7 +48,8 @@ public class RegisterReq {
 			@NotBlank(message = "Name is required!!") String ownerName,
 			@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity error") String ownerIdentity,
 			@NotBlank(message = "Phone is required!!") @Pattern(regexp = "[0-9]{10}", message = "Phone error!!") String ownerPhone,
-			@NotBlank(message = "Email is required!!") @Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail) {
+			@NotBlank(message = "Email is required!!") @Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail,
+			@NotBlank(message = "account Bank is required!!") @Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error") String accountBank) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerPwd = ownerPwd;
@@ -51,6 +57,7 @@ public class RegisterReq {
 		this.ownerIdentity = ownerIdentity;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
+		this.accountBank = accountBank;
 	}
 
 	public String getOwnerAccount() {
@@ -99,6 +106,14 @@ public class RegisterReq {
 
 	public void setOwnerEmail(String ownerEmail) {
 		this.ownerEmail = ownerEmail;
+	}
+
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
 	}
 
 }

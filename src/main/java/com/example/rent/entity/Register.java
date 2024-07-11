@@ -29,13 +29,16 @@ public class Register {
 	@Column(name = "owner_email")
 	private String ownerEmail;
 
+	@Column(name = "account_bank")
+	private String accountBank;
+
 	public Register() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Register(String ownerAccount, String ownerPwd, String ownerName, String ownerIdentity, String ownerPhone,
-			String ownerEmail) {
+			String ownerEmail, String accountBank) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerPwd = ownerPwd;
@@ -43,6 +46,7 @@ public class Register {
 		this.ownerIdentity = ownerIdentity;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
+		this.accountBank = accountBank;
 	}
 
 	public String getOwnerAccount() {
@@ -91,6 +95,14 @@ public class Register {
 
 	public void setOwnerEmail(String ownerEmail) {
 		this.ownerEmail = ownerEmail;
+	}
+
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
 	}
 
 }

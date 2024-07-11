@@ -74,6 +74,12 @@ public class RegisterServiceImpl implements RegisterService {
 		if(contractDao.existsByTenantPhone(req.getOwnerPhone())) {
         	return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
         }
+		
+		//檢查銀行帳號是否重複
+		if(registerDao.existsByAccountBank(req.getAccountBank())) {
+			return new RegisterRes(ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getCode(), //
+					ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getMessage());
+		}
 
 		Register register = new Register();
 		register.setOwnerAccount(req.getOwnerAccount());
@@ -82,6 +88,7 @@ public class RegisterServiceImpl implements RegisterService {
 		register.setOwnerPhone(req.getOwnerPhone());
 		register.setOwnerEmail(req.getOwnerEmail());
 		register.setOwnerIdentity(req.getOwnerIdentity());
+		register.setAccountBank(req.getAccountBank());
 
 		registerDao.save(register);
 
