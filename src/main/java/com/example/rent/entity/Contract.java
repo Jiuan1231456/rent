@@ -82,6 +82,9 @@ public class Contract {
 	@Column(name = "c_other")
 	private String cOther;
 
+	@Column(name = "r_condtion")
+	private String rCondtion;
+
 	@Column(name = "sign_date")
 	private LocalDateTime signDate = LocalDateTime.now();
 
@@ -94,7 +97,7 @@ public class Contract {
 			String tenantContactAddress, String tenantPhone, String tenantEmail, String ownerAccount, String ownerName,
 			String ownerIdentity, String ownerHomeAddress, String ownerContactAddress, String roomId, String address,
 			String floor, LocalDate startDate, LocalDate endDate, int rentP, LocalDate cutDate, String cutReason,
-			int cutP, String cOther, LocalDateTime signDate) {
+			int cutP, String cOther, String rCondtion, LocalDateTime signDate) {
 		super();
 		this.ai = ai;
 		this.tenantIdentity = tenantIdentity;
@@ -118,6 +121,7 @@ public class Contract {
 		this.cutReason = cutReason;
 		this.cutP = cutP;
 		this.cOther = cOther;
+		this.rCondtion = rCondtion;
 		this.signDate = signDate;
 	}
 
@@ -295,6 +299,14 @@ public class Contract {
 
 	public void setcOther(String cOther) {
 		this.cOther = cOther;
+	}
+
+	public String getrCondtion() {
+		return rCondtion;
+	}
+
+	public void setrCondtion(String rCondtion) {
+		this.rCondtion = rCondtion;
 	}
 
 	public LocalDateTime getSignDate() {

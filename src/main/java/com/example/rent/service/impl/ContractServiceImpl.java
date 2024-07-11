@@ -170,6 +170,9 @@ public class ContractServiceImpl implements ContractService {
 		if (req.getcOther() != null) {
 			contract.setcOther(req.getcOther());
 		}
+		if (req.getrCondtion() != null) {
+			contract.setrCondtion(req.getrCondtion());
+		}
 		
 		contract.setSignDate(LocalDateTime.now());
 
@@ -217,6 +220,9 @@ public class ContractServiceImpl implements ContractService {
 		}
 		if (req.getcOther() != null) {
 			update.setcOther(req.getcOther());
+		}
+		if (req.getrCondtion() != null) {
+			update.setrCondtion(req.getrCondtion());
 		}
 
 		// 更新現有合同物件的資訊

@@ -35,6 +35,8 @@ public class UpdateContractReq {
 
 	private String cOther;// 其他
 
+	private String rCondtion;
+
 	public UpdateContractReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -44,7 +46,7 @@ public class UpdateContractReq {
 			@NotBlank(message = "Address is required!!") String address, String tenantHomeAddress,
 			String tenantContactAddress, String ownerHomeAddress, String ownerContactAddress, Integer cutP,
 			@NotNull(message = "cutDate is required!!") LocalDate cutDate,
-			@NotBlank(message = "cutReason is required!!") String cutReason, String cOther) {
+			@NotBlank(message = "cutReason is required!!") String cutReason, String cOther, String rCondtion) {
 		super();
 		this.ai = ai;
 		this.address = address;
@@ -56,6 +58,7 @@ public class UpdateContractReq {
 		this.cutDate = cutDate;
 		this.cutReason = cutReason;
 		this.cOther = cOther;
+		this.rCondtion = rCondtion;
 	}
 
 	public Integer getAi() {
@@ -136,6 +139,14 @@ public class UpdateContractReq {
 
 	public void setcOther(String cOther) {
 		this.cOther = cOther;
+	}
+
+	public String getrCondtion() {
+		return rCondtion;
+	}
+
+	public void setrCondtion(String rCondtion) {
+		this.rCondtion = rCondtion;
 	}
 
 }

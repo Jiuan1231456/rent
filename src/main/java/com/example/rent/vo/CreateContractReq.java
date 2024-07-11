@@ -73,6 +73,8 @@ public class CreateContractReq {
 
 	private String cOther;// 其他
 
+	private String rCondtion;// 其他
+
 	public CreateContractReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -94,7 +96,7 @@ public class CreateContractReq {
 			@NotNull(message = "startDate is required!!") @FutureOrPresent(message = "Param start Date error!!") LocalDate startDate,
 			@NotNull(message = "endDate is required!!") @FutureOrPresent(message = "Param end Date error!!") LocalDate endDate,
 			@NotNull(message = "Rent_p is required!!") Integer rentP, Integer cutP, LocalDate cutDate, String cutReason,
-			String cOther) {
+			String cOther, String rCondtion) {
 		super();
 		this.tenantIdentity = tenantIdentity;
 		this.tenantName = tenantName;
@@ -116,6 +118,7 @@ public class CreateContractReq {
 		this.cutDate = cutDate;
 		this.cutReason = cutReason;
 		this.cOther = cOther;
+		this.rCondtion = rCondtion;
 	}
 
 	public String getTenantIdentity() {
@@ -276,6 +279,14 @@ public class CreateContractReq {
 
 	public void setcOther(String cOther) {
 		this.cOther = cOther;
+	}
+
+	public String getrCondtion() {
+		return rCondtion;
+	}
+
+	public void setrCondtion(String rCondtion) {
+		this.rCondtion = rCondtion;
 	}
 
 	@AssertTrue(message = "endDate must be greater than or equal to startDate")
