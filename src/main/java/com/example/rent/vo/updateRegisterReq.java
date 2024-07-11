@@ -22,6 +22,10 @@ public class updateRegisterReq {
 	@Pattern(regexp = ".*@.*", message = "Email error!!")
 	private String ownerEmail;
 
+	@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error")
+	@JsonProperty("account_bank")
+	private String accountBank;
+
 	public updateRegisterReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -29,12 +33,14 @@ public class updateRegisterReq {
 
 	public updateRegisterReq(@NotBlank(message = "Accoint is required!!") String ownerAccount, String ownerName,
 			@Pattern(regexp = "[0-9]{10}", message = "Phone error!!") String ownerPhone,
-			@Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail) {
+			@Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail,
+			@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error") String accountBank) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerName = ownerName;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
+		this.accountBank = accountBank;
 	}
 
 	public String getOwnerAccount() {
@@ -67,6 +73,14 @@ public class updateRegisterReq {
 
 	public void setOwnerEmail(String ownerEmail) {
 		this.ownerEmail = ownerEmail;
+	}
+
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
 	}
 
 }

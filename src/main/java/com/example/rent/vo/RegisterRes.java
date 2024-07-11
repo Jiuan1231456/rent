@@ -5,12 +5,14 @@ public class RegisterRes extends BasicRes {
 	private String ownerAccount;
 
 	private String ownerName;
-	
+
 	private String ownerIdentity;
 
 	private String ownerPhone;
 
 	private String ownerEmail;
+
+	private String accountBank;
 
 	public RegisterRes() {
 		super();
@@ -23,13 +25,14 @@ public class RegisterRes extends BasicRes {
 	}
 
 	public RegisterRes(int code, String message,String ownerAccount, String ownerName, String ownerIdentity, String ownerPhone,
-			String ownerEmail) {
+			String ownerEmail, String accountBank) {
 		super(code, message);
 		this.ownerAccount = ownerAccount;
 		this.ownerName = ownerName;
 		this.ownerIdentity = ownerIdentity;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
+		this.accountBank = accountBank;
 	}
 
 	public String getOwnerAccount() {
@@ -72,5 +75,12 @@ public class RegisterRes extends BasicRes {
 		this.ownerEmail = ownerEmail;
 	}
 
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
+	}
 
 }

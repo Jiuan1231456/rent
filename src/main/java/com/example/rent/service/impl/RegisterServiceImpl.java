@@ -93,7 +93,7 @@ public class RegisterServiceImpl implements RegisterService {
 		registerDao.save(register);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(), //
-				req.getOwnerAccount(), req.getOwnerName(),req.getOwnerIdentity(), req.getOwnerPhone(), req.getOwnerEmail());
+				req.getOwnerAccount(), req.getOwnerName(),req.getOwnerIdentity(), req.getOwnerPhone(), req.getOwnerEmail(),req.getAccountBank());
 //	}
 
 //		//如果有帳號
@@ -144,7 +144,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
 				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail());
+				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail(),register.getAccountBank());
 	}
 
 	// 變更密碼
@@ -162,7 +162,7 @@ public class RegisterServiceImpl implements RegisterService {
 			return new UpdatePwdRes(ResMessage.PWD_ERRO.getCode(), //
 					ResMessage.PWD_ERRO.getMessage());
 		}
-		//如果新密碼已經存在則抱錯
+		//如果新密碼已經存在則報錯
 		if(registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
 			return new UpdatePwdRes(ResMessage.PWD_ALREADYUSED.getCode(), //
 					ResMessage.PWD_ALREADYUSED.getMessage());
@@ -207,13 +207,17 @@ public class RegisterServiceImpl implements RegisterService {
 		if(req.getOwnerEmail()!=null) {
 	        register.setOwnerEmail(req.getOwnerEmail());
 		}
+		
+		if(req.getAccountBank()!=null) {
+			 register.setAccountBank(req.getAccountBank());
+		}
     
 		
 		registerDao.save(register);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
 				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail());
+				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail(),register.getAccountBank());
 	}
 
 }
