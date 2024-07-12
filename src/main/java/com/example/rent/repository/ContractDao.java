@@ -9,11 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import com.example.rent.entity.Bill;
 import com.example.rent.entity.Contract;
+import com.example.rent.entity.Room;
 
 @Repository
 public interface ContractDao extends JpaRepository<Contract,Integer>{
 	
 	public List<Contract> findByAi(int ai);
+	
+	public List<Contract> findByOwnerAccountEquals(String ownerAccount);
 	
 	public boolean existsByEndDate(LocalDate now);
 

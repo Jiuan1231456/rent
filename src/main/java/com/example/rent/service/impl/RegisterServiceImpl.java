@@ -1,5 +1,6 @@
 package com.example.rent.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.example.rent.constants.ResMessage;
+import com.example.rent.entity.Bill;
+import com.example.rent.entity.Contract;
 import com.example.rent.entity.Register;
+import com.example.rent.entity.Room;
+import com.example.rent.repository.BillDao;
 import com.example.rent.repository.ContractDao;
 import com.example.rent.repository.RegisterDao;
+import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.RegisterService;
+import com.example.rent.vo.AllInformationReq;
+import com.example.rent.vo.AllInformationRes;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
@@ -28,6 +36,14 @@ public class RegisterServiceImpl implements RegisterService {
 	// 這裡是契約書
 	@Autowired
 	private ContractDao contractDao;
+	
+	// 建立房間
+	@Autowired
+	private RoomDao roomDao;
+	
+	// 帳單
+	@Autowired
+	private BillDao billDao;
 
 	// 註冊帳號
 	@Override
@@ -218,6 +234,24 @@ public class RegisterServiceImpl implements RegisterService {
 		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
 				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
 				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail(),register.getAccountBank());
+	}
+
+	@Override
+	public AllInformationRes allInformation(AllInformationReq req) {
+		Optional<Register> register=registerDao.findById(req.getOwnerAccount());
+		if (register.isEmpty()) {
+			return new AllInformationRes(ResMessage.ACCOUNT_NOT_FOUND.getCode(), //
+					ResMessage.ACCOUNT_NOT_FOUND.getMessage());
+		}
+		List<Room> roomList=roomDao.findByAccountEquals(req.getOwnerAccount());
+		List<Contract> contractList=contractDao.findByOwnerAccountEquals(req.getOwnerAccount());
+		String address=null;
+		for(Contract item:contractList) {
+			address=item.getAddress();
+		}
+		List<Bill> billList=billDao.findByAddressEquals(address);
+		return new AllInformationRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage(),roomList,contractList,billList);
 	}
 
 }

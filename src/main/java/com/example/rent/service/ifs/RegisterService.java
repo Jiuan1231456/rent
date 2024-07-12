@@ -1,5 +1,7 @@
 package com.example.rent.service.ifs;
 
+import com.example.rent.vo.AllInformationReq;
+import com.example.rent.vo.AllInformationRes;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
@@ -20,5 +22,8 @@ public interface RegisterService {
 
 	//更新密碼
 	public UpdatePwdRes updatePwd(UpdatePwdReq req);
+	
+	//所有資訊
+	public AllInformationRes allInformation(AllInformationReq req);
 
 }

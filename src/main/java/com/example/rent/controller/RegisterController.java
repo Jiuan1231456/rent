@@ -19,6 +19,8 @@ import com.example.rent.service.ifs.BillService;
 import com.example.rent.service.ifs.ContractService;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.service.ifs.RoomService;
+import com.example.rent.vo.AllInformationReq;
+import com.example.rent.vo.AllInformationRes;
 import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.BillForContractReq;
 import com.example.rent.vo.BillForContractRes;
@@ -109,8 +111,8 @@ public class RegisterController {
 	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req) {
 		return roomService.roomSearch(req);
 	}
-	
-	//刪除房間
+
+	// 刪除房間
 	@PostMapping(value = "room/deleteRoom")
 	public BasicRes deleteRoom(@Valid @RequestBody DeleteRoomReq req) {
 		return roomService.deleteRoom(req);
@@ -169,76 +171,69 @@ public class RegisterController {
 		return contractService.tenantList(req);
 	}
 
-	//傳入圖片
+	// 傳入圖片
 	@PostMapping(value = "/room/insertPhoto")
-    public BasicRes insertPhoto(@RequestParam("address") String address, 
-                                @RequestParam("photo") MultipartFile photo) {
-        try {
-            byte[] photoBytes = photo.getBytes();
-            return roomService.insertPhoto(address, photoBytes);
-        } catch (Exception e) {
-            return new BasicRes(ResMessage.ERROR.getCode(),ResMessage.ERROR.getMessage() );
-        }
-    }
-	
-	//房間req再加上圖片
-    @PostMapping(value = "/room/creatRoomAndInsertPhoto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public BasicRes insertPhoto(@RequestParam("address") String address, @RequestParam("photo") MultipartFile photo) {
+		try {
+			byte[] photoBytes = photo.getBytes();
+			return roomService.insertPhoto(address, photoBytes);
+		} catch (Exception e) {
+			return new BasicRes(ResMessage.ERROR.getCode(), ResMessage.ERROR.getMessage());
+		}
+	}
 
-    public BasicRes creatRoomAndInsertPhoto(@Valid  @RequestPart("room") CreateRoomReq req,
+	// 房間req再加上圖片
+	@PostMapping(value = "/room/creatRoomAndInsertPhoto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
+	public BasicRes creatRoomAndInsertPhoto(@Valid @RequestPart("room") CreateRoomReq req,
 			@RequestPart("photo") MultipartFile photo) {
-        try {
-            byte[] photoBytes = photo.getBytes();
-            return roomService.creatRoomAndInsertPhoto(req, photoBytes);
-        } catch (Exception e) {
-            return new BasicRes(ResMessage.ERROR.getCode(),ResMessage.ERROR.getMessage() );
-        }
-    }
-	
-	
-	  @PostMapping(value = "room/creatRoom") 
-	  public BasicRes creatRoom(@RequestParam("photo") MultipartFile photo, 
-			  @RequestParam("address") String address,
-			  @RequestParam("account") String account, 
-			  @RequestParam("floor") String floor,
-			  @RequestParam("rId") String rId, 
-			  @RequestParam("rentP") int rentP, 
-			  @RequestParam("deposit") int deposit,
-			  @RequestParam("cutP") int cutP, 
-			  @RequestParam("eletricP") int eletricP, 
-			  @RequestParam("waterP") int waterP,
-			  @RequestParam("manageP") int manageP, 
-			  @RequestParam("acreage") int acreage,
-			  @RequestParam("parking") boolean parking, 
-			  @RequestParam("equip") String equip,
-			  @RequestParam("rOther") String rOther) {
-		  
-	  
-		  CreateRoomAndphotoReq req = new CreateRoomAndphotoReq(); 
-		  req.setAddress(address);
-		  req.setAccount(account); 
-		  req.setFloor(floor); 
-		  req.setrId(rId);
-		  req.setRentP(rentP); 
-		  req.setDeposit(deposit); 
-		  req.setCutP(cutP);
-		  req.setEletricP(eletricP); 
-		  req.setWaterP(waterP); 
-		  req.setManageP(manageP);
-		  req.setAcreage(acreage); 
-		  req.setParking(parking); 
-		  req.setEquip(equip);
-		  req.setrOther(rOther);
-		  
-		  try { 
-			  req.setPhoto(photo.getBytes()); 
-		 } catch (IOException e) {
-		  e.printStackTrace(); 
-		  return new BasicRes(ResMessage.ERROR.getCode(), "Failed to process photo"); 
-		  }
-		  
-		  return roomService.creatRoomAndphoto(req); 
-	  }
-	
+		try {
+			byte[] photoBytes = photo.getBytes();
+			return roomService.creatRoomAndInsertPhoto(req, photoBytes);
+		} catch (Exception e) {
+			return new BasicRes(ResMessage.ERROR.getCode(), ResMessage.ERROR.getMessage());
+		}
+	}
 
+	@PostMapping(value = "room/creatRoom")
+	public BasicRes creatRoom(@RequestParam("photo") MultipartFile photo, @RequestParam("address") String address,
+			@RequestParam("account") String account, @RequestParam("floor") String floor,
+			@RequestParam("rId") String rId, @RequestParam("rentP") int rentP, @RequestParam("deposit") int deposit,
+			@RequestParam("cutP") int cutP, @RequestParam("eletricP") int eletricP, @RequestParam("waterP") int waterP,
+			@RequestParam("manageP") int manageP, @RequestParam("acreage") int acreage,
+			@RequestParam("parking") boolean parking, @RequestParam("equip") String equip,
+			@RequestParam("rOther") String rOther) {
+
+		CreateRoomAndphotoReq req = new CreateRoomAndphotoReq();
+		req.setAddress(address);
+		req.setAccount(account);
+		req.setFloor(floor);
+		req.setrId(rId);
+		req.setRentP(rentP);
+		req.setDeposit(deposit);
+		req.setCutP(cutP);
+		req.setEletricP(eletricP);
+		req.setWaterP(waterP);
+		req.setManageP(manageP);
+		req.setAcreage(acreage);
+		req.setParking(parking);
+		req.setEquip(equip);
+		req.setrOther(rOther);
+
+		try {
+			req.setPhoto(photo.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new BasicRes(ResMessage.ERROR.getCode(), "Failed to process photo");
+		}
+
+		return roomService.creatRoomAndphoto(req);
+	}
+
+	// 所有資訊
+	@PostMapping(value = "/room/allInformation")
+	public AllInformationRes allInformation(@Valid @RequestBody AllInformationReq req) {
+		return registerService.allInformation(req);
+	}
 
 }
