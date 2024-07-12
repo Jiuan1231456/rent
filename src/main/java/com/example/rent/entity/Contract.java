@@ -1,7 +1,6 @@
 package com.example.rent.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -86,7 +85,7 @@ public class Contract {
 	private String rCondtion;
 
 	@Column(name = "sign_date")
-	private LocalDateTime signDate = LocalDateTime.now();
+	private LocalDate signDate = LocalDate.now();
 
 	public Contract() {
 		super();
@@ -97,7 +96,7 @@ public class Contract {
 			String tenantContactAddress, String tenantPhone, String tenantEmail, String ownerAccount, String ownerName,
 			String ownerIdentity, String ownerHomeAddress, String ownerContactAddress, String roomId, String address,
 			String floor, LocalDate startDate, LocalDate endDate, int rentP, LocalDate cutDate, String cutReason,
-			int cutP, String cOther, String rCondtion, LocalDateTime signDate) {
+			int cutP, String cOther, String rCondtion, LocalDate signDate) {
 		super();
 		this.ai = ai;
 		this.tenantIdentity = tenantIdentity;
@@ -309,11 +308,11 @@ public class Contract {
 		this.rCondtion = rCondtion;
 	}
 
-	public LocalDateTime getSignDate() {
+	public LocalDate getSignDate() {
 		return signDate;
 	}
 
-	public void setSignDate(LocalDateTime signDate) {
+	public void setSignDate(LocalDate signDate) {
 		this.signDate = signDate;
 	}
 

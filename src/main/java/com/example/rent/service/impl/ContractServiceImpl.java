@@ -174,7 +174,7 @@ public class ContractServiceImpl implements ContractService {
 			contract.setrCondtion(req.getrCondtion());
 		}
 		
-		contract.setSignDate(LocalDateTime.now());
+		contract.setSignDate(LocalDate.now());
 
 		contractDao.save(contract);
 		return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
