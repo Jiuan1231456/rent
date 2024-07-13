@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RegisterReq {
 
-	@NotBlank(message = "Accoint is required!!")
+	@NotBlank(message = "Account is required!!")
 	@JsonProperty("owner_account")
 	private String ownerAccount;
 
@@ -43,7 +43,7 @@ public class RegisterReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RegisterReq(@NotBlank(message = "Accoint is required!!") String ownerAccount,
+	public RegisterReq(@NotBlank(message = "Account is required!!") String ownerAccount,
 			@NotBlank(message = "PWD is required!!") String ownerPwd,
 			@NotBlank(message = "Name is required!!") String ownerName,
 			@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity error") String ownerIdentity,
@@ -65,7 +65,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerAccount(String ownerAccount) {
-		this.ownerAccount = ownerAccount;
+		this.ownerAccount = ownerAccount!= null ? ownerAccount.trim() : null;
 	}
 
 	public String getOwnerPwd() {
@@ -81,7 +81,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+		this.ownerName = ownerName!= null ? ownerName.trim() : null;
 	}
 
 	public String getOwnerIdentity() {
@@ -89,7 +89,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerIdentity(String ownerIdentity) {
-		this.ownerIdentity = ownerIdentity;
+		this.ownerIdentity = ownerIdentity!= null ? ownerIdentity.trim() : null;
 	}
 
 	public String getOwnerPhone() {
@@ -97,7 +97,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerPhone(String ownerPhone) {
-		this.ownerPhone = ownerPhone;
+		this.ownerPhone = ownerPhone!= null ? ownerPhone.trim() : null;
 	}
 
 	public String getOwnerEmail() {
@@ -105,7 +105,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerEmail(String ownerEmail) {
-		this.ownerEmail = ownerEmail;
+		this.ownerEmail = ownerEmail!= null ? ownerEmail.trim() : null;
 	}
 
 	public String getAccountBank() {
@@ -113,7 +113,7 @@ public class RegisterReq {
 	}
 
 	public void setAccountBank(String accountBank) {
-		this.accountBank = accountBank;
+		this.accountBank = accountBank!= null ? accountBank.trim() : null;
 	}
 
 }

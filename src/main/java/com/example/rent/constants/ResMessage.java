@@ -8,7 +8,7 @@ public enum ResMessage {
 	AI_IS_NOT_FOUND(400,"ai is not found"),//契約書編碼未找到
 	AI_IS_REQUIRED(400,"ai is required"),//契約書編碼必田
 	
-	ACCOUNT_IS_REQUIRED(400,"Accoint is required!!"),//帳號必填
+	ACCOUNT_IS_REQUIRED(400,"Account is required!!"),//帳號必填
 	ACCOUNT_IS_NOT_FOUND(400,"Account is not found"),//帳號不存在
 	ACCOUNT_EXIST(400,"Account exist"),//帳號已存在
 	ACCOUNT_IS_NULL(400,"Account is null"),
@@ -119,6 +119,8 @@ public enum ResMessage {
 	
 	TENANT_MAYBR_NOT_EXIST(400,"tenant maybe not extist"),//房客可能不存在
 	TENANT_INFORMATION_MAYBR_ERROR(400,"tenant information maybe error"), //房客資訊可能有誤
+	ROOM_MAYBE_NOT_THIS_ADDRESS(400,"room maybe not this address!!"),//這地址可能在房間中不存在
+	
 	;
 	
 	

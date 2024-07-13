@@ -351,6 +351,11 @@ public class BillServiceImlp implements BillService {
 			LocalDate startDate = contract.getStartDate();
 			LocalDate endDate = (contract.getCutDate() != null) ? contract.getCutDate() : contract.getEndDate();
 	        
+			//如果房間沒有這個地址存在但契約書中卻有，則回報錯誤
+			if(!roomDao.existsByAddress(contract.getAddress())&&contractDao.existsByAddress(contract.getAddress())) {
+				return new BillForContractRes(ResMessage.ROOM_MAYBE_NOT_THIS_ADDRESS.getCode(),
+		                ResMessage.ROOM_MAYBE_NOT_THIS_ADDRESS.getMessage());
+			}
 			
 			while (!startDate.isAfter(endDate)&& contract.getOwnerAccount().equals(req.getOwnerAccount())) {
 				// 計算每個帳單的周期結束日期
@@ -374,8 +379,8 @@ public class BillServiceImlp implements BillService {
 						bill.setTenantIdentity(contract.getTenantIdentity());
 						bill.setOwnerName(contract.getOwnerName());
 	
-						bill.setStartDate(startDate);
-						bill.setEndDate(endDate);
+						bill.setStartDate(contract.getStartDate());
+						bill.setEndDate((contract.getCutDate() != null) ? contract.getCutDate() : contract.getEndDate());
 						
 						// 設置帳單的開始日期和結束日期
 						bill.setPeriodStart(startDate);
@@ -386,6 +391,7 @@ public class BillServiceImlp implements BillService {
 						if (room != null) {
 							bill.setManageOneP(room.getManageP());
 							bill.setWaterOneP(room.getWaterP());
+							bill.setRentP(room.getRentP());
 							int eletricP = room.getEletricP(); // 一度電多少錢
 							bill.setEletricP(eletricP);
 							bill.setEletricV(0);

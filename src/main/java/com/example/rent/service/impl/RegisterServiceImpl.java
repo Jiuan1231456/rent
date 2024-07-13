@@ -25,7 +25,7 @@ import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
-import com.example.rent.vo.updateRegisterReq;
+import com.example.rent.vo.UpdateRegisterReq;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -191,7 +191,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 	//更新個人資訊
 	@Override
-	public RegisterRes updateregister(updateRegisterReq req) {
+	public RegisterRes updateregister(UpdateRegisterReq req) {
 		// 先看看帳號存不存在
 		Optional<Register> op = registerDao.findById(req.getOwnerAccount());
 		if (op.isEmpty()) {

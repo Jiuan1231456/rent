@@ -94,7 +94,7 @@ public class CreateRoomReq {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = address != null ? address.trim() : null;
 	}
 
 	public String getAccount() {
@@ -102,7 +102,7 @@ public class CreateRoomReq {
 	}
 
 	public void setAccount(String account) {
-		this.account = account;
+		this.account = account != null ? account.trim() : null;
 	}
 
 	public String getFloor() {
@@ -110,7 +110,7 @@ public class CreateRoomReq {
 	}
 
 	public void setFloor(String floor) {
-		this.floor = floor;
+		this.floor = floor != null ? floor.trim() : null;
 	}
 
 	public String getrId() {
@@ -118,7 +118,7 @@ public class CreateRoomReq {
 	}
 
 	public void setrId(String rId) {
-		this.rId = rId;
+		this.rId = rId != null ? rId.trim() : null;
 	}
 
 	public Integer getRentP() {
@@ -126,7 +126,7 @@ public class CreateRoomReq {
 	}
 
 	public void setRentP(Integer rentP) {
-		this.rentP = rentP;
+		this.rentP = rentP ;
 	}
 
 	public Integer getDeposit() {
@@ -190,7 +190,7 @@ public class CreateRoomReq {
 	}
 
 	public void setEquip(String equip) {
-		this.equip = equip;
+		this.equip = equip != null ? equip.trim() : null;
 	}
 
 	public String getrOther() {
@@ -198,7 +198,7 @@ public class CreateRoomReq {
 	}
 
 	public void setrOther(String rOther) {
-		this.rOther = rOther;
+		this.rOther = rOther != null ? rOther.trim() : null;
 	}
 
 }

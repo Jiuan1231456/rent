@@ -7,7 +7,7 @@ import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
-import com.example.rent.vo.updateRegisterReq;
+import com.example.rent.vo.UpdateRegisterReq;
 
 public interface RegisterService {
 
@@ -15,7 +15,7 @@ public interface RegisterService {
 	public RegisterRes register(RegisterReq req);
 	
 	//更新個資
-	public RegisterRes updateregister(updateRegisterReq req);
+	public RegisterRes updateregister(UpdateRegisterReq req);
 
 	//登入
 	public RegisterRes login(LoginReq req);

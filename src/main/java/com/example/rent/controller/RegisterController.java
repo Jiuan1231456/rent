@@ -47,7 +47,7 @@ import com.example.rent.vo.UpdateCutDateReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
 import com.example.rent.vo.UpdateRoomReq;
-import com.example.rent.vo.updateRegisterReq;
+import com.example.rent.vo.UpdateRegisterReq;
 
 @CrossOrigin
 @RestController
@@ -90,7 +90,7 @@ public class RegisterController {
 
 	// 更新個人資訊(姓名、電話、信箱)
 	@PostMapping(value = "rent/updateregister")
-	public RegisterRes updateregister(@Valid @RequestBody updateRegisterReq req) {
+	public RegisterRes updateregister(@Valid @RequestBody UpdateRegisterReq req) {
 		return registerService.updateregister(req);
 	}
 

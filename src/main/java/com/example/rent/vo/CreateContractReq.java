@@ -126,7 +126,7 @@ public class CreateContractReq {
 	}
 
 	public void setTenantIdentity(String tenantIdentity) {
-		this.tenantIdentity = tenantIdentity;
+		this.tenantIdentity = tenantIdentity != null ? tenantIdentity.trim() : null;
 	}
 
 	public String getTenantName() {
@@ -134,7 +134,7 @@ public class CreateContractReq {
 	}
 
 	public void setTenantName(String tenantName) {
-		this.tenantName = tenantName;
+		this.tenantName = tenantName != null ? tenantName.trim() : null;
 	}
 
 	public String getTenantHomeAddress() {
@@ -142,7 +142,7 @@ public class CreateContractReq {
 	}
 
 	public void setTenantHomeAddress(String tenantHomeAddress) {
-		this.tenantHomeAddress = tenantHomeAddress;
+		this.tenantHomeAddress = tenantHomeAddress != null ? tenantHomeAddress.trim() : null;
 	}
 
 	public String getTenantContactAddress() {
@@ -150,7 +150,7 @@ public class CreateContractReq {
 	}
 
 	public void setTenantContactAddress(String tenantContactAddress) {
-		this.tenantContactAddress = tenantContactAddress;
+		this.tenantContactAddress = tenantContactAddress != null ? tenantContactAddress.trim() : null;
 	}
 
 	public String getTenantPhone() {
@@ -158,7 +158,7 @@ public class CreateContractReq {
 	}
 
 	public void setTenantPhone(String tenantPhone) {
-		this.tenantPhone = tenantPhone;
+		this.tenantPhone = tenantPhone != null ? tenantPhone.trim() : null;
 	}
 
 	public String getTenantEmail() {
@@ -166,7 +166,7 @@ public class CreateContractReq {
 	}
 
 	public void setTenantEmail(String tenantEmail) {
-		this.tenantEmail = tenantEmail;
+		this.tenantEmail = tenantEmail != null ? tenantEmail.trim() : null;
 	}
 
 	public String getOwnerName() {
@@ -174,7 +174,7 @@ public class CreateContractReq {
 	}
 
 	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+		this.ownerName = ownerName != null ? ownerName.trim() : null;
 	}
 
 	public String getOwnerIdentity() {
@@ -182,7 +182,7 @@ public class CreateContractReq {
 	}
 
 	public void setOwnerIdentity(String ownerIdentity) {
-		this.ownerIdentity = ownerIdentity;
+		this.ownerIdentity = ownerIdentity != null ? ownerIdentity.trim() : null;
 	}
 
 	public String getOwnerHomeAddress() {
@@ -190,7 +190,7 @@ public class CreateContractReq {
 	}
 
 	public void setOwnerHomeAddress(String ownerHomeAddress) {
-		this.ownerHomeAddress = ownerHomeAddress;
+		this.ownerHomeAddress = ownerHomeAddress != null ? ownerHomeAddress.trim() : null;
 	}
 
 	public String getOwnerContactAddress() {
@@ -198,7 +198,7 @@ public class CreateContractReq {
 	}
 
 	public void setOwnerContactAddress(String ownerContactAddress) {
-		this.ownerContactAddress = ownerContactAddress;
+		this.ownerContactAddress = ownerContactAddress != null ? ownerContactAddress.trim() : null;
 	}
 
 	public String getRoomId() {
@@ -206,7 +206,7 @@ public class CreateContractReq {
 	}
 
 	public void setRoomId(String roomId) {
-		this.roomId = roomId;
+		this.roomId = roomId != null ? roomId.trim() : null;
 	}
 
 	public String getAddress() {
@@ -214,7 +214,7 @@ public class CreateContractReq {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = address != null ? address.trim() : null;
 	}
 
 	public String getFloor() {
@@ -222,7 +222,7 @@ public class CreateContractReq {
 	}
 
 	public void setFloor(String floor) {
-		this.floor = floor;
+		this.floor = floor != null ? floor.trim() : null;
 	}
 
 	public LocalDate getStartDate() {
@@ -270,7 +270,7 @@ public class CreateContractReq {
 	}
 
 	public void setCutReason(String cutReason) {
-		this.cutReason = cutReason;
+		this.cutReason = cutReason != null ? cutReason.trim() : null;
 	}
 
 	public String getcOther() {
@@ -278,7 +278,7 @@ public class CreateContractReq {
 	}
 
 	public void setcOther(String cOther) {
-		this.cOther = cOther;
+		this.cOther = cOther != null ? cOther.trim() : null;
 	}
 
 	public String getrCondtion() {
@@ -286,7 +286,7 @@ public class CreateContractReq {
 	}
 
 	public void setrCondtion(String rCondtion) {
-		this.rCondtion = rCondtion;
+		this.rCondtion = rCondtion != null ? rCondtion.trim() : null;
 	}
 
 	@AssertTrue(message = "endDate must be greater than or equal to startDate")

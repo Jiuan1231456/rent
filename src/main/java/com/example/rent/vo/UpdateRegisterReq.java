@@ -5,9 +5,9 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class updateRegisterReq {
+public class UpdateRegisterReq {
 
-	@NotBlank(message = "Accoint is required!!")
+	@NotBlank(message = "Account is required!!")
 	@JsonProperty("owner_account")
 	private String ownerAccount;
 
@@ -22,19 +22,19 @@ public class updateRegisterReq {
 	@Pattern(regexp = ".*@.*", message = "Email error!!")
 	private String ownerEmail;
 
-	@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error")
+	@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$", message = "account Bank error")
 	@JsonProperty("account_bank")
 	private String accountBank;
 
-	public updateRegisterReq() {
+	public UpdateRegisterReq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public updateRegisterReq(@NotBlank(message = "Accoint is required!!") String ownerAccount, String ownerName,
+	public UpdateRegisterReq(@NotBlank(message = "Account is required!!") String ownerAccount, String ownerName,
 			@Pattern(regexp = "[0-9]{10}", message = "Phone error!!") String ownerPhone,
 			@Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail,
-			@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error") String accountBank) {
+			@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$", message = "account Bank error") String accountBank) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerName = ownerName;
@@ -48,7 +48,7 @@ public class updateRegisterReq {
 	}
 
 	public void setOwnerAccount(String ownerAccount) {
-		this.ownerAccount = ownerAccount;
+		this.ownerAccount = ownerAccount != null ? ownerAccount.trim() : null;
 	}
 
 	public String getOwnerName() {
@@ -56,7 +56,7 @@ public class updateRegisterReq {
 	}
 
 	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+		this.ownerName = ownerName!= null ? ownerName.trim() : null;
 	}
 
 	public String getOwnerPhone() {
@@ -64,7 +64,7 @@ public class updateRegisterReq {
 	}
 
 	public void setOwnerPhone(String ownerPhone) {
-		this.ownerPhone = ownerPhone;
+		this.ownerPhone = ownerPhone!= null ? ownerPhone.trim() : null;
 	}
 
 	public String getOwnerEmail() {
@@ -72,7 +72,7 @@ public class updateRegisterReq {
 	}
 
 	public void setOwnerEmail(String ownerEmail) {
-		this.ownerEmail = ownerEmail;
+		this.ownerEmail = ownerEmail!= null ? ownerEmail.trim() : null;
 	}
 
 	public String getAccountBank() {
@@ -80,7 +80,7 @@ public class updateRegisterReq {
 	}
 
 	public void setAccountBank(String accountBank) {
-		this.accountBank = accountBank;
+		this.accountBank = accountBank!= null ? accountBank.trim() : null;
 	}
 
 }

@@ -95,7 +95,7 @@ public class CreateRoomAndphotoReq {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = address!= null ? address.trim() : null;
 	}
 
 	public String getAccount() {
@@ -103,7 +103,7 @@ public class CreateRoomAndphotoReq {
 	}
 
 	public void setAccount(String account) {
-		this.account = account;
+		this.account = account!= null ? account.trim() : null;
 	}
 
 	public String getFloor() {
@@ -111,7 +111,7 @@ public class CreateRoomAndphotoReq {
 	}
 
 	public void setFloor(String floor) {
-		this.floor = floor;
+		this.floor = floor!= null ? floor.trim() : null;
 	}
 
 	public String getrId() {
@@ -119,7 +119,7 @@ public class CreateRoomAndphotoReq {
 	}
 
 	public void setrId(String rId) {
-		this.rId = rId;
+		this.rId = rId!= null ? rId.trim() : null;
 	}
 
 	public byte[] getPhoto() {
@@ -199,7 +199,7 @@ public class CreateRoomAndphotoReq {
 	}
 
 	public void setEquip(String equip) {
-		this.equip = equip;
+		this.equip = equip!= null ? equip.trim() : null;
 	}
 
 	public String getrOther() {
@@ -207,7 +207,7 @@ public class CreateRoomAndphotoReq {
 	}
 
 	public void setrOther(String rOther) {
-		this.rOther = rOther;
+		this.rOther = rOther!= null ? rOther.trim() : null;
 	}
 
 }

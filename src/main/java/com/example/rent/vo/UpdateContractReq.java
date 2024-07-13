@@ -74,7 +74,7 @@ public class UpdateContractReq {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = address != null ? address.trim() : null;
 	}
 
 	public String getTenantHomeAddress() {
@@ -82,7 +82,7 @@ public class UpdateContractReq {
 	}
 
 	public void setTenantHomeAddress(String tenantHomeAddress) {
-		this.tenantHomeAddress = tenantHomeAddress;
+		this.tenantHomeAddress = tenantHomeAddress != null ? tenantHomeAddress.trim() : null;
 	}
 
 	public String getTenantContactAddress() {
@@ -90,7 +90,7 @@ public class UpdateContractReq {
 	}
 
 	public void setTenantContactAddress(String tenantContactAddress) {
-		this.tenantContactAddress = tenantContactAddress;
+		this.tenantContactAddress = tenantContactAddress != null ? tenantContactAddress.trim() : null;
 	}
 
 	public String getOwnerHomeAddress() {
@@ -98,7 +98,7 @@ public class UpdateContractReq {
 	}
 
 	public void setOwnerHomeAddress(String ownerHomeAddress) {
-		this.ownerHomeAddress = ownerHomeAddress;
+		this.ownerHomeAddress = ownerHomeAddress != null ? ownerHomeAddress.trim() : null;
 	}
 
 	public String getOwnerContactAddress() {
@@ -106,7 +106,7 @@ public class UpdateContractReq {
 	}
 
 	public void setOwnerContactAddress(String ownerContactAddress) {
-		this.ownerContactAddress = ownerContactAddress;
+		this.ownerContactAddress = ownerContactAddress != null ? ownerContactAddress.trim() : null;
 	}
 
 	public Integer getCutP() {
@@ -130,7 +130,7 @@ public class UpdateContractReq {
 	}
 
 	public void setCutReason(String cutReason) {
-		this.cutReason = cutReason;
+		this.cutReason = cutReason != null ? cutReason.trim() : null;
 	}
 
 	public String getcOther() {
@@ -138,7 +138,7 @@ public class UpdateContractReq {
 	}
 
 	public void setcOther(String cOther) {
-		this.cOther = cOther;
+		this.cOther = cOther != null ? cOther.trim() : null;
 	}
 
 	public String getrCondtion() {
@@ -146,7 +146,7 @@ public class UpdateContractReq {
 	}
 
 	public void setrCondtion(String rCondtion) {
-		this.rCondtion = rCondtion;
+		this.rCondtion = rCondtion != null ? rCondtion.trim() : null;
 	}
 
 }

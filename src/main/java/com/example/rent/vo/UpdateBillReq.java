@@ -70,7 +70,7 @@ public class UpdateBillReq {
 	}
 
 	public void setRoomId(String roomId) {
-		this.roomId = roomId;
+		this.roomId = roomId != null ? roomId.trim() : null;
 	}
 
 	public String getAddress() {
@@ -78,7 +78,7 @@ public class UpdateBillReq {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = address != null ? address.trim() : null;
 	}
 
 	public Integer getRentP() {
