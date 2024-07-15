@@ -2,6 +2,7 @@ package com.example.rent.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,67 +79,108 @@ public class RegisterController {
 
 	// 帳號登入
 	@PostMapping(value = "rent/login")
-	public RegisterRes login(@Valid @RequestBody LoginReq req) {
-		return registerService.login(req);
+	public RegisterRes login(@Valid @RequestBody LoginReq req,HttpSession session) {
+//		session.setMaxInactiveInterval(30); //設定秒數 ;預設值為30分鐘
+		System.out.println("session_id: "+session.getId());
+		System.out.println("account:"+session.getAttribute("account"));
+		if(session.getAttribute("account")!=null) {
+			return new RegisterRes(ResMessage.SUCCESS.getCode(),ResMessage.SUCCESS.getMessage());
+		}
+		RegisterRes res = registerService.login(req);
+		if(res.getCode()==200) {
+			session.setAttribute("account", req.getOwnerAccount());
+		}
+		System.out.println("account:"+session.getAttribute("account"));
+		return res;
 	}
 
 	// 更新密碼
 	@PostMapping(value = "rent/updatePwd")
-	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req) {
+	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new UpdatePwdRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return registerService.updatePwd(req);
 	}
 
 	// 更新個人資訊(姓名、電話、信箱)
 	@PostMapping(value = "rent/updateregister")
-	public RegisterRes updateregister(@Valid @RequestBody UpdateRegisterReq req) {
+	public RegisterRes updateregister(@Valid @RequestBody UpdateRegisterReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new RegisterRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return registerService.updateregister(req);
 	}
 
 	// 創造房間資訊
 	@PostMapping(value = "room/creatRoom1")
-	public BasicRes creatRoom(@Valid @RequestBody CreateRoomReq req) {
+	public BasicRes creatRoom(@Valid @RequestBody CreateRoomReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BasicRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return roomService.creatRoom(req);
 	}
 
 	// 更新房間資訊
 	@PostMapping(value = "room/updateRoom")
-	public BasicRes updateRoom(@Valid @RequestBody UpdateRoomReq req) {
+	public BasicRes updateRoom(@Valid @RequestBody UpdateRoomReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BasicRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return roomService.updateRoom(req);
 	}
 
 	// 房間搜索(會跳出所有房東的資料，不是單獨的房東資料喔!)
 	@PostMapping(value = "room/roomSearch")
-	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req) {
+	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new RoomSearchRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return roomService.roomSearch(req);
 	}
 
 	// 刪除房間
 	@PostMapping(value = "room/deleteRoom")
-	public BasicRes deleteRoom(@Valid @RequestBody DeleteRoomReq req) {
+	public BasicRes deleteRoom(@Valid @RequestBody DeleteRoomReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BasicRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return roomService.deleteRoom(req);
 	}
 
 	// 創造契約書
 	@PostMapping(value = "contract/createContract")
-	public BasicRes createContract(@Valid @RequestBody CreateContractReq req) {
+	public BasicRes createContract(@Valid @RequestBody CreateContractReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BasicRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return contractService.createContract(req);
 	}
 
 	// 更新契約書(違約部分)
 	@PostMapping(value = "contract/updateContract")
-	public BasicRes updateContract(@Valid @RequestBody UpdateContractReq req) {
+	public BasicRes updateContract(@Valid @RequestBody UpdateContractReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BasicRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return contractService.updateContract(req);
 	}
 
 	// 契約書搜索
 	@PostMapping(value = "contract/contratSearch")
-	public ContractSearchRes contratSearch(@Valid @RequestBody ContractSearchReq req) {
+	public ContractSearchRes contratSearch(@Valid @RequestBody ContractSearchReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new ContractSearchRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return contractService.contratSearch(req);
 	}
 
 	// 帳單(一期一期的)
 	@PostMapping(value = "bill/BillsForContract")
-	public BillForContractRes BillsForContract(@Valid @RequestBody BillForContractReq req) {
+	public BillForContractRes BillsForContract(@Valid @RequestBody BillForContractReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BillForContractRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return billService.BillsForContract(req);
 	}
 
@@ -150,24 +192,37 @@ public class RegisterController {
 
 	// 帳單更新
 	@PostMapping(value = "bill/updateBill")
-	public BillRes updateBill(@Valid @RequestBody UpdateBillReq req) {
+	public BillRes updateBill(@Valid @RequestBody UpdateBillReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BillRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return billService.updateBill(req);
 	}
 
 	@PostMapping(value = "bill/updateCutDate")
-	public BillRes updateCutDate(@Valid @RequestBody UpdateCutDateReq req) {
+	public BillRes updateCutDate(@Valid @RequestBody UpdateCutDateReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BillRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return billService.updateCutDate(req);
 	}
 
 	// 帳單搜索
 	@PostMapping(value = "bill/billSearch")
-	public BillSearchRes billSearch(@Valid @RequestBody BillSearchReq req) {
+	public BillSearchRes billSearch(@Valid @RequestBody BillSearchReq req,HttpSession session) {
+		if(session.getAttribute("account")==null) {
+			return new BillSearchRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
 		return billService.billSearch(req);
 	}
 
 	// 房客的全部資訊
 	@PostMapping(value = "bill/tenantList")
 	public TenantListRes tenantList(@Valid @RequestBody TenantListReq req) {
+//	public TenantListRes tenantList(@Valid @RequestBody TenantListReq req,HttpSession session) {
+//		if(session.getAttribute("account")==null) {
+//			return new TenantListRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+//		}
 		return contractService.tenantList(req);
 	}
 
@@ -202,8 +257,12 @@ public class RegisterController {
 			@RequestParam("cutP") int cutP, @RequestParam("eletricP") int eletricP, @RequestParam("waterP") int waterP,
 			@RequestParam("manageP") int manageP, @RequestParam("acreage") int acreage,
 			@RequestParam("parking") boolean parking, @RequestParam("equip") String equip,
-			@RequestParam("rOther") String rOther) {
-
+			@RequestParam("rOther") String rOther,HttpSession session) {
+		
+		if(session.getAttribute("account")==null) {
+			return new BasicRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+		}
+		
 		CreateRoomAndphotoReq req = new CreateRoomAndphotoReq();
 		req.setAddress(address);
 		req.setAccount(account);
@@ -233,6 +292,10 @@ public class RegisterController {
 	// 所有資訊
 	@PostMapping(value = "/room/allInformation")
 	public AllInformationRes allInformation(@Valid @RequestBody AllInformationReq req) {
+//	public AllInformationRes allInformation(@Valid @RequestBody AllInformationReq req,HttpSession session) {
+//		if(session.getAttribute("account")==null) {
+//			return new AllInformationRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+//		}
 		return registerService.allInformation(req);
 	}
 

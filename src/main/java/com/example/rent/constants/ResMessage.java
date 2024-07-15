@@ -5,6 +5,8 @@ public enum ResMessage {
 	SUCCESS(200, "Success!!"),//
 	ERROR(400,"Error!"),//
 	
+	PLEASE_FIRST_LONGIN(400,"Please first longin"),//請先登入
+	
 	AI_IS_NOT_FOUND(400,"ai is not found"),//契約書編碼未找到
 	AI_IS_REQUIRED(400,"ai is required"),//契約書編碼必田
 	
