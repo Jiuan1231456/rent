@@ -19,7 +19,6 @@ import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.vo.AllInformationReq;
 import com.example.rent.vo.AllInformationRes;
-import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
@@ -32,15 +31,15 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private RegisterDao registerDao;
-	
+
 	// 這裡是契約書
 	@Autowired
 	private ContractDao contractDao;
-	
+
 	// 建立房間
 	@Autowired
 	private RoomDao roomDao;
-	
+
 	// 帳單
 	@Autowired
 	private BillDao billDao;
@@ -72,27 +71,29 @@ public class RegisterServiceImpl implements RegisterService {
 			return new RegisterRes(ResMessage.PWD_ALREADYUSED.getCode(), //
 					ResMessage.PWD_ALREADYUSED.getMessage());
 		}
-		//房東與房客間的身分證重複填寫
-		if(contractDao.existsByTenantIdentity(req.getOwnerIdentity())) {
-        	return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
-        }
-		//檢查身分證是否重複
-		if(registerDao.existsByOwnerIdentity(req.getOwnerIdentity())) {
+		// 房東與房客間的身分證重複填寫
+		if (contractDao.existsByTenantIdentity(req.getOwnerIdentity())) {
+			return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(),
+					ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
+		}
+		// 檢查身分證是否重複
+		if (registerDao.existsByOwnerIdentity(req.getOwnerIdentity())) {
 			return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(), //
 					ResMessage.OWNERIDENTITY_IS_ERROR.getMessage());
 		}
-		
+
 		// 檢查電話是否重複
 		if (registerDao.existsByOwnerPhone(req.getOwnerPhone())) {
 			return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), //
 					ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 		}
-		if(contractDao.existsByTenantPhone(req.getOwnerPhone())) {
-        	return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
-        }
-		
-		//檢查銀行帳號是否重複
-		if(registerDao.existsByAccountBank(req.getAccountBank())) {
+		if (contractDao.existsByTenantPhone(req.getOwnerPhone())) {
+			return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),
+					ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
+		}
+
+		// 檢查銀行帳號是否重複
+		if (registerDao.existsByAccountBank(req.getAccountBank())) {
 			return new RegisterRes(ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getCode(), //
 					ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getMessage());
 		}
@@ -109,7 +110,8 @@ public class RegisterServiceImpl implements RegisterService {
 		registerDao.save(register);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(), //
-				req.getOwnerAccount(), req.getOwnerName(),req.getOwnerIdentity(), req.getOwnerPhone(), req.getOwnerEmail(),req.getAccountBank());
+				req.getOwnerAccount(), req.getOwnerName(), req.getOwnerIdentity(), req.getOwnerPhone(),
+				req.getOwnerEmail(), req.getAccountBank());
 //	}
 
 //		//如果有帳號
@@ -158,9 +160,10 @@ public class RegisterServiceImpl implements RegisterService {
 					ResMessage.PWD_ERRO.getMessage());
 		}
 
-		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
-				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail(),register.getAccountBank());
+		return new RegisterRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(), register.getOwnerName(),
+				register.getOwnerIdentity(), register.getOwnerPhone(), register.getOwnerEmail(),
+				register.getAccountBank());
 	}
 
 	// 變更密碼
@@ -178,8 +181,8 @@ public class RegisterServiceImpl implements RegisterService {
 			return new UpdatePwdRes(ResMessage.PWD_ERRO.getCode(), //
 					ResMessage.PWD_ERRO.getMessage());
 		}
-		//如果新密碼已經存在則報錯
-		if(registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
+		// 如果新密碼已經存在則報錯
+		if (registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
 			return new UpdatePwdRes(ResMessage.PWD_ALREADYUSED.getCode(), //
 					ResMessage.PWD_ALREADYUSED.getMessage());
 		}
@@ -189,7 +192,7 @@ public class RegisterServiceImpl implements RegisterService {
 				ResMessage.SUCCESS.getMessage(), req.getOwnerAccount(), req.getOwnerOldPwd(), req.getOwnerNewPwd());
 	}
 
-	//更新個人資訊
+	// 更新個人資訊
 	@Override
 	public RegisterRes updateregister(UpdateRegisterReq req) {
 		// 先看看帳號存不存在
@@ -202,56 +205,86 @@ public class RegisterServiceImpl implements RegisterService {
 
 		String account = register.getOwnerAccount();
 		String phone = register.getOwnerPhone();
-		//更新資料時也要注意電話不重複
-		
-		//帳號相同時，允許手機號存在
-		//當帳號不同時，不允許手機號同時存在
-		if(!phone.equals(req.getOwnerPhone())) {
-			if(registerDao.existsByOwnerPhone( req.getOwnerPhone())) {
-				return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(),//
+		// 更新資料時也要注意電話不重複
+
+		// 帳號相同時，允許手機號存在
+		// 當帳號不同時，不允許手機號同時存在
+		if (!phone.equals(req.getOwnerPhone())) {
+			if (registerDao.existsByOwnerPhone(req.getOwnerPhone())) {
+				return new RegisterRes(ResMessage.PHONR_DUPLICATED_FILLIN.getCode(), //
 						ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 			}
 		}
-		
-		
-		if(req.getOwnerName()!=null) {
+
+		if (req.getOwnerName() != null) {
 			register.setOwnerName(req.getOwnerName());
 		}
-		if(req.getOwnerPhone()!=null) {
-	        register.setOwnerPhone(req.getOwnerPhone());
+		if (req.getOwnerPhone() != null) {
+			register.setOwnerPhone(req.getOwnerPhone());
 		}
-		if(req.getOwnerEmail()!=null) {
-	        register.setOwnerEmail(req.getOwnerEmail());
+		if (req.getOwnerEmail() != null) {
+			register.setOwnerEmail(req.getOwnerEmail());
 		}
-		
-		if(req.getAccountBank()!=null) {
-			 register.setAccountBank(req.getAccountBank());
+
+		if (req.getAccountBank() != null) {
+			register.setAccountBank(req.getAccountBank());
 		}
-    
-		
+
 		registerDao.save(register);
 
-		return new RegisterRes(ResMessage.SUCCESS.getCode(),//
-				ResMessage.SUCCESS.getMessage(),register.getOwnerAccount(),
-				register.getOwnerName(),register.getOwnerIdentity(),register.getOwnerPhone(),register.getOwnerEmail(),register.getAccountBank());
+		return new RegisterRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(), register.getOwnerName(),
+				register.getOwnerIdentity(), register.getOwnerPhone(), register.getOwnerEmail(),
+				register.getAccountBank());
 	}
 
 	@Override
 	public AllInformationRes allInformation(AllInformationReq req) {
-		Optional<Register> register=registerDao.findById(req.getOwnerAccount());
-		if (register.isEmpty()) {
-			return new AllInformationRes(ResMessage.ACCOUNT_NOT_FOUND.getCode(), //
-					ResMessage.ACCOUNT_NOT_FOUND.getMessage());
+		// 如果req的帳號為null，則顯示全部資訊
+		String ownerAccount = req.getOwnerAccount();
+		List<Room> roomList;
+		List<Contract> contractList;
+		List<Bill> billList;
+
+		if (!StringUtils.hasText(ownerAccount)) {
+			// 顯示全部房間資訊
+			roomList = roomDao.findAll();
+			// 顯示全部契約資訊
+			contractList = contractDao.findAll();
+			// 顯示全部帳單資訊
+			billList = billDao.findAll();
+
+		} else {
+			// 顯示此房東的全部資訊
+			// 房間資訊
+			roomList = roomDao.findByAccountEquals(ownerAccount);
+			// 契約資訊
+			contractList = contractDao.findByOwnerAccountEquals(ownerAccount);
+
+			// 獲取與此房東相關的所有地址
+			String address = null;
+			for (Contract item : contractList) {
+				address = item.getAddress();
+			}
+
+			// 根據地址找到相關的帳單資訊
+			billList = billDao.findByAddressEquals(address);
 		}
-		List<Room> roomList=roomDao.findByAccountEquals(req.getOwnerAccount());
-		List<Contract> contractList=contractDao.findByOwnerAccountEquals(req.getOwnerAccount());
-		String address=null;
-		for(Contract item:contractList) {
-			address=item.getAddress();
-		}
-		List<Bill> billList=billDao.findByAddressEquals(address);
+
+		// 如果req的房東帳號不為空值，則顯示此房東的全部資訊
+		// 房間資訊
+		// 契約資訊
+		// 帳單資訊
+//		Optional<Register> register=registerDao.findById(req.getOwnerAccount());
+//		List<Room> roomList=roomDao.findByAccountEquals(req.getOwnerAccount());
+//		List<Contract> contractList=contractDao.findByOwnerAccountEquals(req.getOwnerAccount());
+//		String address=null;
+//		for(Contract item:contractList) {
+//			address=item.getAddress();
+//		}
+//		List<Bill> billList=billDao.findByAddressEquals(address);
 		return new AllInformationRes(ResMessage.SUCCESS.getCode(), //
-				ResMessage.SUCCESS.getMessage(),roomList,contractList,billList);
+				ResMessage.SUCCESS.getMessage(), roomList, contractList, billList);
 	}
 
 }

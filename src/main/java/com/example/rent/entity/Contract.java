@@ -69,6 +69,21 @@ public class Contract {
 	@Column(name = "rent_p")
 	private int rentP;
 
+	@Column(name = "deposit")
+	private int deposit;
+
+	@Column(name = "eletric_p")
+	private int eletricP;// 一度費用
+
+	@Column(name = "water_p")
+	private int waterP;// 水費
+
+	@Column(name = "manage_p")
+	private int manageP;// 管理費
+
+	@Column(name = "acreage")
+	private int acreage;
+
 	@Column(name = "cut_date")
 	private LocalDate cutDate;
 
@@ -95,8 +110,9 @@ public class Contract {
 	public Contract(int ai, String tenantIdentity, String tenantName, String tenantHomeAddress,
 			String tenantContactAddress, String tenantPhone, String tenantEmail, String ownerAccount, String ownerName,
 			String ownerIdentity, String ownerHomeAddress, String ownerContactAddress, String roomId, String address,
-			String floor, LocalDate startDate, LocalDate endDate, int rentP, LocalDate cutDate, String cutReason,
-			int cutP, String cOther, String rCondtion, LocalDate signDate) {
+			String floor, LocalDate startDate, LocalDate endDate, int rentP, int deposit, int eletricP, int waterP,
+			int manageP, int acreage, LocalDate cutDate, String cutReason, int cutP, String cOther, String rCondtion,
+			LocalDate signDate) {
 		super();
 		this.ai = ai;
 		this.tenantIdentity = tenantIdentity;
@@ -116,6 +132,11 @@ public class Contract {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.rentP = rentP;
+		this.deposit = deposit;
+		this.eletricP = eletricP;
+		this.waterP = waterP;
+		this.manageP = manageP;
+		this.acreage = acreage;
 		this.cutDate = cutDate;
 		this.cutReason = cutReason;
 		this.cutP = cutP;
@@ -266,6 +287,46 @@ public class Contract {
 
 	public void setRentP(int rentP) {
 		this.rentP = rentP;
+	}
+
+	public int getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(int deposit) {
+		this.deposit = deposit;
+	}
+
+	public int getEletricP() {
+		return eletricP;
+	}
+
+	public void setEletricP(int eletricP) {
+		this.eletricP = eletricP;
+	}
+
+	public int getWaterP() {
+		return waterP;
+	}
+
+	public void setWaterP(int waterP) {
+		this.waterP = waterP;
+	}
+
+	public int getManageP() {
+		return manageP;
+	}
+
+	public void setManageP(int manageP) {
+		this.manageP = manageP;
+	}
+
+	public int getAcreage() {
+		return acreage;
+	}
+
+	public void setAcreage(int acreage) {
+		this.acreage = acreage;
 	}
 
 	public LocalDate getCutDate() {

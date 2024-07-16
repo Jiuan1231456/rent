@@ -147,7 +147,13 @@ public class ContractServiceImpl implements ContractService {
 		contract.setAddress(roomAddress);// 地址
 		contract.setFloor(roomAll.getFloor());// 樓層
 		contract.setRoomId(roomAll.getRoomId());// 房間
+		//房間金額
 		contract.setRentP(roomAll.getRentP());// 租金
+		contract.setManageP(roomAll.getManageP());//管理費
+		contract.setEletricP(roomAll.getEletricP());//電費一度
+		contract.setWaterP(roomAll.getWaterP());//水費
+		contract.setAcreage(roomAll.getAcreage());//面積
+		contract.setDeposit(roomAll.getDeposit());//押金
 		contract.setCutP(roomAll.getCutP());// 違約金
 		// 房東名子(從房子在抓回管理者)
 		contract.setOwnerName(ownerName);
@@ -189,10 +195,10 @@ public class ContractServiceImpl implements ContractService {
 		}
 		Contract rentInformation = aiai.get();
 		// 填寫的地址錯誤
-		if (!rentInformation.getAddress().equals(req.getAddress())) {
-			return new BasicRes(ResMessage.ADDRESS_INFORMATION_ERROR.getCode(), //
-					ResMessage.ADDRESS_INFORMATION_ERROR.getMessage());
-		}
+//		if (!rentInformation.getAddress().equals(req.getAddress())) {
+//			return new BasicRes(ResMessage.ADDRESS_INFORMATION_ERROR.getCode(), //
+//					ResMessage.ADDRESS_INFORMATION_ERROR.getMessage());
+//		}
 		if (rentInformation.getCutDate() != null) {
 			return new BasicRes(ResMessage.CUTDATE_REPEAT_FILLIN.getCode(), //
 					ResMessage.CUTDATE_REPEAT_FILLIN.getMessage());

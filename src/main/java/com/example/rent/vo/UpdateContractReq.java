@@ -10,8 +10,8 @@ public class UpdateContractReq {
 	@NotNull(message = "ai is required")
 	private Integer ai;// 編碼
 
-	@NotBlank(message = "Address is required!!")
-	private String address;// 地址
+//	@NotBlank(message = "Address is required!!")
+//	private String address;// 地址
 
 ////	@NotBlank(message = "R_id is required!!")
 //	private String roomId;// 房號
@@ -42,14 +42,12 @@ public class UpdateContractReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UpdateContractReq(@NotNull(message = "ai is required") Integer ai,
-			@NotBlank(message = "Address is required!!") String address, String tenantHomeAddress,
+	public UpdateContractReq(@NotNull(message = "ai is required") Integer ai, String tenantHomeAddress,
 			String tenantContactAddress, String ownerHomeAddress, String ownerContactAddress, Integer cutP,
 			@NotNull(message = "cutDate is required!!") LocalDate cutDate,
 			@NotBlank(message = "cutReason is required!!") String cutReason, String cOther, String rCondtion) {
 		super();
 		this.ai = ai;
-		this.address = address;
 		this.tenantHomeAddress = tenantHomeAddress;
 		this.tenantContactAddress = tenantContactAddress;
 		this.ownerHomeAddress = ownerHomeAddress;
@@ -69,20 +67,12 @@ public class UpdateContractReq {
 		this.ai = ai;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address != null ? address.trim() : null;
-	}
-
 	public String getTenantHomeAddress() {
 		return tenantHomeAddress;
 	}
 
 	public void setTenantHomeAddress(String tenantHomeAddress) {
-		this.tenantHomeAddress = tenantHomeAddress != null ? tenantHomeAddress.trim() : null;
+		this.tenantHomeAddress = tenantHomeAddress;
 	}
 
 	public String getTenantContactAddress() {
@@ -90,7 +80,7 @@ public class UpdateContractReq {
 	}
 
 	public void setTenantContactAddress(String tenantContactAddress) {
-		this.tenantContactAddress = tenantContactAddress != null ? tenantContactAddress.trim() : null;
+		this.tenantContactAddress = tenantContactAddress;
 	}
 
 	public String getOwnerHomeAddress() {
@@ -98,7 +88,7 @@ public class UpdateContractReq {
 	}
 
 	public void setOwnerHomeAddress(String ownerHomeAddress) {
-		this.ownerHomeAddress = ownerHomeAddress != null ? ownerHomeAddress.trim() : null;
+		this.ownerHomeAddress = ownerHomeAddress;
 	}
 
 	public String getOwnerContactAddress() {
@@ -106,7 +96,7 @@ public class UpdateContractReq {
 	}
 
 	public void setOwnerContactAddress(String ownerContactAddress) {
-		this.ownerContactAddress = ownerContactAddress != null ? ownerContactAddress.trim() : null;
+		this.ownerContactAddress = ownerContactAddress;
 	}
 
 	public Integer getCutP() {
@@ -146,7 +136,7 @@ public class UpdateContractReq {
 	}
 
 	public void setrCondtion(String rCondtion) {
-		this.rCondtion = rCondtion != null ? rCondtion.trim() : null;
+		this.rCondtion = rCondtion;
 	}
 
 }

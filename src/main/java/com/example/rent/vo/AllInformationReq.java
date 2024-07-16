@@ -1,10 +1,8 @@
 package com.example.rent.vo;
 
-import javax.validation.constraints.NotBlank;
-
 public class AllInformationReq {
 
-	@NotBlank(message = "Accoint is required!!")
+//	@NotBlank(message = "Accoint is required!!")
 	private String ownerAccount;
 
 	public AllInformationReq() {
@@ -12,7 +10,7 @@ public class AllInformationReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AllInformationReq(@NotBlank(message = "Accoint is required!!") String ownerAccount) {
+	public AllInformationReq(String ownerAccount) {
 		super();
 		this.ownerAccount = ownerAccount;
 	}

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -65,6 +66,21 @@ public class CreateContractReq {
 	@NotNull(message = "Rent_p is required!!")
 	private Integer rentP;
 
+	@Min(value = 0, message = "Deposit is error!!")
+	private Integer deposit;
+
+	@Min(value = 0, message = "eletric_P is error!!")
+	private Integer eletricP;
+
+	@Min(value = 0, message = "water_P is error!!")
+	private Integer waterP;
+
+	@Min(value = 0, message = "manage_P is error!!")
+	private Integer manageP;
+
+	@Min(value = 0, message = "acreage is error!!")
+	private Integer acreage;
+
 	private Integer cutP;// 違約金
 
 	private LocalDate cutDate;// 中止日期
@@ -95,8 +111,13 @@ public class CreateContractReq {
 			@NotBlank(message = "Floor is required!!") String floor,
 			@NotNull(message = "startDate is required!!") @FutureOrPresent(message = "Param start Date error!!") LocalDate startDate,
 			@NotNull(message = "endDate is required!!") @FutureOrPresent(message = "Param end Date error!!") LocalDate endDate,
-			@NotNull(message = "Rent_p is required!!") Integer rentP, Integer cutP, LocalDate cutDate, String cutReason,
-			String cOther, String rCondtion) {
+			@NotNull(message = "Rent_p is required!!") Integer rentP,
+			@Min(value = 0, message = "Deposit is error!!") Integer deposit,
+			@Min(value = 0, message = "eletric_P is error!!") Integer eletricP,
+			@Min(value = 0, message = "water_P is error!!") Integer waterP,
+			@Min(value = 0, message = "manage_P is error!!") Integer manageP,
+			@Min(value = 0, message = "acreage is error!!") Integer acreage, Integer cutP, LocalDate cutDate,
+			String cutReason, String cOther, String rCondtion) {
 		super();
 		this.tenantIdentity = tenantIdentity;
 		this.tenantName = tenantName;
@@ -114,6 +135,11 @@ public class CreateContractReq {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.rentP = rentP;
+		this.deposit = deposit;
+		this.eletricP = eletricP;
+		this.waterP = waterP;
+		this.manageP = manageP;
+		this.acreage = acreage;
 		this.cutP = cutP;
 		this.cutDate = cutDate;
 		this.cutReason = cutReason;
@@ -247,6 +273,46 @@ public class CreateContractReq {
 
 	public void setRentP(Integer rentP) {
 		this.rentP = rentP;
+	}
+
+	public Integer getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(Integer deposit) {
+		this.deposit = deposit;
+	}
+
+	public Integer getEletricP() {
+		return eletricP;
+	}
+
+	public void setEletricP(Integer eletricP) {
+		this.eletricP = eletricP;
+	}
+
+	public Integer getWaterP() {
+		return waterP;
+	}
+
+	public void setWaterP(Integer waterP) {
+		this.waterP = waterP;
+	}
+
+	public Integer getManageP() {
+		return manageP;
+	}
+
+	public void setManageP(Integer manageP) {
+		this.manageP = manageP;
+	}
+
+	public Integer getAcreage() {
+		return acreage;
+	}
+
+	public void setAcreage(Integer acreage) {
+		this.acreage = acreage;
 	}
 
 	public Integer getCutP() {
