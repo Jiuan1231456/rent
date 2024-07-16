@@ -129,7 +129,7 @@ public class RegisterServiceImpl implements RegisterService {
 	    sendVerificationEmail(req.getOwnerEmail(), verificationCode);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(), //
-				req.getOwnerAccount(), req.getOwnerName(), req.getOwnerIdentity(), req.getOwnerPhone(),
+				req.getOwnerAccount(),req.getOwnerPwd(), req.getOwnerName(), req.getOwnerIdentity(), req.getOwnerPhone(),
 				req.getOwnerEmail(), req.getAccountBank());
 //	}
 
@@ -236,7 +236,7 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), //
-				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(), register.getOwnerName(),
+				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(),register.getOwnerPwd(), register.getOwnerName(),
 				register.getOwnerIdentity(), register.getOwnerPhone(), register.getOwnerEmail(),
 				register.getAccountBank());
 	}
@@ -308,7 +308,7 @@ public class RegisterServiceImpl implements RegisterService {
 		registerDao.save(register);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), //
-				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(), register.getOwnerName(),
+				ResMessage.SUCCESS.getMessage(), register.getOwnerAccount(),register.getOwnerPwd(), register.getOwnerName(),
 				register.getOwnerIdentity(), register.getOwnerPhone(), register.getOwnerEmail(),
 				register.getAccountBank());
 	}

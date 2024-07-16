@@ -147,6 +147,7 @@ public class ContractServiceImpl implements ContractService {
 		contract.setAddress(roomAddress);// 地址
 		contract.setFloor(roomAll.getFloor());// 樓層
 		contract.setRoomId(roomAll.getRoomId());// 房間
+		contract.setParking(roomAll.isParking());//車位
 		//房間金額
 		contract.setRentP(roomAll.getRentP());// 租金
 		contract.setManageP(roomAll.getManageP());//管理費

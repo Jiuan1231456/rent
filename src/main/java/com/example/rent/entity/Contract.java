@@ -99,6 +99,9 @@ public class Contract {
 	@Column(name = "r_condtion")
 	private String rCondtion;
 
+	@Column(name = "parking")
+	private boolean parking;
+
 	@Column(name = "sign_date")
 	private LocalDate signDate = LocalDate.now();
 
@@ -112,7 +115,7 @@ public class Contract {
 			String ownerIdentity, String ownerHomeAddress, String ownerContactAddress, String roomId, String address,
 			String floor, LocalDate startDate, LocalDate endDate, int rentP, int deposit, int eletricP, int waterP,
 			int manageP, int acreage, LocalDate cutDate, String cutReason, int cutP, String cOther, String rCondtion,
-			LocalDate signDate) {
+			boolean parking, LocalDate signDate) {
 		super();
 		this.ai = ai;
 		this.tenantIdentity = tenantIdentity;
@@ -142,6 +145,7 @@ public class Contract {
 		this.cutP = cutP;
 		this.cOther = cOther;
 		this.rCondtion = rCondtion;
+		this.parking = parking;
 		this.signDate = signDate;
 	}
 
@@ -367,6 +371,14 @@ public class Contract {
 
 	public void setrCondtion(String rCondtion) {
 		this.rCondtion = rCondtion;
+	}
+
+	public boolean isParking() {
+		return parking;
+	}
+
+	public void setParking(boolean parking) {
+		this.parking = parking;
 	}
 
 	public LocalDate getSignDate() {

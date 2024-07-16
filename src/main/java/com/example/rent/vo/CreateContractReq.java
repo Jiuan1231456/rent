@@ -91,6 +91,8 @@ public class CreateContractReq {
 
 	private String rCondtion;// 其他
 
+	private Boolean parking;
+
 	public CreateContractReq() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -117,7 +119,7 @@ public class CreateContractReq {
 			@Min(value = 0, message = "water_P is error!!") Integer waterP,
 			@Min(value = 0, message = "manage_P is error!!") Integer manageP,
 			@Min(value = 0, message = "acreage is error!!") Integer acreage, Integer cutP, LocalDate cutDate,
-			String cutReason, String cOther, String rCondtion) {
+			String cutReason, String cOther, String rCondtion, Boolean parking) {
 		super();
 		this.tenantIdentity = tenantIdentity;
 		this.tenantName = tenantName;
@@ -145,6 +147,7 @@ public class CreateContractReq {
 		this.cutReason = cutReason;
 		this.cOther = cOther;
 		this.rCondtion = rCondtion;
+		this.parking = parking;
 	}
 
 	public String getTenantIdentity() {
@@ -353,6 +356,14 @@ public class CreateContractReq {
 
 	public void setrCondtion(String rCondtion) {
 		this.rCondtion = rCondtion != null ? rCondtion.trim() : null;
+	}
+
+	public Boolean getParking() {
+		return parking;
+	}
+
+	public void setParking(Boolean parking) {
+		this.parking = parking;
 	}
 
 	@AssertTrue(message = "endDate must be greater than or equal to startDate")

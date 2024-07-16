@@ -4,6 +4,8 @@ public class RegisterRes extends BasicRes {
 
 	private String ownerAccount;
 
+	private String ownerOldPwd;
+
 	private String ownerName;
 
 	private String ownerIdentity;
@@ -24,10 +26,11 @@ public class RegisterRes extends BasicRes {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RegisterRes(int code, String message,String ownerAccount, String ownerName, String ownerIdentity, String ownerPhone,
-			String ownerEmail, String accountBank) {
+	public RegisterRes(int code, String message,String ownerAccount, String ownerOldPwd, String ownerName, String ownerIdentity,
+			String ownerPhone, String ownerEmail, String accountBank) {
 		super(code, message);
 		this.ownerAccount = ownerAccount;
+		this.ownerOldPwd = ownerOldPwd;
 		this.ownerName = ownerName;
 		this.ownerIdentity = ownerIdentity;
 		this.ownerPhone = ownerPhone;
@@ -41,6 +44,14 @@ public class RegisterRes extends BasicRes {
 
 	public void setOwnerAccount(String ownerAccount) {
 		this.ownerAccount = ownerAccount;
+	}
+
+	public String getOwnerOldPwd() {
+		return ownerOldPwd;
+	}
+
+	public void setOwnerOldPwd(String ownerOldPwd) {
+		this.ownerOldPwd = ownerOldPwd;
 	}
 
 	public String getOwnerName() {
