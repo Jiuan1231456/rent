@@ -162,6 +162,7 @@ public class RegisterServiceImpl implements RegisterService {
 //				ResMessage.SUCCESS.getMessage(),req.getOwnerAccount(),register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
 	}
 
+	//驗證碼參數
 	private void sendVerificationEmail(String ownerEmail, String verificationCode) {
 		SimpleMailMessage message = new SimpleMailMessage();
 	    message.setTo(ownerEmail);
@@ -182,10 +183,17 @@ public class RegisterServiceImpl implements RegisterService {
 	//檢查驗證碼
 	@Override
 	public BasicRes verifyEmail(VerifyEmailReq req) {
+		//檢查是否都有輸入資訊
+		if (req.getOwnerAccount() == null || req.getVerificationCode() == null) {
+	        return new BasicRes(ResMessage.INVALID_INPUT.getCode(), 
+	                ResMessage.INVALID_INPUT.getMessage());
+	    }
 		Optional<Register> optionalRegister = registerDao.findById(req.getOwnerAccount());
 	    if (optionalRegister.isPresent()) {
 	        Register register = optionalRegister.get();
-	        if (register.getEmailVerificationCode().equals(req.getVerificationCode())) {
+	        //搜尋這著帳號， 如果驗證碼不為null則檢查驗證碼匹配是否正確
+	        if (register.getEmailVerificationCode() != null && //
+	        		register.getEmailVerificationCode().equals(req.getVerificationCode())) {
 	            // 更新用戶為已驗證
 	            register.setEmailVerificationCode(null); // 清除驗證碼
 	            register.setIsEmailVerified(true); // 設置為已驗證
@@ -197,10 +205,11 @@ public class RegisterServiceImpl implements RegisterService {
                 return new BasicRes(ResMessage.INVALID_VERIFICATION_CODE.getCode(), 
                         ResMessage.INVALID_VERIFICATION_CODE.getMessage());
             }
+        }else {
+	        // 找不到用戶，也返回錯誤信息
+	        return new BasicRes(ResMessage.ERROR.getCode(), 
+	                ResMessage.ERROR.getMessage());
         }
-        // 找不到用戶，也返回錯誤信息
-        return new BasicRes(ResMessage.ERROR.getCode(), 
-                ResMessage.ERROR.getMessage());
     }
 
 	// 進行帳號登入

@@ -124,8 +124,9 @@ public enum ResMessage {
 	ROOM_MAYBE_NOT_THIS_ADDRESS(400,"room maybe not this address!!"),//這地址可能在房間中不存在
 	
 	
-	INVALID_VERIFICATION_CODE(400,"invalid verification code"),//驗證碼錯誤
-	EMAIL_NOT_VERIFIED(400,"email not verified"),//信箱位驗證，無法登入
+	INVALID_VERIFICATION_CODE(400,"invalid verification code"),//驗證碼錯誤(無效驗證碼)
+	EMAIL_NOT_VERIFIED(400,"email not verified"),//信箱位驗證，無法登入 
+	INVALID_INPUT(400,"invalid input"),//無效資訊
 	
 	;
 	
