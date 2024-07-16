@@ -31,6 +31,12 @@ public class Register {
 
 	@Column(name = "account_bank")
 	private String accountBank;
+	
+	@Column(name = "email_verification_code")
+    private String emailVerificationCode; //驗證碼
+
+    @Column(name = "is_email_verified")
+    private Boolean isEmailVerified = false;//檢查是否以驗證成功
 
 	public Register() {
 		super();
@@ -38,7 +44,7 @@ public class Register {
 	}
 
 	public Register(String ownerAccount, String ownerPwd, String ownerName, String ownerIdentity, String ownerPhone,
-			String ownerEmail, String accountBank) {
+			String ownerEmail, String accountBank, String emailVerificationCode, Boolean isEmailVerified) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerPwd = ownerPwd;
@@ -47,6 +53,8 @@ public class Register {
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
 		this.accountBank = accountBank;
+		this.emailVerificationCode = emailVerificationCode;
+		this.isEmailVerified = isEmailVerified;
 	}
 
 	public String getOwnerAccount() {
@@ -105,4 +113,21 @@ public class Register {
 		this.accountBank = accountBank;
 	}
 
+	public String getEmailVerificationCode() {
+		return emailVerificationCode;
+	}
+
+	public void setEmailVerificationCode(String emailVerificationCode) {
+		this.emailVerificationCode = emailVerificationCode;
+	}
+
+	public Boolean getIsEmailVerified() {
+		return isEmailVerified;
+	}
+
+	public void setIsEmailVerified(Boolean isEmailVerified) {
+		this.isEmailVerified = isEmailVerified;
+	}
+
+	
 }

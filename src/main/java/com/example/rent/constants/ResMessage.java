@@ -123,6 +123,10 @@ public enum ResMessage {
 	TENANT_INFORMATION_MAYBR_ERROR(400,"tenant information maybe error"), //房客資訊可能有誤
 	ROOM_MAYBE_NOT_THIS_ADDRESS(400,"room maybe not this address!!"),//這地址可能在房間中不存在
 	
+	
+	INVALID_VERIFICATION_CODE(400,"invalid verification code"),//驗證碼錯誤
+	EMAIL_NOT_VERIFIED(400,"email not verified"),//信箱位驗證，無法登入
+	
 	;
 	
 	

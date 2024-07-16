@@ -48,6 +48,7 @@ import com.example.rent.vo.UpdateCutDateReq;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
 import com.example.rent.vo.UpdateRoomReq;
+import com.example.rent.vo.VerifyEmailReq;
 import com.example.rent.vo.UpdateRegisterReq;
 
 @CrossOrigin
@@ -75,6 +76,12 @@ public class RegisterController {
 	public BasicRes register(@Valid @RequestBody RegisterReq req) {
 		return registerService.register(req);
 
+	}
+	
+	//驗證碼檢驗
+	@PostMapping(value = "rent/verifyEmail")
+	public BasicRes verifyEmail( @RequestBody VerifyEmailReq req) {
+		return registerService.verifyEmail(req);
 	}
 
 	// 帳號登入

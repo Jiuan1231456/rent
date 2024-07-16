@@ -24,6 +24,11 @@ dependencies {
 	implementation 'commons-fileupload:commons-fileupload:1.4' // 請根據項目需要調整版本號
 	implementation 'commons-io:commons-io:2.11.0' // 請根據項目需要調整版本號
 	
+	//信箱 javaMail
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation 'javax.mail:javax.mail-api:1.6.2'
+ 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
 	
 	//mysql connector
 	implementation 'mysql:mysql-connector-java:8.0.31'

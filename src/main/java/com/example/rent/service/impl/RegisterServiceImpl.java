@@ -3,7 +3,11 @@ package com.example.rent.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,12 +23,14 @@ import com.example.rent.repository.RoomDao;
 import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.vo.AllInformationReq;
 import com.example.rent.vo.AllInformationRes;
+import com.example.rent.vo.BasicRes;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
 import com.example.rent.vo.UpdatePwdReq;
 import com.example.rent.vo.UpdatePwdRes;
 import com.example.rent.vo.UpdateRegisterReq;
+import com.example.rent.vo.VerifyEmailReq;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -43,6 +49,10 @@ public class RegisterServiceImpl implements RegisterService {
 	// 帳單
 	@Autowired
 	private BillDao billDao;
+	
+	//信箱
+	@Autowired
+    private JavaMailSender javaMailSender; 
 
 	// 註冊帳號
 	@Override
@@ -98,6 +108,8 @@ public class RegisterServiceImpl implements RegisterService {
 					ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getMessage());
 		}
 
+		String verificationCode = RandomStringUtils.randomAlphanumeric(6);
+
 		Register register = new Register();
 		register.setOwnerAccount(req.getOwnerAccount());
 		register.setOwnerPwd(req.getOwnerPwd());
@@ -107,7 +119,14 @@ public class RegisterServiceImpl implements RegisterService {
 		register.setOwnerIdentity(req.getOwnerIdentity());
 		register.setAccountBank(req.getAccountBank());
 
+		
+		//保存驗證碼
+		register.setEmailVerificationCode(verificationCode);
+		
 		registerDao.save(register);
+		
+		// 發送電子郵件
+	    sendVerificationEmail(req.getOwnerEmail(), verificationCode);
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(), //
 				req.getOwnerAccount(), req.getOwnerName(), req.getOwnerIdentity(), req.getOwnerPhone(),
@@ -143,6 +162,47 @@ public class RegisterServiceImpl implements RegisterService {
 //				ResMessage.SUCCESS.getMessage(),req.getOwnerAccount(),register.getOwnerName(),register.getOwnerPhone(),register.getOwnerEmail());
 	}
 
+	private void sendVerificationEmail(String ownerEmail, String verificationCode) {
+		SimpleMailMessage message = new SimpleMailMessage();
+	    message.setTo(ownerEmail);
+	    message.setSubject("Verify Your Email Address");
+	    message.setText("Your verification code is: " + verificationCode);
+	    
+	    try {
+	        // Send email
+	        javaMailSender.send(message);
+	        System.out.println("Email sent successfully.");
+	    } catch (MailException e) {
+	        System.err.println("Failed to send email: " + e.getMessage());
+	        // Handle exception appropriately
+	    }
+		
+	}
+	
+	//檢查驗證碼
+	@Override
+	public BasicRes verifyEmail(VerifyEmailReq req) {
+		Optional<Register> optionalRegister = registerDao.findById(req.getOwnerAccount());
+	    if (optionalRegister.isPresent()) {
+	        Register register = optionalRegister.get();
+	        if (register.getEmailVerificationCode().equals(req.getVerificationCode())) {
+	            // 更新用戶為已驗證
+	            register.setEmailVerificationCode(null); // 清除驗證碼
+	            register.setIsEmailVerified(true); // 設置為已驗證
+	            registerDao.save(register);
+	            return new BasicRes(ResMessage.SUCCESS.getCode(), //
+						ResMessage.SUCCESS.getMessage());
+	        } else {
+                // 驗證碼不匹配，返回錯誤信息
+                return new BasicRes(ResMessage.INVALID_VERIFICATION_CODE.getCode(), 
+                        ResMessage.INVALID_VERIFICATION_CODE.getMessage());
+            }
+        }
+        // 找不到用戶，也返回錯誤信息
+        return new BasicRes(ResMessage.ERROR.getCode(), 
+                ResMessage.ERROR.getMessage());
+    }
+
 	// 進行帳號登入
 	@Override
 	public RegisterRes login(LoginReq req) {
@@ -154,6 +214,12 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 		Register register = op.get();
 
+		// 檢查郵箱是否已驗證
+	    if (!register.getIsEmailVerified()) {
+	        return new RegisterRes(ResMessage.EMAIL_NOT_VERIFIED.getCode(), 
+	                ResMessage.EMAIL_NOT_VERIFIED.getMessage());
+	    }
+		
 //		 如果舊密碼不等於原本的密碼
 		if (!req.getOwnerPwd().equals(register.getOwnerPwd())) {
 			return new RegisterRes(ResMessage.PWD_ERRO.getCode(), //
@@ -286,5 +352,7 @@ public class RegisterServiceImpl implements RegisterService {
 		return new AllInformationRes(ResMessage.SUCCESS.getCode(), //
 				ResMessage.SUCCESS.getMessage(), roomList, contractList, billList);
 	}
+
+	
 
 }
