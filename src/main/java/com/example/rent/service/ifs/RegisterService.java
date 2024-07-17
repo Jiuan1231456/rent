@@ -1,5 +1,8 @@
 package com.example.rent.service.ifs;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.example.rent.vo.AllInformationReq;
 import com.example.rent.vo.AllInformationRes;
 import com.example.rent.vo.BasicRes;
@@ -24,6 +27,9 @@ public interface RegisterService {
 
 	//登入
 	public RegisterRes login(LoginReq req);
+	
+	//登出
+//	public BasicRes logout(HttpServletRequest request, HttpServletResponse response);
 
 	//更新密碼
 	public UpdatePwdRes updatePwd(UpdatePwdReq req);

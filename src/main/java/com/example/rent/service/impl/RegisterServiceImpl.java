@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -242,6 +245,13 @@ public class RegisterServiceImpl implements RegisterService {
 				register.getOwnerIdentity(), register.getOwnerPhone(), register.getOwnerEmail(),
 				register.getAccountBank());
 	}
+	
+//	@Override
+//	public BasicRes logout(HttpServletRequest request, HttpServletResponse response) {
+//		// TODO Auto-generated method stub
+//		return new BasicRes(ResMessage.SUCCESS.getCode(), //
+//				ResMessage.SUCCESS.getMessage());
+//	}
 
 	// 變更密碼
 	@Override
@@ -370,6 +380,8 @@ public class RegisterServiceImpl implements RegisterService {
 		return new AllInformationRes(ResMessage.SUCCESS.getCode(), //
 				ResMessage.SUCCESS.getMessage(), roomList, contractList, billList);
 	}
+
+
 
 	
 

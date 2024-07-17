@@ -2,6 +2,8 @@ package com.example.rent.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -102,6 +104,16 @@ public class RegisterController {
 		return res;
 	}
 
+	// 帳號登出
+	@PostMapping(value = "rent/logout")
+	public BasicRes logout(HttpServletRequest request) {
+	    HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        session.invalidate(); // 清除 session
+	    }
+	    return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
+	}
+	
 	// 更新密碼
 	@PostMapping(value = "rent/updatePwd")
 	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req,HttpSession session) {
