@@ -1,7 +1,9 @@
 package com.example.rent.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -337,13 +339,20 @@ public class RegisterServiceImpl implements RegisterService {
 			contractList = contractDao.findByOwnerAccountEquals(ownerAccount);
 
 			// 獲取與此房東相關的所有地址
-			String address = null;
-			for (Contract item : contractList) {
-				address = item.getAddress();
-			}
+			Set<String> addresses = new HashSet<>();
+	        for (Contract contract : contractList) {
+	            addresses.add(contract.getAddress());
+	        }
 
-			// 根據地址找到相關的帳單資訊
-			billList = billDao.findByAddressEquals(address);
+	        // 根據地址找到相關的帳單資訊
+	        billList = billDao.findByAddressIn(addresses);
+//			String address = null;
+//			for (Contract item : contractList) {
+//				address = item.getAddress();
+//			}
+//
+//			// 根據地址找到相關的帳單資訊
+//			billList = billDao.findByAddressEquals(address);
 		}
 
 		// 如果req的房東帳號不為空值，則顯示此房東的全部資訊

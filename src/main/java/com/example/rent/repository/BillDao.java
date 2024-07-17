@@ -2,6 +2,7 @@ package com.example.rent.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -38,5 +39,7 @@ public interface BillDao extends JpaRepository<Bill,Integer> {
 	public boolean existsByAddressAndPeriodStartAndPeriodEnd(String address, LocalDate periodStart, LocalDate periodEnd);
 	
 	public boolean existsByAddressAndAndPeriodEnd(String address, LocalDate periodEnd);
+
+	public List<Bill> findByAddressIn(Set<String> addresses);
 }
 
