@@ -90,10 +90,11 @@ public class RegisterController {
 //		session.setMaxInactiveInterval(30); //設定秒數 ;預設值為30分鐘
 		System.out.println("session_id: "+session.getId());
 		System.out.println("account:"+session.getAttribute("account"));
-		if(session.getAttribute("account")!=null) {
-			return new RegisterRes(ResMessage.SUCCESS.getCode(),ResMessage.SUCCESS.getMessage());
-		}
 		RegisterRes res = registerService.login(req);
+		if(session.getAttribute("account")!=null) {
+			return res;
+		}
+		
 		if(res.getCode()==200) {
 			session.setAttribute("account", req.getOwnerAccount());
 		}
