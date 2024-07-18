@@ -38,6 +38,17 @@ public class RegisterRes extends BasicRes {
 		this.accountBank = accountBank;
 	}
 
+	public RegisterRes(int code, String message, String ownerAccount, String ownerOldPwd, String ownerName,
+			String ownerIdentity, String ownerPhone, String ownerEmail) {
+		super(code, message);
+		this.ownerAccount = ownerAccount;
+		this.ownerOldPwd = ownerOldPwd;
+		this.ownerName = ownerName;
+		this.ownerIdentity = ownerIdentity;
+		this.ownerPhone = ownerPhone;
+		this.ownerEmail = ownerEmail;
+	}
+
 	public String getOwnerAccount() {
 		return ownerAccount;
 	}

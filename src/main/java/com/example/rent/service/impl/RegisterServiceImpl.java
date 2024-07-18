@@ -107,11 +107,11 @@ public class RegisterServiceImpl implements RegisterService {
 					ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 		}
 
-		// 檢查銀行帳號是否重複
-		if (registerDao.existsByAccountBank(req.getAccountBank())) {
-			return new RegisterRes(ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getCode(), //
-					ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getMessage());
-		}
+//		// 檢查銀行帳號是否重複
+//		if (registerDao.existsByAccountBank(req.getAccountBank())) {
+//			return new RegisterRes(ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getCode(), //
+//					ResMessage.ACCOUNT_BANK_DUPLICATED_FILLIN.getMessage());
+//		}
 
 		String verificationCode = RandomStringUtils.randomAlphanumeric(6);
 
@@ -122,7 +122,7 @@ public class RegisterServiceImpl implements RegisterService {
 		register.setOwnerPhone(req.getOwnerPhone());
 		register.setOwnerEmail(req.getOwnerEmail());
 		register.setOwnerIdentity(req.getOwnerIdentity());
-		register.setAccountBank(req.getAccountBank());
+//		register.setAccountBank(req.getAccountBank());
 
 		
 		//保存驗證碼
@@ -135,7 +135,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 		return new RegisterRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage(), //
 				req.getOwnerAccount(),req.getOwnerPwd(), req.getOwnerName(), req.getOwnerIdentity(), req.getOwnerPhone(),
-				req.getOwnerEmail(), req.getAccountBank());
+				req.getOwnerEmail());
 //	}
 
 //		//如果有帳號
@@ -329,11 +329,14 @@ public class RegisterServiceImpl implements RegisterService {
 	public AllInformationRes allInformation(AllInformationReq req) {
 		// 如果req的帳號為null，則顯示全部資訊
 		String ownerAccount = req.getOwnerAccount();
+		List<Register> registerList;
 		List<Room> roomList;
 		List<Contract> contractList;
 		List<Bill> billList;
 
 		if (!StringUtils.hasText(ownerAccount)) {
+			//顯示所有房東資訊
+			registerList=registerDao.findAll();
 			// 顯示全部房間資訊
 			roomList = roomDao.findAll();
 			// 顯示全部契約資訊
@@ -343,6 +346,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 		} else {
 			// 顯示此房東的全部資訊
+			registerList=registerDao.findByOwnerAccountEquals(ownerAccount);
 			// 房間資訊
 			roomList = roomDao.findByAccountEquals(ownerAccount);
 			// 契約資訊
@@ -378,7 +382,7 @@ public class RegisterServiceImpl implements RegisterService {
 //		}
 //		List<Bill> billList=billDao.findByAddressEquals(address);
 		return new AllInformationRes(ResMessage.SUCCESS.getCode(), //
-				ResMessage.SUCCESS.getMessage(), roomList, contractList, billList);
+				ResMessage.SUCCESS.getMessage(),registerList, roomList, contractList, billList);
 	}
 
 

@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.example.rent.entity.Bill;
 import com.example.rent.entity.Contract;
+import com.example.rent.entity.Register;
 import com.example.rent.entity.Room;
 
 public class AllInformationRes extends BasicRes {
+
+	private List<Register> registerList;
 
 	private List<Room> roomList;
 
@@ -24,11 +27,21 @@ public class AllInformationRes extends BasicRes {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AllInformationRes(int code, String message,List<Room> roomList, List<Contract> contractList, List<Bill> billList) {
+	public AllInformationRes(int code, String message,List<Register> registerList, List<Room> roomList, List<Contract> contractList,
+			List<Bill> billList) {
 		super(code, message);
+		this.registerList = registerList;
 		this.roomList = roomList;
 		this.contractList = contractList;
 		this.billList = billList;
+	}
+
+	public List<Register> getRegisterList() {
+		return registerList;
+	}
+
+	public void setRegisterList(List<Register> registerList) {
+		this.registerList = registerList;
 	}
 
 	public List<Room> getRoomList() {

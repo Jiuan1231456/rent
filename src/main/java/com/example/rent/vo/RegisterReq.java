@@ -33,10 +33,10 @@ public class RegisterReq {
 	@Pattern(regexp = ".*@.*", message = "Email error!!")
 	private String ownerEmail;
 
-	@NotBlank(message = "account Bank is required!!")
-	@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error")
-	@JsonProperty("account_bank")
-	private String accountBank;
+//	@NotBlank(message = "account Bank is required!!")
+//	@Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error")
+//	@JsonProperty("account_bank")
+//	private String accountBank;
 
 	public RegisterReq() {
 		super();
@@ -48,8 +48,7 @@ public class RegisterReq {
 			@NotBlank(message = "Name is required!!") String ownerName,
 			@Pattern(regexp = "^[A-Z][1-2][0-9]{8}$", message = "Owneridentity error") String ownerIdentity,
 			@NotBlank(message = "Phone is required!!") @Pattern(regexp = "[0-9]{10}", message = "Phone error!!") String ownerPhone,
-			@NotBlank(message = "Email is required!!") @Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail,
-			@NotBlank(message = "account Bank is required!!") @Pattern(regexp = "\\(([0-9]{3})\\)[0-9]{10}$$", message = "account Bank error") String accountBank) {
+			@NotBlank(message = "Email is required!!") @Pattern(regexp = ".*@.*", message = "Email error!!") String ownerEmail) {
 		super();
 		this.ownerAccount = ownerAccount;
 		this.ownerPwd = ownerPwd;
@@ -57,7 +56,6 @@ public class RegisterReq {
 		this.ownerIdentity = ownerIdentity;
 		this.ownerPhone = ownerPhone;
 		this.ownerEmail = ownerEmail;
-		this.accountBank = accountBank;
 	}
 
 	public String getOwnerAccount() {
@@ -65,7 +63,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerAccount(String ownerAccount) {
-		this.ownerAccount = ownerAccount!= null ? ownerAccount.trim() : null;
+		this.ownerAccount = ownerAccount != null ? ownerAccount.trim() : null;
 	}
 
 	public String getOwnerPwd() {
@@ -81,7 +79,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName!= null ? ownerName.trim() : null;
+		this.ownerName = ownerName != null ? ownerName.trim() : null;
 	}
 
 	public String getOwnerIdentity() {
@@ -89,7 +87,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerIdentity(String ownerIdentity) {
-		this.ownerIdentity = ownerIdentity!= null ? ownerIdentity.trim() : null;
+		this.ownerIdentity = ownerIdentity != null ? ownerIdentity.trim() : null;
 	}
 
 	public String getOwnerPhone() {
@@ -97,7 +95,7 @@ public class RegisterReq {
 	}
 
 	public void setOwnerPhone(String ownerPhone) {
-		this.ownerPhone = ownerPhone!= null ? ownerPhone.trim() : null;
+		this.ownerPhone = ownerPhone != null ? ownerPhone.trim() : null;
 	}
 
 	public String getOwnerEmail() {
@@ -105,15 +103,6 @@ public class RegisterReq {
 	}
 
 	public void setOwnerEmail(String ownerEmail) {
-		this.ownerEmail = ownerEmail!= null ? ownerEmail.trim() : null;
+		this.ownerEmail = ownerEmail != null ? ownerEmail.trim() : null;
 	}
-
-	public String getAccountBank() {
-		return accountBank;
-	}
-
-	public void setAccountBank(String accountBank) {
-		this.accountBank = accountBank!= null ? accountBank.trim() : null;
-	}
-
 }
