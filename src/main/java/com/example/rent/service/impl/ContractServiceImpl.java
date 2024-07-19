@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -45,6 +48,11 @@ public class ContractServiceImpl implements ContractService {
 	// 帳單欄位
 	@Autowired
 	private BillDao billDao;
+	
+	
+	//信箱
+	@Autowired
+    private JavaMailSender javaMailSender; 
 
 	@Override
 	public BasicRes createContract(CreateContractReq req) {
@@ -184,8 +192,30 @@ public class ContractServiceImpl implements ContractService {
 		contract.setSignDate(LocalDate.now());
 
 		contractDao.save(contract);
+		
+		sendVerificationEmail(req.getTenantEmail(), req.getTenantPhone(),req.getTenantIdentity());
 		return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
 	}
+	
+	//契約成立後寄送郵件
+	//驗證碼參數
+		private void sendVerificationEmail(String tenantEmail, String tenantPhone,String tenantIdentity) {
+			SimpleMailMessage message = new SimpleMailMessage();
+		    message.setTo(tenantEmail);
+		    message.setSubject("Verify Your Email Address");
+		    message.setText(" 房屋契約簽立成功，以下是你的帳號與密碼 : \n"
+		    		+ "你的帳號 : " + tenantPhone +"\n 你的密碼 : " + tenantIdentity 
+		    		+"\n你可以登入查看你的契約書及你的房租繳費帳單" +"\n感謝你的使用");
+		    
+		    try {
+		        // Send email
+		        javaMailSender.send(message);
+		        System.out.println("Email sent successfully.");
+		    } catch (MailException e) {
+		        System.err.println("Failed to send email: " + e.getMessage());
+		        // Handle exception appropriately
+		    }
+		}
 
 	@Override
 	public BasicRes updateContract(UpdateContractReq req) {

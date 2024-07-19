@@ -82,10 +82,10 @@ public class RegisterServiceImpl implements RegisterService {
 //						ResMessage.PHONR_DUPLICATED_FILLIN.getMessage());
 		}
 		// 檢查密碼是否有人使用
-		if (registerDao.existsByOwnerPwd(req.getOwnerPwd())) {
-			return new RegisterRes(ResMessage.PWD_ALREADYUSED.getCode(), //
-					ResMessage.PWD_ALREADYUSED.getMessage());
-		}
+//		if (registerDao.existsByOwnerPwd(req.getOwnerPwd())) {
+//			return new RegisterRes(ResMessage.PWD_ALREADYUSED.getCode(), //
+//					ResMessage.PWD_ALREADYUSED.getMessage());
+//		}
 		// 房東與房客間的身分證重複填寫
 		if (contractDao.existsByTenantIdentity(req.getOwnerIdentity())) {
 			return new RegisterRes(ResMessage.OWNERIDENTITY_IS_ERROR.getCode(),
@@ -172,7 +172,7 @@ public class RegisterServiceImpl implements RegisterService {
 		SimpleMailMessage message = new SimpleMailMessage();
 	    message.setTo(ownerEmail);
 	    message.setSubject("Verify Your Email Address");
-	    message.setText("Your verification code is: " + verificationCode);
+	    message.setText("Your verification code is : " + verificationCode);
 	    
 	    try {
 	        // Send email
