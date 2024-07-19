@@ -37,6 +37,7 @@ import com.example.rent.vo.CreateContractReq;
 import com.example.rent.vo.CreateRoomAndphotoReq;
 import com.example.rent.vo.CreateRoomReq;
 import com.example.rent.vo.DeleteRoomReq;
+import com.example.rent.vo.ForgetPwdReq;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
@@ -114,6 +115,12 @@ public class RegisterController {
 	    return new BasicRes(ResMessage.SUCCESS.getCode(), ResMessage.SUCCESS.getMessage());
 	}
 	
+	//忘記密碼
+	@PostMapping(value = "rent/forgetPwd")
+	public BasicRes forgetPwd(@Valid @RequestBody ForgetPwdReq req) {
+		return registerService.forgetPwd(req);
+	}
+	
 	// 更新密碼
 	@PostMapping(value = "rent/updatePwd")
 	public UpdatePwdRes updatePwd(@Valid @RequestBody UpdatePwdReq req,HttpSession session) {
@@ -152,10 +159,10 @@ public class RegisterController {
 
 	// 房間搜索(會跳出所有房東的資料，不是單獨的房東資料喔!)
 	@PostMapping(value = "room/roomSearch")
-	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req,HttpSession session) {
-		if(session.getAttribute("account")==null) {
-			return new RoomSearchRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
-		}
+	public RoomSearchRes roomSearch(@Valid @RequestBody RoomSearchReq req) {
+//		if(session.getAttribute("account")==null) {
+//			return new RoomSearchRes(ResMessage.PLEASE_FIRST_LONGIN.getCode(),ResMessage.PLEASE_FIRST_LONGIN.getMessage());
+//		}
 		return roomService.roomSearch(req);
 	}
 

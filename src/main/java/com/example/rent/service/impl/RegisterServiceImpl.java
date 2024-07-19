@@ -29,6 +29,7 @@ import com.example.rent.service.ifs.RegisterService;
 import com.example.rent.vo.AllInformationReq;
 import com.example.rent.vo.AllInformationRes;
 import com.example.rent.vo.BasicRes;
+import com.example.rent.vo.ForgetPwdReq;
 import com.example.rent.vo.LoginReq;
 import com.example.rent.vo.RegisterReq;
 import com.example.rent.vo.RegisterRes;
@@ -268,11 +269,11 @@ public class RegisterServiceImpl implements RegisterService {
 			return new UpdatePwdRes(ResMessage.PWD_ERRO.getCode(), //
 					ResMessage.PWD_ERRO.getMessage());
 		}
-		// 如果新密碼已經存在則報錯
-		if (registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
-			return new UpdatePwdRes(ResMessage.PWD_ALREADYUSED.getCode(), //
-					ResMessage.PWD_ALREADYUSED.getMessage());
-		}
+//		// 如果新密碼已經存在則報錯
+//		if (registerDao.existsByOwnerPwd(req.getOwnerNewPwd())) {
+//			return new UpdatePwdRes(ResMessage.PWD_ALREADYUSED.getCode(), //
+//					ResMessage.PWD_ALREADYUSED.getMessage());
+//		}
 		register.setOwnerPwd(req.getOwnerNewPwd());
 		registerDao.save(register);
 		return new UpdatePwdRes(ResMessage.SUCCESS.getCode(), //
@@ -384,6 +385,44 @@ public class RegisterServiceImpl implements RegisterService {
 		return new AllInformationRes(ResMessage.SUCCESS.getCode(), //
 				ResMessage.SUCCESS.getMessage(),registerList, roomList, contractList, billList);
 	}
+
+	//忘記密碼
+	@Override
+	public BasicRes forgetPwd(ForgetPwdReq req) {
+		Optional<Register> op = registerDao.findById(req.getOwnerAccount());
+		if (op.isEmpty()) {
+			return new BasicRes(ResMessage.ACCOUNT_NOT_FOUND.getCode(), //
+					ResMessage.ACCOUNT_NOT_FOUND.getMessage());
+		}
+		String verificationCode = RandomStringUtils.randomAlphanumeric(10);
+
+		Register register = op.get();
+		register.setOwnerPwd(verificationCode);
+		registerDao.save(register);
+		
+		sendVerificationEmail1(register.getOwnerEmail(), verificationCode);
+		
+		return new BasicRes(ResMessage.SUCCESS.getCode(), //
+				ResMessage.SUCCESS.getMessage());
+	}
+	
+	//驗證碼參數
+		private void sendVerificationEmail1(String ownerEmail, String verificationCode) {
+			SimpleMailMessage message = new SimpleMailMessage();
+		    message.setTo(ownerEmail);
+		    message.setSubject("Verify Your Email Address");
+		    message.setText(" 你的新密碼 : " + verificationCode +"\n 如要變更密碼請登入後再變更");
+		    
+		    try {
+		        // Send email
+		        javaMailSender.send(message);
+		        System.out.println("Email sent successfully.");
+		    } catch (MailException e) {
+		        System.err.println("Failed to send email: " + e.getMessage());
+		        // Handle exception appropriately
+		    }
+			
+		}
 
 
 
